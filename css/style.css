@@ -1,0 +1,32 @@
+html,
+body,
+#container {
+    height: 100%;
+}
+
+body {
+    background: #958888;
+}
+
+legend {
+    color: white;
+}
+
+#container {
+    background: #3f2e2e;
+    color: #ffffff;
+}
+
+#noAccount {
+    margin-top: 30px;
+    font-size: 1.2em;
+}
+
+#signupForm label {
+    text-align: left;
+    color: white;
+}
+
+#navbarMsg {
+    margin-right: 20px;
+}

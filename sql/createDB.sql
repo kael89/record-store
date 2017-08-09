@@ -1,0 +1,14 @@
+DROP DATABASE IF EXISTS record_store;
+CREATE DATABASE record_store;
+USE record_store;
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+    userID SMALLINT NOT NULL AUTO_INCREMENT,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(64) NOT NULL,
+    admin BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY(userID)
+);
