@@ -1,12 +1,13 @@
 function validateSignup(e) {
     var valid;
 
+    e.preventDefault();
     valid = isSet('firstName') & isSet('lastName');
-    valid &= (isSet('email')) ? validateEmail(e) : false;
     valid &= (isSet('password') & isSet('passwordRepeat')) ? validatePassword() : false;
+        // valid &= (isSet('email')) ? validateEmail() : false;
 
-    if (!valid) {
-        e.preventDefault();
+    if (isSet('email')) {
+        validateEmail(valid);
     }
 }
 
@@ -47,10 +48,10 @@ function removeError(field) {
     $fieldLabel.html('');
 }
 
-function validateEmail(e) {
+function validateEmail(valid) {
     var email = $('#email input').val().trim().toLowerCase(),
         pattern = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
-e.preventDefault();
+
     if (email.search(pattern) < 0) {
         addError('email', 'Please enter a valid email');
         return false;
@@ -58,18 +59,18 @@ e.preventDefault();
         var data = {
             "table": 'users',
             "columns": {
-                'email': "='" + email + "'"
+                "email": "='" + email + "'"
             }
-        };
+        },
+            url = '/record-store/lib/database.php?action=get_rows';
+        
 
-        $.post('/record_store/lib/database.php?action=get_rows', data, function(result) {
-            alert(result);
+        $.post(url, data, function(result) {
             if (result) {
                 addError('email', 'Email already exists');
-                return false;
-            } else {
+            } else if (valid) {
                 removeError('email');
-                return true;
+                window.location.replace('/record-store/index.php');
             }
         });
     }

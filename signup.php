@@ -47,7 +47,7 @@ $title = 'Signup';
         <label for="passwordRepeat" class="col-xs-8 control-label"></label>
     </div>
     <div id="signup" class="col-xs-12">
-        <button class="btn btn-primary" type="submit" name="signup">Signup</button>
+        <button class="btn btn-primary" type="submit" name="signup" value="1">Signup</button>
     </div>
 </form>
 <script src="js/signup.js"></script>

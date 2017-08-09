@@ -5,7 +5,7 @@ $(function() {
 function initButtons() {
     var $signupBtn = $('#signup');
 
-    $signupBtn.on('click', function(e) {
+    $signupBtn.on('submit', function(e) {
         validateSignup(e);
     });
 }

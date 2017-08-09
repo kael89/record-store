@@ -8,9 +8,9 @@ if (!isset($mysqli)) {
 
 switch (getGet("action")) {
     case "get_rows":
-        $table = json_decode(getPost("table"));
-        $columns = json_decode(getPost("columns"));
-        $append = json_decode(getPost("append"));
+        $table = getPost("table");
+        $columns = getPost("columns");
+        $append = getPost("append");
 
         if (isset($append)) {
             $result = getRows($table, $columns, $append);
@@ -90,15 +90,15 @@ function getRows($table, $columns, $append = "") {
             $where .= " AND ($column" . "$condition)";
         }
     }
-    $query = rtrim($query, ",") . " FROM $table $where $append";echo $query; die;
+    $query = rtrim($query, ",") . " FROM $table $where $append";
     $result = $mysqli->query($query);
     if (!$result) {
         die("Database connection error");
     }
 
     while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
+        $rows[] = $row;var_dump($row);
     }
-
+ die;
     return $rows;
 }
