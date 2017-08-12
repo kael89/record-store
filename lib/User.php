@@ -13,26 +13,27 @@ class User {
         return $this->firstName;
     }
 
-    public function __construct($firstName, $lastName, $email, $password) {
-        $row = [
-            "firstName" => $firstName,
-            "lastName" => $lastName,
-            "email" => $email,
-            "password" => hash("sha256", $password . User::salt),
-            "admin" => "FALSE"
-        ];
-        $param = "ssssi";
-
-        $this->id = insertRow(User::table, $row, $param);
-        if ($this->id < 0) {
-            die ("Database error: Could not create user; Duplicate entry?");
-        }
+    public function __construct($id, $firstName, $lastName, $email, $password) {
+        $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
     }
 
-    public static function validate($email, $password) {
+    public static function store($firstName, $lastName, $email, $password, $admin = "FALSE") {
+        $row = [
+            "firstName" => $firstName,
+            "lastName" => $lastName,
+            "email" => $email,
+            "password" => hash("sha256", $password . User::salt),
+            "admin" => $admin
+        ];
+        $param = "ssssi";
+
+        return insertRow(User::table, $row, $param);
+    }
+
+    public static function login($email, $password) {
         $columns = [
             "userId" => "",
             "firstName" => "",
@@ -42,9 +43,10 @@ class User {
             "admin" => ""
         ];
 
-        $user = getRows(User::table, $columns)[0];
-        if ($user) {
-            return new User($user['firstName'], $user['lastName'], $user['email'], $user['password']);
+        $result = getRows(User::table, $columns);
+        if (!empty($result)) {
+            $user = $result[0];
+            return new User($user['userId'], $user['firstName'], $user['lastName'], $user['email'], $user['password']);
         }
     }
 

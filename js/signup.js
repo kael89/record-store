@@ -1,51 +1,21 @@
+$(function() {
+    var $signupForm = $('#signupForm');
+
+    $signupForm.attr('novalidate', '');
+    $signupForm.on('submit', function(e) {
+        validateSignup(e);
+    });
+});
+
 function validateSignup(e) {
     var valid;
 
     e.preventDefault();
-    valid = isSet('firstName') & isSet('lastName');
-    valid &= (isSet('password') & isSet('passwordRepeat')) ? validatePassword() : false;
-        // valid &= (isSet('email')) ? validateEmail() : false;
-
-    if (isSet('email')) {
+    valid = hasValue('firstName') & hasValue('lastName');
+    valid &= (hasValue('password') & hasValue('passwordRepeat')) ? validatePassword() : false;
+    if (hasValue('email')) {
         validateEmail(valid);
     }
-}
-
-function isSet(field) {
-    var fieldValue = $('#' + field + ' input').val(),
-        $fieldLabel = $('label[for="' + field + '"]');
-
-    if (field != 'password') {
-        fieldValue = fieldValue.trim();
-    }
-
-    if (!fieldValue) {
-        addError(field, 'Field required');
-        return false;
-    } else {
-        removeError(field);
-        return true;
-    }
-}
-
-function addError(field, err) {
-    var $fieldGroup = $('#' + field),
-        $fieldFeedback = $('#' + field + ' .form-control-feedback');
-        $fieldLabel =  $('label[for="' + field + '"]');
-
-    $fieldGroup.addClass('has-error has-feedback');
-    $fieldFeedback.addClass('glyphicon glyphicon-remove');
-    $fieldLabel.html(err);
-}
-
-function removeError(field) {
-    var $fieldGroup = $('#' + field),
-        $fieldFeedback = $('#' + field + ' .form-control-feedback');
-        $fieldLabel =  $('label[for="' + field + '"]');
-
-    $fieldGroup.removeClass('has-error has-feedback');
-    $fieldFeedback.removeClass('glyphicon glyphicon-remove');
-    $fieldLabel.html('');
 }
 
 function validateEmail(valid) {
@@ -55,25 +25,27 @@ function validateEmail(valid) {
     if (email.search(pattern) < 0) {
         addError('email', 'Please enter a valid email');
         return false;
-    } else  {
-        var data = {
+    }
+
+    return $.ajax({
+        type: 'POST',
+        url: '/record-store/lib/database.php?action=get_rows',
+        data: {
             "table": 'users',
             "columns": {
                 "email": "='" + email + "'"
             }
-        },
-            url = '/record-store/lib/database.php?action=get_rows';
-        
-
-        $.post(url, data, function(result) {
-            if (result) {
-                addError('email', 'Email already exists');
-            } else if (valid) {
-                removeError('email');
-                window.location.replace('/record-store/index.php');
+        }
+    }).done(function(result) {
+        if (result) {
+            addError('email', 'Email already exists');
+        } else {
+            removeError('email');
+            if (valid) {
+                $('#signupForm')[0].submit();
             }
-        });
-    }
+        }
+    });
 }
 
 function validatePassword() {

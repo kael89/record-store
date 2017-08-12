@@ -12,13 +12,21 @@ switch (getGet("action")) {
         $columns = getPost("columns");
         $append = getPost("append");
 
-        if (isset($append)) {
-            $result = getRows($table, $columns, $append);
-        } else {
-            $result = getRows($table, $columns);
+        $result = (isset($append)) ? getRows($table, $columns, $append) : getRows($table, $columns);
+        if ($result) {
+            echo json_encode($result);
         }
+        break;
+    case "user_login":
+        $email = getPost("email");
+        $password = getPost("password");
+        require_once "User.php";
 
-        echo json_encode($result);
+        if (User::login($email, $password)) {
+            echo "true";
+        };
+        break;
+    default:
         break;
 }
 /********/
@@ -45,7 +53,7 @@ function insertRow($table, $row, $param) {
     $query = "INSERT INTO $table(" . implode(',', $columns) . ")" . "VALUES(" . str_repeat("?,", $numValues);
     $query = rtrim($query, ",") . ")";
 
-    $stmt = $mysqli->prepare($query); 
+    $stmt = $mysqli->prepare($query);
     switch ($numValues) {
         case 0:
             return 0;
@@ -70,11 +78,9 @@ function insertRow($table, $row, $param) {
             break;
     }
     $stmt->execute();
-
-    $numRows = $stmt->affected_rows;
     $stmt->close();
 
-    return $numRows;
+    return $mysqli->insert_id;
 }
 
 function getRows($table, $columns, $append = "") {
@@ -93,12 +99,12 @@ function getRows($table, $columns, $append = "") {
     $query = rtrim($query, ",") . " FROM $table $where $append";
     $result = $mysqli->query($query);
     if (!$result) {
-        die("Database connection error");
+        return;
     }
 
     while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;var_dump($row);
+        $rows[] = $row;
     }
- die;
+
     return $rows;
 }

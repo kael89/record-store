@@ -1,39 +1,45 @@
 <?php
 /* Program */
+require_once "lib/User.php";
 require_once "lib/general.php";
 require_once "lib/database.php";
-require_once "lib/User.php";
 
-$signup = getPost("signup");
-$login = getPost("login");
+switch (getGet("action")) {
+    case "signup":
+        if (getSession("user")) {
+            break;
+        }
 
-if (isset($signup)) {
-    $firstName = trim(getPost("firstName"));
-    $lastName = trim(getPost("lastName"));
-    $email = trim(getPost("email"));
-    $password = getPost("password");
+        $firstName = trim(getPost("firstName"));
+        $lastName = trim(getPost("lastName"));
+        $email = trim(getPost("email"));
+        $password = getPost("password");
+        unset($_POST);
 
-    $user = new User($firstName, $lastName, $email, $password);
-    if ($user) {
-        setSession(["user" => $user]);
-    } else {
-        echo 'Error: could not create user';
-    }
-} elseif (isset($login)) {
-    $email = trim(getPost("email"));
-    $password = getPost("password");
-    $user = User::validate($email, $password);
+        $id = User::store($firstName, $lastName, $email, $password);
+        if ($id > 0) {
+            $user = new User($id, $firstName, $lastName, $email, $password);
+            setSession(["user" => $user]);
+        } else {
+            echo 'Error: could not create user';
+        }
+        break;
+    case "login":
+        $email = trim(getPost("email"));
+        $password = getPost("password");
+        $user = User::login($email, $password);
 
-    if ($user) {
-        setSession(["user" => $user]);
-    } else {
-        echo 'User not found...';
-    }
-}
-
-$action = getGet("action");
-if ($action == "logout" && getSession("user")) {
-    User::logout();
+        if ($user) {
+            setSession(["user" => $user]);
+        } else {
+            echo 'User not found...';
+        }
+        break;
+    case "logout":
+        User::logout();
+        break;
+    default:
+        break;
 }
 /********/
 

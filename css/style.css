@@ -22,7 +22,8 @@ legend {
     font-size: 1.2em;
 }
 
-#signupForm label {
+#signupForm label,
+#loginForm label {
     text-align: left;
     color: white;
 }

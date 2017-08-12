@@ -6,7 +6,7 @@ require_once "templates/header.php";
 $title = 'Signup';
 ?>
 
- <form id="signupForm" class="form-horizontal" action="index.php" method="post"> 
+<form id="signupForm" class="form-horizontal" action="index.php?action=signup" method="post">
     <fieldset>
         <legend class="col-xs-4">Please fill your details bellow:</legend>
         <div class="col-xs-8"></div>
@@ -47,7 +47,7 @@ $title = 'Signup';
         <label for="passwordRepeat" class="col-xs-8 control-label"></label>
     </div>
     <div id="signup" class="col-xs-12">
-        <button class="btn btn-primary" type="submit" name="signup" value="1">Signup</button>
+        <button class="btn btn-primary" type="submit" value="1">Signup</button>
     </div>
 </form>
 <script src="js/signup.js"></script>

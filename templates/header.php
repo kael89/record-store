@@ -1,6 +1,7 @@
 <?php
-    require_once "lib/general.php";
-    $user = getSession("user");
+require_once "lib/User.php";
+require_once "lib/general.php";
+$user = getSession("user");
 ?>
 
 <div id="container" class="container">
@@ -29,7 +30,7 @@
                      <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                 </form>
                 <div class="navbar-right">
-                    <?php if (isset($user)) { ?>
+                    <?php if ($user) { ?>
                         <span id="navbarMsg">Welcome, <? echo $user->getFirstName() ?></span>
                         <a class=" btn btn-default navbar-btn" href="index.php?action=logout">Logout <span class="glyphicon glyphicon-user"></span></a>
                     <?php } else { ?>
