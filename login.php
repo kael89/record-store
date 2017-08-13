@@ -6,8 +6,8 @@ require_once "templates/header.php";
 ?>
 
 <form id="loginForm" class="form-horizontal" action="index.php?action=login" method="post">
-    <fieldset>
-        <legend class="col-xs-4">Login</legend>
+    <fieldset >
+        <legend class="col-xs-4"><span>Login</span></legend>
         <div class="col-xs-8"></div>
     </fieldset>
         <div id="email" class="form-group">

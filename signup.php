@@ -8,7 +8,7 @@ $title = 'Signup';
 
 <form id="signupForm" class="form-horizontal" action="index.php?action=signup" method="post">
     <fieldset>
-        <legend class="col-xs-4">Please fill your details bellow:</legend>
+        <legend class="col-xs-4"><span>Please fill your details bellow:</span></legend>
         <div class="col-xs-8"></div>
     </fieldset>
     <div id="firstName" class="form-group">

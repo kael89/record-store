@@ -12,6 +12,10 @@ legend {
     color: white;
 }
 
+legend span {
+    margin-left: -10px;
+}
+
 #container {
     background: #3f2e2e;
     color: #ffffff;

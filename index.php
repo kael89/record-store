@@ -1,7 +1,7 @@
 <?php
 /* Program */
 require_once "lib/User.php";
-require_once "lib/general.php";
+require_once "lib/library.php";
 require_once "lib/database.php";
 
 switch (getGet("action")) {

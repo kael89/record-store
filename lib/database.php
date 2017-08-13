@@ -1,6 +1,6 @@
 <?php
 /* Main */
-require_once "general.php";
+require_once "library.php";
 
 if (!isset($mysqli)) {
     $mysqli = connectToDB(); 

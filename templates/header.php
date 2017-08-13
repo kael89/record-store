@@ -1,6 +1,6 @@
 <?php
 require_once "lib/User.php";
-require_once "lib/general.php";
+require_once "lib/library.php";
 $user = getSession("user");
 ?>
 
@@ -22,6 +22,7 @@ $user = getSession("user");
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="index.php">Main Page</a></li>
                     <li><a href="browse-records.php">Browse Records</a></li>
+                    <li><a href="browse-artists.php">Browse Artists</a></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
