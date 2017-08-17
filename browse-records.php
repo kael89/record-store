@@ -2,7 +2,9 @@
 $title = 'Browse Records';
 
 require_once "lib/classes/Record.php";
+require_once "lib/classes/Label.php";
 require_once "lib/api/record-api.php";
+require_once "lib/api/label-api.php";
 require_once "templates/head.php";
 require_once "templates/header.php";
 ?>
@@ -45,9 +47,11 @@ require_once "templates/header.php";
 </nav>
 
 <?php
-$title = 'Painkiller';
+$record = getRecordsByTitle('Black Sabbath')[0];
+var_dump($record);
+echo $record->getLabel();
 echo "<br><br>";
-var_dump(getRecordById(7));
+var_dump(getLabelsByCountry('UK'));
 ?>
 
 

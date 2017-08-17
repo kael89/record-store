@@ -28,6 +28,14 @@ INSERT INTO labels VALUES(5, 'Roadrunner', 'NL', 1980, NULL);
 INSERT INTO labels VALUES(6, 'Columbia', 'US', 1987, NULL);
 
 
+##genres(genreId, name)
+DELETE FROM genres;
+INSERT INTO genres VALUES(1, 'Heavy Metal');
+INSERT INTO genres VALUES(2, 'Thrash Metal');
+INSERT INTO genres VALUES(3, 'Groove Metal');
+INSERT INTO genres VALUES(4, 'Nu Metal');
+
+
 ##records(recordId, labelId, title, releaseDate, cover, price)
 DELETE FROM records;
 INSERT INTO records VALUES(1, 1, 'Kill ''em All', '1983-07-25', NULL, 09.99);
@@ -45,42 +53,36 @@ INSERT INTO records VALUES(10, 5, 'Chaos A.D.', '1993-10-19', NULL, 11.30);
 ##tracks(trackId, artistId, title, duration)
 DELETE FROM tracks;
 #Metallica - Kill 'em All (10 tracks)
-INSERT INTO tracks VALUES(1, 1, 'Hit the Lights', 256);
-INSERT INTO tracks VALUES(2, 1, 'The Four Horsemen', 433);
-INSERT INTO tracks VALUES(3, 1, 'Motorbreath', 188);
-INSERT INTO tracks VALUES(4, 1, 'Jump in the Fire', 281);
-INSERT INTO tracks VALUES(5, 1, '(Anesthesia) - Pulling Teeth', 255);
-INSERT INTO tracks VALUES(6, 1, 'Whiplash', 250);
-INSERT INTO tracks VALUES(7, 1, 'Phantom Lord', 302);
-INSERT INTO tracks VALUES(8, 1, 'No Remorse', 386);
-INSERT INTO tracks VALUES(9, 1, 'Seek & Destroy', 415);
-INSERT INTO tracks VALUES(10, 1, 'Metal Militia', 309);
+INSERT INTO tracks VALUES(1, 1, 2, 'Hit the Lights', 256);
+INSERT INTO tracks VALUES(2, 1, 2, 'The Four Horsemen', 433);
+INSERT INTO tracks VALUES(3, 1, 2, 'Motorbreath', 188);
+INSERT INTO tracks VALUES(4, 1, 2, 'Jump in the Fire', 281);
+INSERT INTO tracks VALUES(5, 1, 2, '(Anesthesia) - Pulling Teeth', 255);
+INSERT INTO tracks VALUES(6, 1, 2, 'Whiplash', 250);
+INSERT INTO tracks VALUES(7, 1, 2, 'Phantom Lord', 302);
+INSERT INTO tracks VALUES(8, 1, 2, 'No Remorse', 386);
+INSERT INTO tracks VALUES(9, 1, 2, 'Seek & Destroy', 415);
+INSERT INTO tracks VALUES(10, 1, 2, 'Metal Militia', 309);
 #Metallica - RIde the Lightning (8 tracks)
-INSERT INTO tracks VALUES(11, 1, 'Fight Fire with Fire', 285);
-INSERT INTO tracks VALUES(12, 1, 'RIde the Lightning', 396);
-INSERT INTO tracks VALUES(13, 1, 'For Whom the Bell Tolls', 309);
-INSERT INTO tracks VALUES(14, 1, 'Fade to Black', 417);
-INSERT INTO tracks VALUES(15, 1, 'Trapped Under Ice', 244);
-INSERT INTO tracks VALUES(16, 1, 'Escape', 263);
-INSERT INTO tracks VALUES(17, 1, 'Creeping Death', 396);
-INSERT INTO tracks VALUES(18, 1, 'The Call of Ktulu', 523);
+INSERT INTO tracks VALUES(11, 1, 2, 'Fight Fire with Fire', 285);
+INSERT INTO tracks VALUES(12, 1, 2, 'Ride the Lightning', 396);
+INSERT INTO tracks VALUES(13, 1, 2, 'For Whom the Bell Tolls', 309);
+INSERT INTO tracks VALUES(14, 1, 2, 'Fade to Black', 417);
+INSERT INTO tracks VALUES(15, 1, 2, 'Trapped Under Ice', 244);
+INSERT INTO tracks VALUES(16, 1, 2, 'Escape', 263);
+INSERT INTO tracks VALUES(17, 1, 2, 'Creeping Death', 396);
+INSERT INTO tracks VALUES(18, 1, 2, 'The Call of Ktulu', 523);
 #Iron MaIden - The Number of the Beast (9 tracks)
-INSERT INTO tracks VALUES(19, 2, 'Invaders', NULL);
-INSERT INTO tracks VALUES(20, 2, 'Children of the Damned', NULL);
-INSERT INTO tracks VALUES(21, 2, 'The Prisoner', NULL);
-INSERT INTO tracks VALUES(22, 2, '22 Acacia Avenue', NULL);
-INSERT INTO tracks VALUES(23, 2, 'The Number of the Beast', NULL);
-INSERT INTO tracks VALUES(24, 2, 'Run to the Hills', NULL);
-INSERT INTO tracks VALUES(25, 2, 'Gangland', NULL);
-INSERT INTO tracks VALUES(26, 2, 'Hallowed By Thy Name', NULL);
+INSERT INTO tracks VALUES(19, 2, 1, 'Invaders', NULL);
+INSERT INTO tracks VALUES(20, 2, 1, 'Children of the Damned', NULL);
+INSERT INTO tracks VALUES(21, 2, 1, 'The Prisoner', NULL);
+INSERT INTO tracks VALUES(22, 2, 1, '22 Acacia Avenue', NULL);
+INSERT INTO tracks VALUES(23, 2, 1, 'The Number of the Beast', NULL);
+INSERT INTO tracks VALUES(24, 2, 1, 'Run to the Hills', NULL);
+INSERT INTO tracks VALUES(25, 2, 1, 'Gangland', NULL);
+INSERT INTO tracks VALUES(26, 2, 1, 'Hallowed By Thy Name', NULL);
 
 
-##genres(genreId, name)
-DELETE FROM genres;
-INSERT INTO genres VALUES(1, 'Heavy Metal');
-INSERT INTO genres VALUES(2, 'Thrash Metal');
-INSERT INTO genres VALUES(3, 'Groove Metal');
-INSERT INTO genres VALUES(4, 'Nu Metal');
 
 
 ##artistsRecords(artistId, recordId)
@@ -128,10 +130,3 @@ INSERT INTO recordsTracks VALUES(3, 23, 5);
 INSERT INTO recordsTracks VALUES(3, 24, 6);
 INSERT INTO recordsTracks VALUES(3, 25, 7);
 INSERT INTO recordsTracks VALUES(3, 26, 8);
-
-
-##recordsGenres(recordId, genreId)
-DELETE FROM recordsGenres;
-INSERT INTO recordsGenres VALUES(1, 2);
-INSERT INTO recordsGenres VALUES(2, 2);
-INSERT INTO recordsGenres VALUES(3, 1);

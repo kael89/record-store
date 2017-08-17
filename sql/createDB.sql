@@ -34,6 +34,25 @@ CREATE TABLE labels(
     PRIMARY KEY(labelId)
 );
 
+DROP TABLE IF EXISTS genres;
+CREATE TABLE genres(
+    genreId SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    PRIMARY KEY(genreId)
+);
+
+DROP TABLE IF EXISTS tracks;
+CREATE TABLE tracks(
+    trackId MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    artistId SMALLINT UNSIGNED NOT NULL,
+    genreId SMALLINT UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    duration SMALLINT UNSIGNED,
+    PRIMARY KEY(trackId),
+    FOREIGN KEY (artistId) REFERENCES artists(artistId),
+    FOREIGN KEY (genreId) REFERENCES genres(genreId)
+);
+
 DROP TABLE IF EXISTS records;
 CREATE TABLE records(
     recordId SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -44,23 +63,6 @@ CREATE TABLE records(
     price FLOAT(5,2),
     PRIMARY KEY(recordId),
     FOREIGN KEY(labelId) REFERENCES labels(labelId)
-);
-
-DROP TABLE IF EXISTS tracks;
-CREATE TABLE tracks(
-    trackId MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    artistId SMALLINT UNSIGNED NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    duration SMALLINT UNSIGNED,
-    PRIMARY KEY(trackId),
-    FOREIGN KEY (artistId) REFERENCES artists(artistId)
-);
-
-DROP TABLE IF EXISTS genres;
-CREATE TABLE genres(
-    genreId SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    PRIMARY KEY(genreId)
 );
 
 DROP TABLE IF EXISTS artistsRecords;
@@ -80,13 +82,4 @@ CREATE TABLE recordsTracks(
     PRIMARY KEY (recordId, trackId),
     FOREIGN KEY (recordId) REFERENCES records(recordId),
     FOREIGN KEY (trackId) REFERENCES tracks(trackId)
-);
-
-DROP TABLE IF EXISTS recordsGenres;
-CREATE TABLE recordsGenres(
-    recordId SMALLINT UNSIGNED NOT NULL,
-    genreId SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (recordId, genreId),
-    FOREIGN KEY (recordId) REFERENCES records(recordId),
-    FOREIGN KEY (genreId) REFERENCES genres(genreId)
 );
