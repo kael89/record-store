@@ -9,16 +9,16 @@ INSERT INTO users VALUES(2,'Kostas','Karvounis','kael1989@gmail.com','11875FF7B8
 #INSERT INTO users VALUES(4,'Alexis','Karvounis','al3xkarv@gmail.com','EC03ACE04805C0B06CE7A3E7D6882B9311714CC03C342EA60B6A30A411994313',FALSE);
 
 
-##artists(artistID, name, country, foundationDate, logo, photo)
+##artists(artistId, name, country, foundationDate, logo, photo)
 DELETE FROM artists;
 INSERT INTO artists VALUES(1, 'Metallica', 'US', 1981, NULL, NULL);
-INSERT INTO artists VALUES(2, 'Iron Maiden', 'GB', 1975, NULL, NULL);
+INSERT INTO artists VALUES(2, 'Iron MaIden', 'GB', 1975, NULL, NULL);
 INSERT INTO artists VALUES(3, 'Black Sabbath', 'GB', 1968, NULL, NULL);
 INSERT INTO artists VALUES(4, 'Judas Priest', 'GB', 1969, NULL, NULL);
 INSERT INTO artists VALUES(5, 'Sepultura', 'BR', 1984, NULL, NULL);
 
 
-##labels(labelID, name, country, foundationYear, logo)
+##labels(labelId, name, country, foundationYear, logo)
 DELETE FROM labels;
 INSERT INTO labels VALUES(1, 'Megaforce', 'US', 1982, NULL);
 INSERT INTO labels VALUES(2, 'EMI', 'UK', 1931, NULL);
@@ -28,13 +28,13 @@ INSERT INTO labels VALUES(5, 'Roadrunner', 'NL', 1980, NULL);
 INSERT INTO labels VALUES(6, 'Columbia', 'US', 1987, NULL);
 
 
-##records(recordID, labelID, title, releaseDate, cover, price)
+##records(recordId, labelId, title, releaseDate, cover, price)
 DELETE FROM records;
 INSERT INTO records VALUES(1, 1, 'Kill ''em All', '1983-07-25', NULL, 09.99);
-INSERT INTO records VALUES(2, 1, 'Ride The Lightning', '1984-07-27', NULL, 09.75);
+INSERT INTO records VALUES(2, 1, 'RIde The Lightning', '1984-07-27', NULL, 09.75);
 INSERT INTO records VALUES(3, 2, 'The Number of the Beast', '1982-03-22', NULL, 12.15);
 INSERT INTO records VALUES(4, 3, 'Black Sabbath', '1970-02-13', NULL, 08.99);
-INSERT INTO records VALUES(5, 3, 'Paranoid', '1970-09-18', NULL, 08.99);
+INSERT INTO records VALUES(5, 3, 'ParanoId', '1970-09-18', NULL, 08.99);
 INSERT INTO records VALUES(6, 4, 'Sad Wings of Destiny', '1976-03-23', NULL, 07.50);
 INSERT INTO records VALUES(7, 6, 'British Steel', '1980-04-14', NULL, 08.99);
 INSERT INTO records VALUES(8, 6, 'Painkiller', '1990-09-03', NULL, 12.10);
@@ -42,7 +42,7 @@ INSERT INTO records VALUES(9, 5, 'Roots', '1996-02-20', NULL, 11.70);
 INSERT INTO records VALUES(10, 5, 'Chaos A.D.', '1993-10-19', NULL, 11.30);
 
 
-##tracks(trackID, artistID, title, duration)
+##tracks(trackId, artistId, title, duration)
 DELETE FROM tracks;
 #Metallica - Kill 'em All (10 tracks)
 INSERT INTO tracks VALUES(1, 1, 'Hit the Lights', 256);
@@ -55,16 +55,16 @@ INSERT INTO tracks VALUES(7, 1, 'Phantom Lord', 302);
 INSERT INTO tracks VALUES(8, 1, 'No Remorse', 386);
 INSERT INTO tracks VALUES(9, 1, 'Seek & Destroy', 415);
 INSERT INTO tracks VALUES(10, 1, 'Metal Militia', 309);
-#Metallica - Ride the Lightning (8 tracks)
+#Metallica - RIde the Lightning (8 tracks)
 INSERT INTO tracks VALUES(11, 1, 'Fight Fire with Fire', 285);
-INSERT INTO tracks VALUES(12, 1, 'Ride the Lightning', 396);
+INSERT INTO tracks VALUES(12, 1, 'RIde the Lightning', 396);
 INSERT INTO tracks VALUES(13, 1, 'For Whom the Bell Tolls', 309);
 INSERT INTO tracks VALUES(14, 1, 'Fade to Black', 417);
 INSERT INTO tracks VALUES(15, 1, 'Trapped Under Ice', 244);
 INSERT INTO tracks VALUES(16, 1, 'Escape', 263);
 INSERT INTO tracks VALUES(17, 1, 'Creeping Death', 396);
 INSERT INTO tracks VALUES(18, 1, 'The Call of Ktulu', 523);
-#Iron Maiden - The Number of the Beast (9 tracks)
+#Iron MaIden - The Number of the Beast (9 tracks)
 INSERT INTO tracks VALUES(19, 2, 'Invaders', NULL);
 INSERT INTO tracks VALUES(20, 2, 'Children of the Damned', NULL);
 INSERT INTO tracks VALUES(21, 2, 'The Prisoner', NULL);
@@ -75,7 +75,7 @@ INSERT INTO tracks VALUES(25, 2, 'Gangland', NULL);
 INSERT INTO tracks VALUES(26, 2, 'Hallowed By Thy Name', NULL);
 
 
-##genres(genreID, name)
+##genres(genreId, name)
 DELETE FROM genres;
 INSERT INTO genres VALUES(1, 'Heavy Metal');
 INSERT INTO genres VALUES(2, 'Thrash Metal');
@@ -83,7 +83,7 @@ INSERT INTO genres VALUES(3, 'Groove Metal');
 INSERT INTO genres VALUES(4, 'Nu Metal');
 
 
-##artistsRecords(artistID, recordID)
+##artistsRecords(artistId, recordId)
 DELETE FROM artistsRecords;
 INSERT INTO artistsRecords VALUES(1, 1);
 INSERT INTO artistsRecords VALUES(1, 2);
@@ -97,7 +97,7 @@ INSERT INTO artistsRecords VALUES(5, 9);
 INSERT INTO artistsRecords VALUES(5, 10);
 
 
-##recordsTracks(recordId, trackID, trackNumber)
+##recordsTracks(recordId, trackId, trackNumber)
 DELETE FROM recordsTracks;
 #Metallica - Kill 'em All (10 tracks)
 INSERT INTO recordsTracks VALUES(1, 1, 1);
@@ -110,7 +110,7 @@ INSERT INTO recordsTracks VALUES(1, 7, 7);
 INSERT INTO recordsTracks VALUES(1, 8, 8);
 INSERT INTO recordsTracks VALUES(1, 9, 9);
 INSERT INTO recordsTracks VALUES(1, 10, 10);
-#Metallica - Ride the Lightning (8 tracks)
+#Metallica - RIde the Lightning (8 tracks)
 INSERT INTO recordsTracks VALUES(2, 11, 1);
 INSERT INTO recordsTracks VALUES(2, 12, 2);
 INSERT INTO recordsTracks VALUES(2, 13, 3);
@@ -119,7 +119,7 @@ INSERT INTO recordsTracks VALUES(2, 15, 5);
 INSERT INTO recordsTracks VALUES(2, 16, 6);
 INSERT INTO recordsTracks VALUES(2, 17, 7);
 INSERT INTO recordsTracks VALUES(2, 18, 8);
-#Iron Maiden - The Number of the Beast (9 tracks)
+#Iron MaIden - The Number of the Beast (9 tracks)
 INSERT INTO recordsTracks VALUES(3, 19, 1);
 INSERT INTO recordsTracks VALUES(3, 20, 2);
 INSERT INTO recordsTracks VALUES(3, 21, 3);
@@ -130,7 +130,7 @@ INSERT INTO recordsTracks VALUES(3, 25, 7);
 INSERT INTO recordsTracks VALUES(3, 26, 8);
 
 
-##recordsGenres(recordID, genreID)
+##recordsGenres(recordId, genreId)
 DELETE FROM recordsGenres;
 INSERT INTO recordsGenres VALUES(1, 2);
 INSERT INTO recordsGenres VALUES(2, 2);

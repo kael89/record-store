@@ -20,7 +20,7 @@ switch (getGet("action")) {
     case "user_login":
         $email = getPost("email");
         $password = getPost("password");
-        require_once "User.php";
+        require_once "classes/User.php";
 
         if (User::login($email, $password)) {
             echo "true";
@@ -83,20 +83,29 @@ function insertRow($table, $row, $param) {
     return $mysqli->insert_id;
 }
 
-function getRows($table, $columns, $append = "") {
+function getRows($table, $columns, $joins = [], $append = "") {
     $mysqli = getSession("mysqli");
+    $query = "";
     $result = [];
     $rows = [];
-    $where = "WHERE (TRUE)";
 
-    $query = "SELECT ";
+    $select = "SELECT ";
+    //JOIN
+    $join = "";
+    foreach($joins as $joinTable => $condition) {
+        $join .= " JOIN $joinTable ON $condition";
+    }
+
+    //WHERE
+    $where = "WHERE (TRUE)";
     foreach($columns as $column => $condition) {
-        $query .= "$column,";
+        $select .= "$column,";
         if ($condition !== "") {
             $where .= " AND ($column" . "$condition)";
         }
     }
-    $query = rtrim($query, ",") . " FROM $table $where $append";
+
+    $query = rtrim($select, ",") . " FROM $table $join $where $append";
     $result = $mysqli->query($query);
     if (!$result) {
         return;

@@ -1,8 +1,8 @@
 <?php
-function debug($var) {
-    echo "<pre>";
-    print_r($var);
-    echo "</pre>";
+function consoleLog($var) {
+    echo "<script>";
+    echo "console.log(" . json_encode($var) . ")";
+    echo "</script>";
 }
 
 function getGet($var) {

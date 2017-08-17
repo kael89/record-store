@@ -1,5 +1,5 @@
 <?php
-require_once "lib/User.php";
+require_once "lib/classes/User.php";
 require_once "lib/library.php";
 $user = getSession("user");
 ?>
@@ -20,7 +20,7 @@ $user = getSession("user");
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.php">Main Page</a></li>
+                    <li><a href="index.php">Main Page</a></li>
                     <li><a href="browse-records.php">Browse Records</a></li>
                     <li><a href="browse-artists.php">Browse Artists</a></li>
                 </ul>

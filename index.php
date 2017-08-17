@@ -1,6 +1,6 @@
 <?php
 /* Program */
-require_once "lib/User.php";
+require_once "lib/classes/User.php";
 require_once "lib/library.php";
 require_once "lib/database.php";
 
