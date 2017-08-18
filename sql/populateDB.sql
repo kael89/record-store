@@ -80,7 +80,7 @@ INSERT INTO tracks VALUES(22, 2, 1, '22 Acacia Avenue', NULL);
 INSERT INTO tracks VALUES(23, 2, 1, 'The Number of the Beast', NULL);
 INSERT INTO tracks VALUES(24, 2, 1, 'Run to the Hills', NULL);
 INSERT INTO tracks VALUES(25, 2, 1, 'Gangland', NULL);
-INSERT INTO tracks VALUES(26, 2, 1, 'Hallowed By Thy Name', NULL);
+INSERT INTO tracks VALUES(26, 2, 1, 'Hallowed Be Thy Name', NULL);
 
 
 

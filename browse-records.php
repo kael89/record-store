@@ -3,8 +3,16 @@ $title = 'Browse Records';
 
 require_once "lib/classes/Record.php";
 require_once "lib/classes/Label.php";
+require_once "lib/classes/Genre.php";
+require_once "lib/classes/Track.php";
+require_once "lib/classes/Artist.php";
+
 require_once "lib/api/record-api.php";
 require_once "lib/api/label-api.php";
+require_once "lib/api/genre-api.php";
+require_once "lib/api/track-api.php";
+require_once "lib/api/artist-api.php";
+
 require_once "templates/head.php";
 require_once "templates/header.php";
 ?>
@@ -47,11 +55,9 @@ require_once "templates/header.php";
 </nav>
 
 <?php
-$record = getRecordsByTitle('Black Sabbath')[0];
-var_dump($record);
-echo $record->getLabel();
+var_dump(getRecordsByTrackTitle('Hallowed Be Thy Name'));
 echo "<br><br>";
-var_dump(getLabelsByCountry('UK'));
+// var_dump(getTracksByGenreId(1));
 ?>
 
 

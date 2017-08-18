@@ -83,13 +83,16 @@ function insertRow($table, $row, $param) {
     return $mysqli->insert_id;
 }
 
-function getRows($table, $columns, $joins = [], $append = "") {
+function getRows($table, $columns, $joins = [], $distinct = false, $append = "") {
     $mysqli = getSession("mysqli");
     $query = "";
     $result = [];
     $rows = [];
 
     $select = "SELECT ";
+    if ($distinct) {
+        $select .= "DISTINCT ";
+    }
     //JOIN
     $join = "";
     foreach($joins as $joinTable => $condition) {
@@ -105,7 +108,7 @@ function getRows($table, $columns, $joins = [], $append = "") {
         }
     }
 
-    $query = rtrim($select, ",") . " FROM $table $join $where $append";
+    $query = rtrim($select, ",") . " FROM $table $join $where $append"; consoleLog($query);
     $result = $mysqli->query($query);
     if (!$result) {
         return;
