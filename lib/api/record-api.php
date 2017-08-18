@@ -46,12 +46,18 @@ function getRecordsByLabelId($id) {
     return $records;
 }
 
-function getRecordsByLabelName($name) {
-    $labels = getLabelsByName($name);
+function getRecordsByLabelName($name, $search = false) {
+    $labels = getLabelsByName($name, $search);
+    if (!$labels) {
+        return null;
+    }
 
     $records = [];
     foreach ($labels as $label) {
-        $records = array_merge($records, getRecordsByLabelId($label->getId()));
+        $newRecords = getRecordsByLabelId($label->getId());
+        if ($newRecords) {
+            $records = array_merge($records, $newRecords);
+        }
     }
 
     return $records;
@@ -59,7 +65,7 @@ function getRecordsByLabelName($name) {
 
 function getRecordsByTitle($title, $search = false) {
     $columns = getColumns("records");
-    $columns["records.title"] = ($search) ? " LIKE '$title%'" : "='$title'";
+    $columns["records.title"] = ($search) ? " LIKE '$title'" : "='$title'";
 
     $results = getRows("records", $columns);
     if (!$results) {
@@ -94,15 +100,14 @@ function getRecordsByPrice($price) {
         extract($result);
         $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
     }
+
     return $records;
 }
 
 function getRecordsByArtistId($id) {
     $columns = getColumns("records");
     $columns["records.recordId"] = "=artistsRecords.recordId";
-    $joins = [
-        "artistsRecords" => "artistsRecords.artistId=$id"
-    ];
+    $joins = ["artistsRecords" => "artistsRecords.artistId=$id"];
 
     $results = getRows("records", $columns, $joins);
     if (!$results) {
@@ -114,15 +119,22 @@ function getRecordsByArtistId($id) {
         extract($result);
         $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
     }
+
     return $records;
 }
 
 function getRecordsByArtistName($name, $search = false) {
     $artists = getArtistsByName($name, $search);
+    if (!$artists) {
+        return null;
+    }
 
     $records = [];
     foreach ($artists as $artist) {
-        $records = array_merge($records, getRecordsByartistId($artist->getId()));
+        $newRecords = getRecordsByArtistId($artist->getId());
+        if ($newRecords) {
+            $records = array_merge($records, $newRecords);
+        }
     }
 
     return $records;
@@ -146,20 +158,23 @@ function getRecordsByGenreId($id) {
         extract($result);
         $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
     }
+
     return $records;
 }
 
 function getRecordsByGenreName($name, $search = false) {
-    $id = getGenreByName($name, $search)->getId();
-    return getRecordsBygenreId($id);
+    $genre = getGenreByName($name, $search);
+    if (!$genre) {
+        return null;
+    }
+
+    return getRecordsByGenreId($id);
 }
 
 function getRecordsByTrackId($id) {
     $columns = getColumns("records");
     $columns["records.recordId"] = "=recordsTracks.recordId";
-    $joins = [
-        "recordsTracks" => "recordsTracks.trackId=$id"
-    ];
+    $joins = ["recordsTracks" => "recordsTracks.trackId=$id"];
 
     $results = getRows("records", $columns, $joins);
     if (!$results) {
@@ -171,15 +186,22 @@ function getRecordsByTrackId($id) {
         extract($result);
         $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
     }
+
     return $records;
 }
 
 function getRecordsByTrackTitle($title, $search = false) {
     $tracks = getTracksByTitle($title, $search);
+    if (!$tracks) {
+        return null;
+    }
 
     $records = [];
     foreach ($tracks as $track) {
-        $records = array_merge($records, getRecordsByTrackId($track->getId()));
+        $newRecords = getRecordsByTrackId($track->getId());
+        if ($newRecords) {
+            $records = array_merge($records, $newRecords);
+        }
     }
 
     return $records;

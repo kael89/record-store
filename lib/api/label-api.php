@@ -17,7 +17,7 @@ function getLabelById($id) {
 
 function getLabelsByName($name, $search = false) {
     $columns = getColumns("labels");
-    $columns["labels.name"] = ($search) ? " LIKE '$name%'" : "='$name'";
+    $columns["labels.name"] = ($search) ? " LIKE '$name'" : "='$name'";
 
     $results = getRows("labels", $columns);
     if (!$results) {
@@ -35,7 +35,7 @@ function getLabelsByName($name, $search = false) {
 
 function getLabelsByCountry($country, $search = false) {
     $columns = getColumns("labels");
-    $columns["labels.country"] = ($search) ? " LIKE '$country%'" : "='$country'";
+    $columns["labels.country"] = ($search) ? " LIKE '$country'" : "='$country'";
 
     $results = getRows("labels", $columns);
     if (!$results) {

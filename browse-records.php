@@ -55,7 +55,7 @@ require_once "templates/header.php";
 </nav>
 
 <?php
-var_dump(getRecordsByTrackTitle('Hallowed Be Thy Name'));
+var_dump(getGenreByTrackId(18));
 echo "<br><br>";
 // var_dump(getTracksByGenreId(1));
 ?>

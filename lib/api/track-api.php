@@ -73,7 +73,7 @@ function getTracksByGenreName() {
 
 function getTracksByTitle($title, $search = false) {
     $columns = getColumns("tracks");
-    $columns["tracks.title"] = ($search) ? " LIKE '$title%'" : "='$title'";
+    $columns["tracks.title"] = ($search) ? " LIKE '$title'" : "='$title'";
 
     $results = getRows("tracks", $columns);
     if (!$results) {

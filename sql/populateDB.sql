@@ -12,7 +12,7 @@ INSERT INTO users VALUES(2,'Kostas','Karvounis','kael1989@gmail.com','11875FF7B8
 ##artists(artistId, name, country, foundationDate, logo, photo)
 DELETE FROM artists;
 INSERT INTO artists VALUES(1, 'Metallica', 'US', 1981, NULL, NULL);
-INSERT INTO artists VALUES(2, 'Iron MaIden', 'GB', 1975, NULL, NULL);
+INSERT INTO artists VALUES(2, 'Iron Maiden', 'GB', 1975, NULL, NULL);
 INSERT INTO artists VALUES(3, 'Black Sabbath', 'GB', 1968, NULL, NULL);
 INSERT INTO artists VALUES(4, 'Judas Priest', 'GB', 1969, NULL, NULL);
 INSERT INTO artists VALUES(5, 'Sepultura', 'BR', 1984, NULL, NULL);
