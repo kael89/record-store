@@ -55,9 +55,8 @@ require_once "templates/header.php";
 </nav>
 
 <?php
-var_dump(getGenreByTrackId(18));
+var_dump(getLabelsByTrackTitle('Run to THE HiLLs'));
 echo "<br><br>";
-// var_dump(getTracksByGenreId(1));
 ?>
 
 

@@ -6,12 +6,12 @@ function getLabelById($id) {
     $columns = getColumns("labels");
     $columns["labels.labelId"] = "=$id";
 
-    $result = getRows("labels", $columns)[0];
+    $result = getRows("labels", $columns);
     if (!$result) {
         return null;
     }
 
-    extract($result);
+    extract($result[0]);
     return new Label($labelId, $name, $country, $foundationYear, $logo);
 }
 
@@ -55,33 +55,129 @@ function getLabelsByFoudationYear() {
     //to be implemented
 }
 
-function getLabelByRecordId() {
-    //to be implemented
+function getLabelByRecordId($id) {
+    $columns = getColumns("labels");
+    $columns["records.recordId"] = "=$id";
+    $joins = ["records" => "records.labelId=labels.labelId"];
+
+    $result = getRows("labels", $columns, $joins, true);
+    if (!$result) {
+        return null;
+    }
+
+    extract($result[0]);
+    return new Label($labelId, $name, $country, $foundationYear, $logo);
 }
 
-function getLabelsByArtistId() {
-    //to be implemented
+function getLabelsByRecordTitle($title, $search = false) {
+    $records = getRecordsByTitle($title, $search);
+    if (!$records) {
+        return null;
+    }
+
+    $labels = [];
+    foreach ($records as $record) {
+        $labels[] = getLabelByRecordId($record->getId());
+    }
+
+    return $labels;
 }
 
-function getLabelsByArtistName() {
-    //to be implemented
+function getLabelsByArtistId($id) {
+    $columns = getColumns("labels");
+    $columns["artistsRecords.artistId"] = "=$id";
+    $joins = [
+        "records" => "records.labelId=labels.labelId",
+        "artistsRecords" => "artistsRecords.recordId=records.recordId",
+    ];
+
+    $results = getRows("labels", $columns, $joins, true);
+    if (!$results) {
+        return null;
+    }
+
+    $labels = [];
+    foreach ($results as $result) {
+        extract($result);
+        $labels[] = new Label($labelId, $name, $country, $foundationYear, $logo);
+    }
+
+    return $labels;
 }
 
-function getLabelsByGenreId() {
-    //to be implemented
+function getLabelsByArtistName($name, $search = false) {
+    $artists = getArtistsByName($name, $search);
+    if (!$artists) {
+        return null;
+    }
+
+    $labels = [];
+    foreach ($artists as $artist) {
+        $labels[] = getLabelByRecordId($artist->getId());
+    }
+
+    return $labels;
 }
 
-function getLabelsByGenreName() {
-    //to be implemented
-}
-function getLabelsByRecordTitle() {
-    //to be implemented
+function getLabelsByGenreId($id) {
+    $columns = getColumns("labels");
+    $columns["tracks.genreId"] = "=$id";
+    $joins = [
+        "records" => "records.labelId=labels.labelId",
+        "recordsTracks" => "recordsTracks.recordId=records.recordId",
+        "tracks" => "tracks.trackId=recordsTracks.trackId",
+    ];
+
+    $results = getRows("labels", $columns, $joins, true);
+    if (!$results) {
+        return null;
+    }
+
+    $labels = [];
+    foreach ($results as $result) {
+        extract($result);
+        $labels[] = new Label($labelId, $name, $country, $foundationYear, $logo);
+    }
+
+    return $labels;
 }
 
-function getLabelByTrackId() {
-    //to be implemented
+function getLabelsByGenreName($name, $search = false) {
+    $genre = getGenreByName($name, $search);
+    if (!$genre) {
+        return null;
+    }
+
+    return getLabelsByGenreId($genre->getId());
 }
 
-function getLabelsByTrackTitle() {
-    //to be implemented
+function getLabelByTrackId($id) {
+    $columns = getColumns("labels");
+    $columns["recordsTracks.trackId"] = "=$id";
+    $joins = [
+        "records" => "records.labelId=labels.labelId",
+        "recordsTracks" => "recordsTracks.recordId=records.recordId",
+    ];
+
+    $result = getRows("labels", $columns, $joins);
+    if (!$result) {
+        return null;
+    }
+
+    extract($result[0]);
+    return new Label($labelId, $name, $country, $foundationYear, $logo);
+}
+
+function getLabelsByTrackTitle($title, $search = false) {
+    $tracks = getTracksByTitle($title, $search);
+    if (!$tracks) {
+        return null;
+    }
+
+    $labels = [];
+    foreach ($tracks as $track) {
+        $labels[] = getLabelByTrackId($track->getId());
+    }
+
+    return $labels;
 }
