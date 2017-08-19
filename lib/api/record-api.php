@@ -105,6 +105,10 @@ function getRecordsByPrice($price) {
 }
 
 function getRecordsByArtistId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("records");
     $columns["records.recordId"] = "=artistsRecords.recordId";
     $joins = ["artistsRecords" => "artistsRecords.artistId=$id"];
@@ -141,6 +145,10 @@ function getRecordsByArtistName($name, $search = false) {
 }
 
 function getRecordsByGenreId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("records");
     $columns["records.recordId"] = "=recordsTracks.recordId";
     $joins = [
@@ -168,10 +176,14 @@ function getRecordsByGenreName($name, $search = false) {
         return null;
     }
 
-    return getRecordsByGenreId($id);
+    return getRecordsByGenreId($genre->getId());
 }
 
 function getRecordsByTrackId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("records");
     $columns["records.recordId"] = "=recordsTracks.recordId";
     $joins = ["recordsTracks" => "recordsTracks.trackId=$id"];

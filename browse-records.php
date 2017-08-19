@@ -55,7 +55,7 @@ require_once "templates/header.php";
 </nav>
 
 <?php
-var_dump(getLabelsByTrackTitle('Run to THE HiLLs'));
+var_dump(getTracksByRecordTitle('The Number of the Beast'));
 echo "<br><br>";
 ?>
 

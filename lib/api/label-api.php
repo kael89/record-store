@@ -3,6 +3,10 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
 
 function getLabelById($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("labels");
     $columns["labels.labelId"] = "=$id";
 
@@ -56,6 +60,10 @@ function getLabelsByFoudationYear() {
 }
 
 function getLabelByRecordId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("labels");
     $columns["records.recordId"] = "=$id";
     $joins = ["records" => "records.labelId=labels.labelId"];
@@ -84,6 +92,10 @@ function getLabelsByRecordTitle($title, $search = false) {
 }
 
 function getLabelsByArtistId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("labels");
     $columns["artistsRecords.artistId"] = "=$id";
     $joins = [
@@ -120,6 +132,10 @@ function getLabelsByArtistName($name, $search = false) {
 }
 
 function getLabelsByGenreId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("labels");
     $columns["tracks.genreId"] = "=$id";
     $joins = [
@@ -152,6 +168,10 @@ function getLabelsByGenreName($name, $search = false) {
 }
 
 function getLabelByTrackId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("labels");
     $columns["recordsTracks.trackId"] = "=$id";
     $joins = [

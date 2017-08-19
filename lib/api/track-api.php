@@ -16,7 +16,7 @@ function getTrackById($id) {
     }
 
     extract($result[0]);
-    return new Track($trackId, $title, $duration);
+    return new Track($trackId, $title, $duration, $artistId, $genreId);
 }
 
 function getTracksByArtistId($id) {
@@ -35,14 +35,24 @@ function getTracksByArtistId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $title, $duration);
+        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
     }
 
     return $tracks;
 }
 
-function getTracksByArtistName() {
-    // to be implemented
+function getTracksByArtistName($name, $search = false) {
+    $artists = getArtistsByName($name, $search);
+    if (!$artists) {
+        return null;
+    }
+
+    $tracks = [];
+    foreach ($artists as $artist) {
+        $tracks[] = getTracksByArtistId($artist->getId());
+    }
+
+    return $tracks;
 }
 
 function getTracksByGenreId($id) {
@@ -61,14 +71,19 @@ function getTracksByGenreId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $title, $duration);
+        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
     }
 
     return $tracks;
 }
 
-function getTracksByGenreName() {
-    // to be implemented
+function getTracksByGenreName($name, $search = false) {
+    $genre = getGenreByName($name, $search);
+    if (!$genre) {
+        return null;
+    }
+
+    return getTracksByGenreId($genre->getId());
 }
 
 function getTracksByTitle($title, $search = false) {
@@ -83,28 +98,110 @@ function getTracksByTitle($title, $search = false) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $title, $duration);
+        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
     }
 
     return $tracks;
 }
 
-function getTracksByDuration() {
-    // to be implemented
+// $duration: either single value (exact match) or array of two values (inclusive range)
+function getTracksByDuration($duration) {
+    $columns = getColumns("tracks");
+    $columns["tracks.duration"] = is_array($duration) ? " BETWEEN $duration[0] AND $duration[1]" : "=$duration";
+
+    $results = getRows("tracks", $columns);
+    if (!$results) {
+        return null;
+    }
+
+    $tracks = [];
+    foreach ($results as $result) {
+        extract($result);
+        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
+    }
+
+    return $tracks;
 }
 
-function getTracksByLabelId() {
-    // to be implemented
+function getTracksByLabelId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
+    $columns = getColumns("tracks");
+    $columns["records.labelId"] = "=$id";
+    $joins = [
+        "recordsTracks" => "recordsTracks.trackId=tracks.trackId",
+        "records" => "records.recordId=recordsTracks.recordId"
+    ];
+    
+    $results = getRows("tracks", $columns, $joins);
+    if (!$results) {
+        return null;
+    }
+
+    $tracks = [];
+    foreach ($results as $result) {
+        extract($result);
+        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
+    }
+
+    return $tracks;
 }
 
-function getTracksByLabelName() {
-    // to be implemented
+function getTracksByLabelName($name, $search = false) {
+    $labels = getLabelsByName($name, $search);
+    if (!$labels) {
+        return null;
+    }
+
+    $tracks = [];
+    foreach ($labels as $label) {
+        $newTracks = getTracksByLabelId($label->getId());
+        if ($newTracks) {
+            $tracks = array_merge($tracks, $newTracks);
+        }
+    }
+
+    return $tracks;
 }
 
-function getTracksByRecordId() {
-    // to be implemented
+function getTracksByRecordId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
+    $columns = getColumns("tracks");
+    $columns["recordsTracks.recordId"] = "=$id";
+    $joins = ["recordsTracks" => "recordsTracks.trackId=tracks.trackId"];
+    
+    $results = getRows("tracks", $columns, $joins);
+    if (!$results) {
+        return null;
+    }
+
+    $tracks = [];
+    foreach ($results as $result) {
+        extract($result);
+        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
+    }
+
+    return $tracks;
 }
 
-function getTracksByRecordTitle() {
-    // to be implemented
+function getTracksByRecordTitle($title, $search = false) {
+    $records = getRecordsBytitle($title, $search);
+    if (!$records) {
+        return null;
+    }
+
+    $tracks = [];
+    foreach ($records as $record) {
+        $newTracks = getTracksByRecordId($record->getId());
+        if ($newTracks) {
+            $tracks = array_merge($tracks, $newTracks);
+        }
+    }
+
+    return $tracks;
 }

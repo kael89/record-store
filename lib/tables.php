@@ -35,6 +35,7 @@ function getColumns($table) {
     $columns["tracks"] = [
         "tracks.trackId" => "",
         "tracks.artistId" => "",
+        "tracks.genreId" => "",
         "tracks.title" => "",
         "tracks.duration" => ""
     ];

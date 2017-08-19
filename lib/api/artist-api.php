@@ -65,6 +65,10 @@ function getArtistsByFoundationYear() {
 }
 
 function getArtistsByGenreId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("artists");
     $columns["genres.genreId"] = "=$id";
     $joins = [
@@ -96,6 +100,10 @@ function getArtistsByGenreName($name, $search = false) {
 }
 
 function getArtistsByLabelId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("artists");
     $columns["records.labelId"] = "=$id";
     $joins = [
@@ -133,6 +141,10 @@ function getArtistsByLabelName($name, $search = false) {
 }
 
 function getArtistsByRecordId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("artists");
     $columns["records.recordId"] = "=$id";
     $joins = [
@@ -169,6 +181,10 @@ function getArtistsByRecordTitle($title, $search = false) {
 }
 
 function getArtistByTrackId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("artists");
     $columns["tracks.trackId"] = "=$id";
     $joins = [

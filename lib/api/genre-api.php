@@ -38,6 +38,10 @@ function getGenreByName($name, $search = false) {
 }
 
 function getGenresByArtistId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("genres");
     $columns["tracks.artistId"] = "=$id";
     $joins = ["tracks" => "tracks.genreId=genres.genreId"];
@@ -74,6 +78,10 @@ function getGenresByArtistName($name, $search = false) {
 }
 
 function getGenresByLabelId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("genres");
     $columns["records.labelId"] = "=$id";
     $joins = [
@@ -114,6 +122,10 @@ function getGenresByLabelName($name, $search = false) {
 }
 
 function getGenresByRecordId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("genres");
     $columns["recordsTracks.recordId"] = "=$id";
     $joins = [
@@ -153,6 +165,10 @@ function getGenresByRecordTitle($name, $search = false) {
 }
 
 function getGenreByTrackId($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     $columns = getColumns("genres");
     $columns["tracks.trackId"] = "=$id";
     $joins = [
