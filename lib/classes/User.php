@@ -28,9 +28,8 @@ class User {
             "password" => hash("sha256", $password . User::salt),
             "admin" => $admin
         ];
-        $param = "ssssi";
 
-        return insertRow(User::table, $row, $param);
+        return insertRow(User::table, $row);
     }
 
     public static function login($email, $password) {

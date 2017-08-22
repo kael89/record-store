@@ -1,6 +1,4 @@
 <?php
-$title = 'Browse Records';
-
 require_once "lib/classes/Record.php";
 require_once "lib/classes/Label.php";
 require_once "lib/classes/Genre.php";
@@ -13,10 +11,11 @@ require_once "lib/api/genre-api.php";
 require_once "lib/api/track-api.php";
 require_once "lib/api/artist-api.php";
 
+$title = 'Browse Records';
 require_once "templates/head.php";
 require_once "templates/header.php";
 ?>
-
+ 
 <nav>
     <ul class="pagination">
         <li>
@@ -55,9 +54,12 @@ require_once "templates/header.php";
 </nav>
 
 <?php
-var_dump(getTracksByRecordTitle('The Number of the Beast'));
+// var_dump($columns["test"]);
+$res = getRecordsByTitle('The Nu%', true);
+var_dump($res[0]->getArtists());
+echo "<br><br>";
+var_dump($res[0]->getTracks());
 echo "<br><br>";
 ?>
-
 
 <?php require_once "templates/footer.php";

@@ -24,6 +24,30 @@ class Label {
     }
 
     public function setName() {
-        //Write to DB!
+        // to be implemented
+    }
+
+    public function getCountry() {
+        return $this->country;
+    }
+
+    public function setCountry() {
+        // to be implemented
+    }
+
+    public function getFoundationYear() {
+        return $this->foundationYear;
+    }
+
+    public function setFoundationYear() {
+        // to be implemented
+    }
+
+    public function getLogo() {
+        return $this->logo;
+    }
+
+    public function setLogo() {
+        // to be implemented
     }
 }

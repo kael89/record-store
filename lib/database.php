@@ -1,6 +1,7 @@
 <?php
 /* Main */
-require_once "library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
 
 if (!isset($mysqli)) {
     $mysqli = connectToDB(); 
@@ -42,44 +43,26 @@ function connectToDB() {
     return $mysqli;
 }
 
-//!!Refactor to use variable length of $values. Currently 6 values supported
-/* $row = array('columnName' => 'value') */
-function insertRow($table, $row, $param) {
+// $row = array('field' => 'value')
+function insertRow($table, $row) {
     $mysqli = getSession("mysqli");
     $columns = array_keys($row);
     $values = array_values($row);
-    $numValues = count($values);
 
-    $query = "INSERT INTO $table(" . implode(',', $columns) . ")" . "VALUES(" . str_repeat("?,", $numValues);
+    $query = "INSERT INTO $table(" . implode(',', $columns) . ")" . "VALUES(" . str_repeat("?,", count($values));
     $query = rtrim($query, ",") . ")";
-
     $stmt = $mysqli->prepare($query);
-    switch ($numValues) {
-        case 0:
-            return 0;
-            break;
-        case 1:
-            $stmt->bind_param($param, $values[0]);
-            break;
-        case 2:
-            $stmt->bind_param($param, $values[0], $values[1]);
-            break;
-        case 3:
-            $stmt->bind_param($param, $values[0], $values[1], $values[2]);
-            break;
-        case 4:
-            $stmt->bind_param($param, $values[0], $values[1], $values[2], $values[3]);
-            break;
-        case 5:
-            $stmt->bind_param($param, $values[0], $values[1], $values[2], $values[3], $values[4]);
-            break;
-        case 6:
-            $stmt->bind_param($param, $values[0], $values[1], $values[2], $values[3], $values[4], $values[5]);
-            break;
+
+    $ref = new ReflectionClass("mysqli_stmt");
+    $args = array_merge(getParams($table, $columns), $values);
+    foreach (array_keys($args) as $i) {
+        $args[$i] =& $args[$i];
     }
+    $method = $ref->getMethod("bind_param");
+    $method->invokeArgs($stmt, $args);
+
     $stmt->execute();
     $stmt->close();
-
     return $mysqli->insert_id;
 }
 
@@ -108,7 +91,7 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
         }
     }
 
-    $query = rtrim($select, ",") . " FROM $table $join $where $append"; consoleLog($query);
+    $query = rtrim($select, ",") . " FROM $table $join $where $append"; //consoleLog($query);
     $result = $mysqli->query($query);
     if (!$result) {
         return;

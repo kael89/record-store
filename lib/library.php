@@ -1,4 +1,5 @@
 <?php
+
 function consoleLog($var) {
     echo "<script>";
     echo "console.log(" . json_encode($var) . ")";

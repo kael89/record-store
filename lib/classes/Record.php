@@ -7,43 +7,102 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/user-api.php";
 
 class Record {
     private $id;
+    private $labelId;
     private $title;
     private $releaseDate;
     private $cover;
     private $price;
 
+    // Array - artist names whose tracks are featured in the record (sorted)
+    private $artists;
+    // String
     private $label;
-
-    public function __construct($id, $title = "", $releaseDate = "", $cover = "", $price = "", $labelId = 0) {
+    // Array (assoc.) - ["title", "artist", "genre", "duration"]
+    private $tracks;
+    
+    public function __construct($id, $labelId, $title = "", $releaseDate = "", $cover = "", $price = "") {
         $this->id = $id;
+        $this->labelId = $labelId;
         $this->title = $title;
         $this->releaseDate = $releaseDate;
         $this->cover = $cover;
         $this->price = $price;
 
-        // if ($labelId > 0) {
-        //     $this->label = getLabelById($labelId)->getName();
-        // }
+        $artists = getArtistsByRecordId($id);
+        $this->artists = [];
+        foreach ($artists as $artist) {
+            $this->artists[] = $artist->getName();
+        }
+
+        $this->label = getLabelById($labelId)->getName();
+
+        $this->tracks = [];
+        if ($tracks = getTracksByRecordId($id)) {
+            foreach ($tracks as $track) {
+                $this->tracks[] = [
+                    "title" => $track->getTitle(),
+                    "artist" => $track->getArtist(),
+                    "genre" => $track->getGenre(),
+                    "duration" => $track->getDuration()
+                ];
+            }
+        }
     }
 
     public function getId() {
         return $this->id;
     }
 
+    public function getLabelId() {
+        return $this->labelId;
+    }
+
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function setTitle() {
+        // to be implemented
+    }
+
+    public function getReleaseDate() {
+        return $this->releaseDate;
+    }
+
+    public function setReleaseDate() {
+        // to be implemented
+    }
+
+    public function getCover() {
+        return $this->cover;
+    }
+
+    public function setCover() {
+        // to be implemented
+    }
+
+    public function getPrice() {
+        return $this->title;
+    }
+
+    public function setPrice() {
+        // to be implemented
+    }
+
+    public function getArtists() {
+        return $this->artists;
+    }
+
+    public function setRecordArtist() {
+        // to be implemented
+    }
+
     public function getLabel() {
         return $this->label;
     }
 
-    public function setLabel($labelId) {
-        // $this->label = $label;
-    }
-
-    public function getArtist() {
-        return $this->artist;
-    }
-
-    public function setArtist($artist) {
-        // $this->artist = $artist;
+    public function setLabel() {
+        // to be implemented
     }
 
     public function getTracks() {
@@ -51,6 +110,6 @@ class Record {
     }
 
     public function setTracks($tracks) {
-        // $this->tracks = $tracks;
+        // to be implemented
     }
 }

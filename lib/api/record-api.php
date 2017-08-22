@@ -21,7 +21,7 @@ function getRecordById($id) {
     }
 
     extract($result[0]);
-    return new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
+    return new Record($recordId, $labelId, $title, $releaseDate, $cover, $price);
 }
 
 function getRecordsByLabelId($id) {
@@ -40,7 +40,7 @@ function getRecordsByLabelId($id) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
+        $records[] = new Record($recordId, $labelId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -75,7 +75,7 @@ function getRecordsByTitle($title, $search = false) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
+        $records[] = new Record($recordId, $labelId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -98,7 +98,7 @@ function getRecordsByPrice($price) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
+        $records[] = new Record($recordId, $labelId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -121,7 +121,7 @@ function getRecordsByArtistId($id) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
+        $records[] = new Record($recordId, $labelId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -164,7 +164,7 @@ function getRecordsByGenreId($id) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
+        $records[] = new Record($recordId, $labelId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -196,7 +196,7 @@ function getRecordsByTrackId($id) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price, $labelId);
+        $records[] = new Record($recordId, $labelId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;

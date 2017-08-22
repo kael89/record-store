@@ -1,44 +1,83 @@
 <?php
 
-function getColumns($table) {
+function getTable($tableName) {
+    $columns = [];
+
     $columns["artists"] = [
-        "artists.artistId" => "",
-        "artists.name" => "",
-        "artists.country" => "",
-        "artists.foundationYear" => "",
-        "artists.logo" => "",
-        "artists.photo" => "",
+        "artists.artistId" => "i",
+        "artists.name" => "s",
+        "artists.country" => "s",
+        "artists.foundationYear" => "s",
+        "artists.logo" => "s",
+        "artists.photo" => "s",
     ];
 
     $columns["genres"] = [
-        "genres.genreId" => "",
-        "genres.name" => ""
+        "genres.genreId" => "i",
+        "genres.name" => "s"
     ];
 
     $columns["labels"] = [
-        "labels.labelId" => "",
-        "labels.name" => "",
-        "labels.country" => "",
-        "labels.foundationYear" => "",
-        "labels.logo" => ""
+        "labels.labelId" => "i",
+        "labels.name" => "s",
+        "labels.country" => "s",
+        "labels.foundationYear" => "s",
+        "labels.logo" => "s"
     ];
 
     $columns["records"] = [
-        "records.recordId" => "",
-        "records.labelId" => "",
-        "records.title" => "",
-        "records.releaseDate" => "",
-        "records.cover" => "",
-        "records.price" => ""
+        "records.recordId" => "i",
+        "records.labelId" => "i",
+        "records.title" => "s",
+        "records.releaseDate" => "s",
+        "records.cover" => "s",
+        "records.price" => "d"
     ];
 
     $columns["tracks"] = [
-        "tracks.trackId" => "",
-        "tracks.artistId" => "",
-        "tracks.genreId" => "",
-        "tracks.title" => "",
-        "tracks.duration" => ""
+        "tracks.trackId" => "i",
+        "tracks.artistId" => "i",
+        "tracks.genreId" => "i",
+        "tracks.title" => "s",
+        "tracks.duration" => "i"
     ];
 
-    return (isset($columns[$table])) ? $columns[$table] : null;
+    $columns["users"] = [
+        "users.userId" => "i",
+        "users.firstName" => "s",
+        "users.lastName" => "s",
+        "users.email" => "s",
+        "users.password" => "s",
+        "users.admin" => "i"
+    ];
+
+    return $columns[$tableName];
+}
+
+function getColumns($tableName) {
+    $table = array_keys(getTable($tableName));
+    if (empty($table)) {
+        return null;
+    }
+
+    return array_fill_keys($table, "");
+}
+
+function getParams($tableName, $columns) {
+    $params = [];
+    $params[0] = "";
+
+    $table = getTable($tableName);
+    if (!empty($table)) {
+        foreach ($columns as $column) {
+            $value = $table[$tableName . "." . $column];
+            if (!$value) {
+                continue;
+            }
+
+            $params[0] .= $value; 
+        }
+    }
+
+    return $params;
 }

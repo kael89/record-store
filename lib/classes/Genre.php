@@ -1,5 +1,4 @@
 <?php
-
 class Genre {
     private $id;
     private $name;
@@ -11,5 +10,13 @@ class Genre {
 
     public function getId() {
         return $this->id;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName() {
+        // to be implemented 
     }
 }
