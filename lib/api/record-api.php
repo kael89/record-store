@@ -7,6 +7,10 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/genre-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
+function updateRecord($id, $row) {
+    return updateRow("records", $row, ["recordId =" => $id]);
+}
+
 function getRecordById($id) {
     if ($id < 1) {
         return null;

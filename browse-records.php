@@ -46,7 +46,7 @@ require_once "templates/header.php";
         <li><a href="#">W</a></li>
         <li><a href="#">X</a></li>
         <li><a href="#">Y</a></li>
-        <li><a href="#">Z</a></li>
+        <li><a href="#">Z</a></li>β
         <li>
             <a href="#"><span>&raquo;</span></a>
         </li>
@@ -54,12 +54,14 @@ require_once "templates/header.php";
 </nav>
 
 <?php
-// var_dump($columns["test"]);
-$res = getRecordsByTitle('The Nu%', true);
-var_dump($res[0]->getArtists());
-echo "<br><br>";
-var_dump($res[0]->getTracks());
-echo "<br><br>";
+
+$res = getTracksByTitle("Gangland", true)[0];
+$res->setDuration("666");
+echo $res->getDuration();
+// var_dump(getGenreByName("test"));
+// var_dump(getGenreByName("new"));
+
+
 ?>
 
 <?php require_once "templates/footer.php";

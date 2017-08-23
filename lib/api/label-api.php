@@ -2,6 +2,10 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
 
+function updateLabel($id, $row) {
+    return updateRow("labels", $row, ["labelId =" => $id]);
+}
+
 function getLabelById($id) {
     if ($id < 1) {
         return null;

@@ -7,6 +7,16 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
+// Returns 0 if name already exists in the table
+function createGenre($name) {
+    $insertId = insertRow("genres", ["name" => $name]);
+    return new Genre($insertId, $name);
+}
+
+function updateGenre($id, $row) {
+    return updateRow("genres", $row, ["genreId =" => $id]);
+}
+
 function getGenreById($id) {
     if ($id < 1) {
         return null;

@@ -64,8 +64,7 @@ function getColumns($tableName) {
 }
 
 function getParams($tableName, $columns) {
-    $params = [];
-    $params[0] = "";
+    $params = "";
 
     $table = getTable($tableName);
     if (!empty($table)) {
@@ -75,7 +74,7 @@ function getParams($tableName, $columns) {
                 continue;
             }
 
-            $params[0] .= $value; 
+            $params .= $value; 
         }
     }
 

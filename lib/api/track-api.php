@@ -2,6 +2,19 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
 
+function createTrack($artistId, $genreId) {
+    if ($artistId < 0) {
+        return null;
+    }
+
+    $insertId = insertRow("tracks", ["name" => $name]);
+    return new Genre($insertId, $name);
+}
+
+function updateTrack($id, $row) {
+    return updateRow("tracks", $row, ["trackId =" => $id]);
+}
+
 function getTrackById($id) {
     if ($id < 1) {
         return null;
