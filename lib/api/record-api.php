@@ -11,6 +11,10 @@ function updateRecord($id, $row) {
     return updateRow("records", $row, ["recordId =" => $id]);
 }
 
+function isRecord($id) {
+    return isRow("records", "recordId", $id);
+}
+
 function getRecordById($id) {
     if ($id < 1) {
         return null;

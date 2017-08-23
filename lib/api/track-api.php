@@ -15,6 +15,10 @@ function updateTrack($id, $row) {
     return updateRow("tracks", $row, ["trackId =" => $id]);
 }
 
+function isTrack($id) {
+    return isRow("tracks", "trackId", $id);
+}
+
 function getTrackById($id) {
     if ($id < 1) {
         return null;

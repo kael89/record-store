@@ -1,4 +1,5 @@
 <?php
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/genre-api.php";
 
 class Track {
     private $id;
@@ -32,31 +33,57 @@ class Track {
         return $this->title;
     }
 
-    public function setTitle() {
-        // to be implemented
+    public function setTitle($title) {
+        if (updateTrack($this->id, ["title" => $title])) {
+            $this->title = $title;
+        } else {
+            return false;
+        };
     }
 
     public function getDuration() {
         return $this->duration;
     }
 
-    public function setDuration() {
-        // to be implemented
+    public function setDuration($duration) {
+        if ($duration < 0) {
+            return false;
+        }
+
+        if (updateTrack($this->id, ["duration" => $duration])) {
+            $this->duration = $duration;
+        } else {
+            return false;
+        };
     }
 
     public function getArtist() {
         return $this->artist;
     }
 
-    public function setArtist() {
-        // to be implemented
+    public function setArtist($id) {
+        if (!isArtist($id)) {
+            return false;
+        }
+
+        if (updateTrack($this->id, ["artistId" => $id])) {
+            $this->artistId = $id;
+            $this->artist = getArtistById($id)->getName();
+        }
     }
 
     public function getGenre() {
         return $this->genre;
     }
 
-    public function setGenre() {
-        // to be implemented
+    public function setGenre($id) {
+        if (!isGenre($id)) {
+            return false;
+        }
+
+        if (updateTrack($this->id, ["genreId" => $id])) {
+            $this->genreId = $id;
+            $this->genre = getGenreById($id)->getName();
+        }
     }
 }

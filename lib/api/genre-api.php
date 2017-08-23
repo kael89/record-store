@@ -17,6 +17,10 @@ function updateGenre($id, $row) {
     return updateRow("genres", $row, ["genreId =" => $id]);
 }
 
+function isGenre($id) {
+    return isRow("genres", "genreId", $id);
+}
+
 function getGenreById($id) {
     if ($id < 1) {
         return null;

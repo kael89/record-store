@@ -55,9 +55,14 @@ require_once "templates/header.php";
 
 <?php
 
-$res = getTracksByTitle("Gangland", true)[0];
-$res->setDuration("666");
-echo $res->getDuration();
+$t = getTracksByArtistId(3)[0]->getGenre();
+// // $t = $t[0];
+
+// $id = createGenre("ska")->getId(); consoleLog($id);
+// $t->setGenre($id);
+var_dump($t);
+// $res->setDuration("666");
+// echo $res->getDuration();
 // var_dump(getGenreByName("test"));
 // var_dump(getGenreByName("new"));
 

@@ -6,6 +6,10 @@ function updateLabel($id, $row) {
     return updateRow("labels", $row, ["labelId =" => $id]);
 }
 
+function isLabel($id) {
+    return isRow("labels", "labelId", $id);
+}
+
 function getLabelById($id) {
     if ($id < 1) {
         return null;

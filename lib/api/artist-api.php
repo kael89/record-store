@@ -11,6 +11,10 @@ function updateArtist($id, $row) {
     return updateRow("artists", $row, ["artistId =" => $id]);
 }
 
+function isArtist($id) {
+    return isRow("artists", "artistId", $id);
+}
+
 function getArtistById($id) {
     if ($id < 1) {
         return null;

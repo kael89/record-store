@@ -1,4 +1,6 @@
 <?php
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
+
 class Genre {
     private $id;
     private $name;
@@ -16,7 +18,12 @@ class Genre {
         return $this->name;
     }
 
-    public function setName() {
-        // to be implemented 
+    public function setName($name) {
+        if (updateGenre($this->id, ["name" => "$name"])) {
+            $this->name = $name;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

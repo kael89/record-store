@@ -109,9 +109,6 @@ function updateRow($table, $row, $where) {
 
 function getRows($table, $columns, $joins = [], $distinct = false, $append = "") {
     $mysqli = getSession("mysqli");
-    $query = "";
-    $result = [];
-    $rows = [];
 
     $select = "SELECT ";
     if ($distinct) {
@@ -132,15 +129,25 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
         }
     }
 
-    $query = rtrim($select, ",") . " FROM $table $join $where $append"; //consoleLog($query);
+    $query = rtrim($select, ",") . " FROM $table $join $where $append";
     $result = $mysqli->query($query);
     if (!$result) {
         return;
     }
 
+    $rows = [];
     while ($row = $result->fetch_assoc()) {
         $rows[] = $row;
     }
 
     return $rows;
+}
+
+function isRow($table, $column, $value) {
+    $mysqli = getSession("mysqli");
+
+    $query = "SELECT $column FROM $table WHERE $column = $value";
+    $result = $mysqli->query($query);
+
+    return $result->num_rows;
 }
