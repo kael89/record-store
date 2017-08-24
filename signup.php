@@ -1,7 +1,7 @@
 <?php
 $title = "Signup";
-require_once "templates/head.php";
-require_once "templates/header.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/head.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/header.php";
 
 $title = 'Signup';
 ?>
@@ -52,4 +52,4 @@ $title = 'Signup';
 </form>
 <script src="js/signup.js"></script>
 
-<?php require_once "templates/footer.php";
+<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/footer.php";

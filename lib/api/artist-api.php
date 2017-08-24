@@ -7,6 +7,15 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
+function createTrack($trackId, $artistId, $genreId, $title = "", $duration = 0) {
+    if ($trackId < 1 || $artistId < 0 || $genreId < 0) {
+        return null;
+    }
+
+    $insertId = insertRow("tracks", ["name" => $name]);
+    return new Genre($insertId, $name);
+}
+
 function updateArtist($id, $row) {
     return updateRow("artists", $row, ["artistId =" => $id]);
 }
@@ -117,7 +126,6 @@ function getArtistsByLabelId($id) {
     $joins = [
         "artistsRecords" => "artistsRecords.artistId=artists.artistId",
         "records" => "records.recordId=artistsRecords.recordId"
-        // "labels" => "labels.labelId=records.labelId"
     ];
 
     $results = getRows("artists", $columns, $joins, true);

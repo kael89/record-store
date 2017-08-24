@@ -1,19 +1,19 @@
 <?php
-require_once "lib/classes/Record.php";
-require_once "lib/classes/Label.php";
-require_once "lib/classes/Genre.php";
-require_once "lib/classes/Track.php";
-require_once "lib/classes/Artist.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Record.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Label.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Genre.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Track.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Artist.php";
 
-require_once "lib/api/record-api.php";
-require_once "lib/api/label-api.php";
-require_once "lib/api/genre-api.php";
-require_once "lib/api/track-api.php";
-require_once "lib/api/artist-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/genre-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/artist-api.php";
 
 $title = 'Browse Records';
-require_once "templates/head.php";
-require_once "templates/header.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/head.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/header.php";
 ?>
  
 <nav>
@@ -55,18 +55,11 @@ require_once "templates/header.php";
 
 <?php
 
-$t = getTracksByArtistId(3)[0]->getGenre();
-// // $t = $t[0];
+$x = createTrack("Stranded", "Gojira")[0];
+var_dump("Metallica");
 
-// $id = createGenre("ska")->getId(); consoleLog($id);
-// $t->setGenre($id);
-var_dump($t);
-// $res->setDuration("666");
-// echo $res->getDuration();
-// var_dump(getGenreByName("test"));
-// var_dump(getGenreByName("new"));
 
 
 ?>
 
-<?php require_once "templates/footer.php";
+<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/footer.php";

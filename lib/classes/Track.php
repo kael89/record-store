@@ -11,12 +11,12 @@ class Track {
     private $artist;
     private $genre;
 
-    public function __construct($id, $title = "", $duration = 0, $artistId = 0, $genreId = 0) {
+    public function __construct($id, $artistId = 0, $genreId = 0, $title = "", $duration = 0) {
         $this->id = $id;
-        $this->title = isset($title) ? $title : "";
-        $this->duration = isset($duration) ? $duration : 0;
-        $this->artistId = isset($artistId) ?$artistId : 0;
-        $this->genreId = isset($genreId) ? $genreId : 0;
+        $this->artistId = $artistId;
+        $this->genreId = $genreId;
+        $this->title = $title;
+        $this->duration = $duration;
 
         $artist = getArtistById($artistId);
         $this->artist = ($artist) ? $artist->getName() : "";

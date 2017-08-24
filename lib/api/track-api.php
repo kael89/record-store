@@ -2,13 +2,31 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
 
-function createTrack($artistId, $genreId) {
-    if ($artistId < 0) {
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/artist-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/genre-api.php";
+
+function createTrack($title = "", $artistId = 0, $genreId = 0, $duration = 0) {
+    $row = [];
+
+    if ($title !== "" && isArtist($artistId)) {
+        $row["title"] = $title;
+        $row["artistId"] = $artistId;
+    } else {
         return null;
     }
 
-    $insertId = insertRow("tracks", ["name" => $name]);
-    return new Genre($insertId, $name);
+    if (isGenre($genreId)) {
+        $row["genreId"] = $genreId;
+    }
+    if ($duration > 0) {
+        $row["duration"] = $duration;
+    }
+
+    if ($insertId = insertRow("tracks", $row)) {
+        return new Track($insertId, $artistId, $genreId, $title, $duration);
+    } else {
+        return null;
+    }
 }
 
 function updateTrack($id, $row) {

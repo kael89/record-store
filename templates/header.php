@@ -1,6 +1,6 @@
 <?php
-require_once "lib/classes/User.php";
-require_once "lib/library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/User.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
 $user = getSession("user");
 ?>
 

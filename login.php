@@ -31,4 +31,4 @@ require_once "templates/header.php";
 <p id="noAccount">Don't have an account yet?</p>
 <a class="btn btn-primary" href="signup.php">Signup!</a>
 
-<?php require_once "templates/footer.php";
+<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/footer.php";

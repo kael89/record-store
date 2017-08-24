@@ -1,8 +1,8 @@
 <?php
 /* Program */
-require_once "lib/classes/User.php";
-require_once "lib/library.php";
-require_once "lib/database.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/User.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
 
 switch (getGet("action")) {
     case "signup":
@@ -52,5 +52,5 @@ require_once "templates/header.php";
 
 <p>Welcome to Metal Militia!</p>
 
-<?php require_once "templates/footer.php";
+<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/footer.php";
 /********/
