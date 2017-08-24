@@ -4,6 +4,10 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/artist-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/genre-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
+
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Track.php";
 
 function createTrack($title = "", $artistId = 0, $genreId = 0, $duration = 0) {
     $row = [];
@@ -51,7 +55,7 @@ function getTrackById($id) {
     }
 
     extract($result[0]);
-    return new Track($trackId, $title, $duration, $artistId, $genreId);
+    return new Track($trackId, $artistId, $genreId, $title, $duration);
 }
 
 function getTracksByArtistId($id) {
@@ -70,7 +74,7 @@ function getTracksByArtistId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
+        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -106,7 +110,7 @@ function getTracksByGenreId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
+        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -133,7 +137,7 @@ function getTracksByTitle($title, $search = false) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
+        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -152,7 +156,7 @@ function getTracksByDuration($duration) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
+        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -178,7 +182,7 @@ function getTracksByLabelId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
+        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -218,7 +222,7 @@ function getTracksByRecordId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $title, $duration, $artistId, $genreId);
+        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
     }
 
     return $tracks;

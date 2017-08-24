@@ -83,22 +83,6 @@ INSERT INTO tracks VALUES(25, 2, 1, 'Gangland', NULL);
 INSERT INTO tracks VALUES(26, 2, 1, 'Hallowed Be Thy Name', NULL);
 
 
-
-
-##artistsRecords(artistId, recordId)
-DELETE FROM artistsRecords;
-INSERT INTO artistsRecords VALUES(1, 1);
-INSERT INTO artistsRecords VALUES(1, 2);
-INSERT INTO artistsRecords VALUES(2, 3);
-INSERT INTO artistsRecords VALUES(3, 4);
-INSERT INTO artistsRecords VALUES(3, 5);
-INSERT INTO artistsRecords VALUES(4, 6);
-INSERT INTO artistsRecords VALUES(4, 7);
-INSERT INTO artistsRecords VALUES(4, 8);
-INSERT INTO artistsRecords VALUES(5, 9);
-INSERT INTO artistsRecords VALUES(5, 10);
-
-
 ##recordsTracks(recordId, trackId, trackNumber)
 DELETE FROM recordsTracks;
 #Metallica - Kill 'em All (10 tracks)

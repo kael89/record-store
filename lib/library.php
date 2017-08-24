@@ -1,9 +1,13 @@
 <?php
 
-function consoleLog($var) {
-    echo "<script>";
-    echo "console.log(" . json_encode($var) . ")";
-    echo "</script>";
+function consoleLog() {
+    $args = func_get_args();
+    
+    foreach ($args as $arg) {
+        echo "<script>";
+        echo "console.log(" . json_encode($arg) . ")";
+        echo "</script>";
+    }
 }
 
 function getGet($var) {

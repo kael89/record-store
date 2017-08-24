@@ -55,8 +55,18 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/header.php";
 
 <?php
 
-$x = createTrack("Stranded", "Gojira")[0];
-var_dump("Metallica");
+// $x = getTracksByTitle("Fuel")[0];
+// $x->setTitle("Afraid to Shoot Strangers");
+// $x->setDuration(333);
+// $x->setArtist(2);
+// $x->setArtist(3);
+
+$x = getRecordsByArtistId(1);
+foreach ($x as $i) {
+    var_dump($i->getTracks(), "<br><br>");
+}
+
+// var_dump($x);
 
 
 

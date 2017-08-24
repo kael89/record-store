@@ -2,6 +2,13 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
 
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/artist-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
+
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Genre.php";
+
 function updateLabel($id, $row) {
     return updateRow("labels", $row, ["labelId =" => $id]);
 }
@@ -105,10 +112,11 @@ function getLabelsByArtistId($id) {
     }
 
     $columns = getColumns("labels");
-    $columns["artistsRecords.artistId"] = "=$id";
+    $columns["tracks.artistId"] = "=$id";
     $joins = [
         "records" => "records.labelId=labels.labelId",
-        "artistsRecords" => "artistsRecords.recordId=records.recordId",
+        "recordsTracks" => "recordsTracks.recordId=records.recordId",
+        "tracks" => "tracks.trackId=recordsTracks.trackId",
     ];
 
     $results = getRows("labels", $columns, $joins, true);

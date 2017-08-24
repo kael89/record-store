@@ -65,15 +65,6 @@ CREATE TABLE records(
     FOREIGN KEY(labelId) REFERENCES labels(labelId)
 );
 
-DROP TABLE IF EXISTS artistsRecords;
-CREATE TABLE artistsRecords(
-    artistId SMALLINT UNSIGNED NOT NULL,
-    recordId SMALLINT UNSIGNED NOT NULL,
-    PRIMARY KEY (artistId, recordId),
-    FOREIGN KEY (artistId) REFERENCES artists(artistId),
-    FOREIGN KEY (recordId) REFERENCES records(recordId)
-);
-
 DROP TABLE IF EXISTS recordsTracks;
 CREATE TABLE recordsTracks(
     recordId SMALLINT UNSIGNED NOT NULL,

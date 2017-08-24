@@ -7,6 +7,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/genre-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Record.php";
+
 function updateRecord($id, $row) {
     return updateRow("records", $row, ["recordId =" => $id]);
 }
@@ -118,10 +120,13 @@ function getRecordsByArtistId($id) {
     }
 
     $columns = getColumns("records");
-    $columns["records.recordId"] = "=artistsRecords.recordId";
-    $joins = ["artistsRecords" => "artistsRecords.artistId=$id"];
+    $columns["tracks.artistId"] = "=$id";
+    $joins = [
+        "recordsTracks" => "recordsTracks.recordId=records.recordId",
+        "tracks" => "tracks.trackId=recordsTracks.trackId"
+    ];
 
-    $results = getRows("records", $columns, $joins);
+    $results = getRows("records", $columns, $joins, true);
     if (!$results) {
         return null;
     }

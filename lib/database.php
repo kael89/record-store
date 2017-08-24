@@ -129,7 +129,7 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
         }
     }
 
-    $query = rtrim($select, ",") . " FROM $table $join $where $append";
+    $query = rtrim($select, ",") . " FROM $table $join $where $append"; //consoleLog($query);
     $result = $mysqli->query($query);
     if (!$result) {
         return;

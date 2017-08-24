@@ -7,6 +7,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Genre.php";
 // Returns 0 if name already exists in the table
 function createGenre($name) {
     $insertId = insertRow("genres", ["name" => $name]);
@@ -75,7 +76,7 @@ function getGenresByArtistId($id) {
 }
 
 function getGenresByArtistName($name, $search = false) {
-    $artists = getartistsByName($name, $search);
+    $artists = getArtistsByName($name, $search);
     if (!$artists) {
         return null;
     }

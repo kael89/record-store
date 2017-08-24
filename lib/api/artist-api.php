@@ -7,20 +7,30 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
-function createTrack($trackId, $artistId, $genreId, $title = "", $duration = 0) {
-    if ($trackId < 1 || $artistId < 0 || $genreId < 0) {
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Artist.php";
+
+// function createArtist($trackId, $artistId, $genreId, $title = "", $duration = 0) {
+//     if ($trackId < 1 || $artistId < 0 || $genreId < 0) {
+//         return null;
+//     }
+
+//     $insertId = insertRow("tracks", ["name" => $name]);
+//     return new Genre($insertId, $name);
+// }
+
+function updateArtist($id, $row) {
+    if ($id < 1) {
         return null;
     }
 
-    $insertId = insertRow("tracks", ["name" => $name]);
-    return new Genre($insertId, $name);
-}
-
-function updateArtist($id, $row) {
     return updateRow("artists", $row, ["artistId =" => $id]);
 }
 
 function isArtist($id) {
+    if ($id < 1) {
+        return null;
+    }
+
     return isRow("artists", "artistId", $id);
 }
 
@@ -124,8 +134,9 @@ function getArtistsByLabelId($id) {
     $columns = getColumns("artists");
     $columns["records.labelId"] = "=$id";
     $joins = [
-        "artistsRecords" => "artistsRecords.artistId=artists.artistId",
-        "records" => "records.recordId=artistsRecords.recordId"
+        "tracks" => "tracks.artistId=artists.artistId",
+        "recordsTracks" => "recordsTracks.trackId=tracks.trackId",
+        "records" => "records.recordId=recordsTracks.recordId"
     ];
 
     $results = getRows("artists", $columns, $joins, true);
@@ -162,13 +173,13 @@ function getArtistsByRecordId($id) {
     }
 
     $columns = getColumns("artists");
-    $columns["records.recordId"] = "=$id";
+    $columns["recordsTracks.recordId"] = "=$id";
     $joins = [
-        "artistsRecords" => "artistsRecords.artistId=artists.artistId",
-        "records" => "records.recordId=artistsRecords.recordId",
+        "tracks" => "tracks.artistId=artists.artistId",
+        "recordsTracks" => "recordsTracks.trackId=tracks.trackId"
     ];
 
-    $results = getRows("artists", $columns, $joins);
+    $results = getRows("artists", $columns, $joins, true);
     if (!$results) {
         return null;
     }
