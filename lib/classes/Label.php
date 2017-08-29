@@ -23,31 +23,48 @@ class Label {
         return $this->name;
     }
 
-    public function setName() {
-        // to be implemented
+    public function setName($name) {
+        if (updateLabel($this->id, ["name" => $name])) {
+            $this->name = $name;
+        } else {
+            return false;
+        };
     }
 
     public function getCountry() {
         return $this->country;
     }
 
-    public function setCountry() {
-        // to be implemented
+    public function setCountry($country) {
+        if (updateLabel($this->id, ["name" => $country])) {
+            $this->country = $country;
+        } else {
+            return false;
+        };
     }
 
     public function getFoundationYear() {
         return $this->foundationYear;
     }
 
-    public function setFoundationYear() {
-        // to be implemented
+    public function setFoundationYear($year) {
+        if (updateLabel($this->id, ["foundationYear" => $year])) {
+            $this->foundationYear = $year;
+        } else {
+            return false;
+        };
     }
 
     public function getLogo() {
         return $this->logo;
     }
 
-    public function setLogo() {
-        // to be implemented
+    public function setLogo($logo) {
+        if (!updateLabel($this->id, ["logo" => $logo])) {
+            return false;
+        }
+
+        $this->logo = $logo;
+        return true;
     }
 }

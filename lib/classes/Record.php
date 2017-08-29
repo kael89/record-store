@@ -20,7 +20,7 @@ class Record {
     // Array (assoc.) - ["title", "artist", "genre", "duration"]
     private $tracks;
     
-    public function __construct($id, $labelId, $title = "", $releaseDate = "", $cover = "", $price = "") {
+    public function __construct($id, $labelId, $title = "", $releaseDate = "", $cover = "", $price = 0) {
         $this->id = $id;
         $this->labelId = $labelId;
         $this->title = $title;
@@ -36,17 +36,9 @@ class Record {
 
         $this->label = getLabelById($labelId)->getName();
 
-        $this->tracks = [];
-        if ($tracks = getTracksByRecordId($id)) {
-            foreach ($tracks as $track) {
-                $this->tracks[] = [
-                    "title" => $track->getTitle(),
-                    "artist" => $track->getArtist(),
-                    "genre" => $track->getGenre(),
-                    "duration" => $track->getDuration()
-                ];
-            }
-        }
+        $tracks = getTracksByRecordId($id);
+        setTracks($tracks);
+
     }
 
     public function getId() {
@@ -61,48 +53,71 @@ class Record {
         return $this->title;
     }
 
-    public function setTitle() {
-        // to be implemented
+    public function setTitle($title) {
+        if (updateRecord($this->id, ["title" => $title])) {
+            $this->title = $title;
+        } else {
+            return false;
+        };
     }
 
     public function getReleaseDate() {
         return $this->releaseDate;
     }
 
-    public function setReleaseDate() {
-        // to be implemented
+    public function setReleaseDate($date) {
+        if (updateArtist($this->id, ["releaseDate" => $date])) {
+            $this->releaseDate = $date;
+        } else {
+            return false;
+        };
     }
 
     public function getCover() {
         return $this->cover;
     }
 
-    public function setCover() {
-        // to be implemented
+    public function setCover($cover) {
+        if (updateArtist($this->id, ["cover" => $cover])) {
+            $this->cover = $cover;
+        } else {
+            return false;
+        };
     }
 
     public function getPrice() {
         return $this->title;
     }
 
-    public function setPrice() {
-        // to be implemented
+    public function setPrice($price) {
+        if ($price < 0) {
+            return false;
+        }
+
+        if (updateArtist($this->id, ["price" => $price])) {
+            $this->price = $price;
+        } else {
+            return false;
+        };
     }
 
     public function getArtists() {
         return $this->artists;
     }
 
-    public function setRecordArtist() {
-        // to be implemented
-    }
-
     public function getLabel() {
         return $this->label;
     }
 
-    public function setLabel() {
-        // to be implemented
+    public function setLabel($id) {
+        if (!isLabel($id) || !updateTrack($this->id, ["labelId" => $id])) {
+            return false;
+        }
+
+        $this->labelId = $id;
+        $this->label = getLabelById($id)->getName();
+        return true;
+
     }
 
     public function getTracks() {
@@ -110,6 +125,22 @@ class Record {
     }
 
     public function setTracks($tracks) {
-        // to be implemented
+        foreach ($tracks as $track) {
+            $this->tracks[] = [
+                "title" => $track->getTitle(),
+                "artist" => $track->getArtist(),
+                "genre" => $track->getGenre(),
+                "duration" => $track->getDuration()
+            ];
+        }
+    }
+
+    public function updateTrack($track, $number) {
+        $this->tracks[$number] = [
+            "title" => $track->getTitle(),
+            "artist" => $track->getArtist(),
+            "genre" => $track->getGenre(),
+            "duration" => $track->getDuration()
+        ];
     }
 }

@@ -26,11 +26,12 @@ class Artist {
     }
 
     public function setName($name) {
-        if (updateArtist($this->id, ["name" => $name])) {
-            $this->name = $name;
-        } else {
+        if (!updateArtist($this->id, ["name" => $name])) {
             return false;
-        };
+        }
+
+        $this->name = $name;
+        return true;
     }
 
     public function getCountry() {
@@ -38,11 +39,12 @@ class Artist {
     }
 
     public function setCountry($country) {
-        if (updateArtist($this->id, ["country" => $country])) {
-            $this->country = $country;
-        } else {
+        if (!updateArtist($this->id, ["country" => $country])) {
             return false;
-        };
+        }
+
+        $this->country = $country;
+        return true;
     }
 
     public function getFoundationYear() {
@@ -50,11 +52,12 @@ class Artist {
     }
 
     public function setFoundationYear(int $year) {
-        if (updateArtist($this->id, ["foundationYear" => $year])) {
-            $this->foundationYear = $year;
-        } else {
+        if (!updateArtist($this->id, ["foundationYear" => $year])) {
             return false;
-        };
+        }
+
+        $this->foundationYear = $year;
+        return true;
     }
 
     public function getLogo() {
@@ -62,11 +65,12 @@ class Artist {
     }
 
     public function setLogo($logo) {
-        if (updateArtist($this->id, ["logo" => $logo])) {
-            $this->logo = $logo;
-        } else {
+        if (!updateArtist($this->id, ["logo" => $logo])) {
             return false;
-        };
+        }
+
+        $this->logo = $logo;
+        return true;
     }
 
     public function getPhoto() {
@@ -74,10 +78,11 @@ class Artist {
     }
 
     public function setPhoto($photo) {
-        if (updateArtist($this->id, ["photo" => $photo])) {
-            $this->photo = $photo;
-        } else {
+        if (!updateArtist($this->id, ["photo" => $photo])) {
             return false;
-        };
+        }
+
+        $this->photo = $photo;
+        return true;
     }
 }

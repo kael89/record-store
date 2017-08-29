@@ -19,12 +19,8 @@ function createTrack($title = "", $artistId = 0, $genreId = 0, $duration = 0) {
         return null;
     }
 
-    if (isGenre($genreId)) {
-        $row["genreId"] = $genreId;
-    }
-    if ($duration > 0) {
-        $row["duration"] = $duration;
-    }
+    $row["genreId"] = $genreId;
+    $row["duration"] = $duration;
 
     if ($insertId = insertRow("tracks", $row)) {
         return new Track($insertId, $artistId, $genreId, $title, $duration);
@@ -60,7 +56,7 @@ function getTrackById($id) {
 
 function getTracksByArtistId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("tracks");
@@ -68,7 +64,7 @@ function getTracksByArtistId($id) {
 
     $results = getRows("tracks", $columns);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $tracks = [];
@@ -83,7 +79,7 @@ function getTracksByArtistId($id) {
 function getTracksByArtistName($name, $search = false) {
     $artists = getArtistsByName($name, $search);
     if (!$artists) {
-        return null;
+        return [];
     }
 
     $tracks = [];
@@ -96,7 +92,7 @@ function getTracksByArtistName($name, $search = false) {
 
 function getTracksByGenreId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("tracks");
@@ -104,7 +100,7 @@ function getTracksByGenreId($id) {
 
     $results = getRows("tracks", $columns);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $tracks = [];
@@ -119,7 +115,7 @@ function getTracksByGenreId($id) {
 function getTracksByGenreName($name, $search = false) {
     $genre = getGenreByName($name, $search);
     if (!$genre) {
-        return null;
+        return [];
     }
 
     return getTracksByGenreId($genre->getId());
@@ -131,7 +127,7 @@ function getTracksByTitle($title, $search = false) {
 
     $results = getRows("tracks", $columns);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $tracks = [];
@@ -150,7 +146,7 @@ function getTracksByDuration($duration) {
 
     $results = getRows("tracks", $columns);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $tracks = [];
@@ -164,7 +160,7 @@ function getTracksByDuration($duration) {
 
 function getTracksByLabelId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("tracks");
@@ -176,7 +172,7 @@ function getTracksByLabelId($id) {
     
     $results = getRows("tracks", $columns, $joins);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $tracks = [];
@@ -191,7 +187,7 @@ function getTracksByLabelId($id) {
 function getTracksByLabelName($name, $search = false) {
     $labels = getLabelsByName($name, $search);
     if (!$labels) {
-        return null;
+        return [];
     }
 
     $tracks = [];
@@ -207,7 +203,7 @@ function getTracksByLabelName($name, $search = false) {
 
 function getTracksByRecordId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("tracks");
@@ -216,7 +212,7 @@ function getTracksByRecordId($id) {
     
     $results = getRows("tracks", $columns, $joins);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $tracks = [];
@@ -231,7 +227,7 @@ function getTracksByRecordId($id) {
 function getTracksByRecordTitle($title, $search = false) {
     $records = getRecordsBytitle($title, $search);
     if (!$records) {
-        return null;
+        return [];
     }
 
     $tracks = [];

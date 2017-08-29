@@ -19,11 +19,11 @@ class Genre {
     }
 
     public function setName($name) {
-        if (updateGenre($this->id, ["name" => "$name"])) {
-            $this->name = $name;
-            return true;
-        } else {
+        if (!updateGenre($this->id, ["name" => "$name"])) {
             return false;
         }
+
+        $this->name = $name;
+        return true;
     }
 }

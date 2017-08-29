@@ -9,28 +9,31 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Artist.php";
 
-// function createArtist($trackId, $artistId, $genreId, $title = "", $duration = 0) {
-//     if ($trackId < 1 || $artistId < 0 || $genreId < 0) {
-//         return null;
-//     }
+function createArtist($name, $country = "", $foundationYear = 0, $logo = "", $photo = "") {
+    if ($name !== "") {
+        $row["name"] = $name;
+    } else {
+        return null;
+    }
 
-//     $insertId = insertRow("tracks", ["name" => $name]);
-//     return new Genre($insertId, $name);
-// }
+        $row["duration"] = $duration;
+
+    if ($insertId = insertRow("tracks", $row)) {
+        return new Track($insertId, $artistId, $genreId, $title, $duration);
+    } else {
+        return null;
+    }
+}
 
 function updateArtist($id, $row) {
     if ($id < 1) {
-        return null;
+        return false;
     }
 
     return updateRow("artists", $row, ["artistId =" => $id]);
 }
 
 function isArtist($id) {
-    if ($id < 1) {
-        return null;
-    }
-
     return isRow("artists", "artistId", $id);
 }
 
@@ -55,12 +58,8 @@ function getArtistsByName($name, $search = false) {
     $columns = getColumns("artists");
     $columns["artists.name"] = ($search) ? " LIKE '$name'" : "='$name'";
 
-    $results = getRows("artists", $columns);
-    if (!$results) {
-        return null;
-    }
-
     $artists = [];
+    $results = getRows("artists", $columns);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
@@ -73,12 +72,8 @@ function getArtistsByCountry($country, $search = false) {
     $columns = getColumns("artists");
     $columns["artists.country"] = ($search) ? " LIKE '$country'" : "='$country'";
 
-    $results = getRows("artists", $columns);
-    if (!$results) {
-        return null;
-    }
-
     $artists = [];
+    $results = getRows("artists", $columns);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
@@ -93,7 +88,7 @@ function getArtistsByFoundationYear() {
 
 function getArtistsByGenreId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("artists");
@@ -103,12 +98,8 @@ function getArtistsByGenreId($id) {
         "genres" => "genres.genreId=tracks.genreId"
     ];
 
-    $results = getRows("artists", $columns, $joins, true);
-    if (!$results) {
-        return null;
-    }
-
     $artists = [];
+    $results = getRows("artists", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
@@ -119,16 +110,17 @@ function getArtistsByGenreId($id) {
 
 function getArtistsByGenreName($name, $search = false) {
     $genre = getGenreByName($name, $search);
-    if (!$genre) {
-        return null;
+    $artists = [];
+    if ($genre) {
+        $artists = getArtistsByGenreId($genre->getId());
     }
 
-    return getArtistsByGenreId($genre->getId());
+    return $artists;
 }
 
 function getArtistsByLabelId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("artists");
@@ -139,12 +131,8 @@ function getArtistsByLabelId($id) {
         "records" => "records.recordId=recordsTracks.recordId"
     ];
 
-    $results = getRows("artists", $columns, $joins, true);
-    if (!$results) {
-        return null;
-    }
-
     $artists = [];
+    $results = getRows("artists", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
@@ -155,10 +143,6 @@ function getArtistsByLabelId($id) {
 
 function getArtistsByLabelName($name, $search = false) {
     $labels = getLabelsByName($name, $search);
-    if (!$labels) {
-        return null;
-    }
-
     $artists = [];
     foreach ($labels as $label) {
         $artists = array_merge($artists, getArtistsByLabelId($label->getId()));
@@ -169,7 +153,7 @@ function getArtistsByLabelName($name, $search = false) {
 
 function getArtistsByRecordId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("artists");
@@ -179,12 +163,8 @@ function getArtistsByRecordId($id) {
         "recordsTracks" => "recordsTracks.trackId=tracks.trackId"
     ];
 
-    $results = getRows("artists", $columns, $joins, true);
-    if (!$results) {
-        return null;
-    }
-
     $artists = [];
+    $results = getRows("artists", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
@@ -195,10 +175,6 @@ function getArtistsByRecordId($id) {
 
 function getArtistsByRecordTitle($title, $search = false) {
     $records = getRecordsByTitle($title, $search);
-    if (!$records) {
-        return null;
-    }
-
     $artists = [];
     foreach ($records as $record) {
         $artists = array_merge($artists, getArtistsByRecordId($record->getId()));
@@ -218,29 +194,20 @@ function getArtistByTrackId($id) {
         "tracks" => "tracks.artistId=artists.artistId",
     ];
 
-    $results = getRows("artists", $columns, $joins);
-    if (!$results) {
+    $result = getRows("artists", $columns, $joins);
+    if (!$result) {
         return null;
     }
 
-    $artists = [];
-    foreach ($results as $result) {
-        extract($result);
-        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
-    }
-
-    return $artists;
+    extract($result[0]);
+    return new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
 }
 
 function getArtistsByTrackTitle($title, $search = false) {
     $tracks = getTracksByTitle($title, $search);
-    if (!$tracks) {
-        return null;
-    }
-
     $artists = [];
     foreach ($tracks as $track) {
-        $artists = array_merge($artists, getArtistByTrackId($track->getId()));
+        $artists[] = getArtistByTrackId($track->getId());
     }
 
     return $artists;

@@ -46,7 +46,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/header.php";
         <li><a href="#">W</a></li>
         <li><a href="#">X</a></li>
         <li><a href="#">Y</a></li>
-        <li><a href="#">Z</a></li>β
+        <li><a href="#">Z</a></li>
         <li>
             <a href="#"><span>&raquo;</span></a>
         </li>
@@ -54,21 +54,11 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/header.php";
 </nav>
 
 <?php
+var_dump(createTrack("Bleeding Me", 1, 2, 200));
 
-// $x = getTracksByTitle("Fuel")[0];
-// $x->setTitle("Afraid to Shoot Strangers");
-// $x->setDuration(333);
-// $x->setArtist(2);
-// $x->setArtist(3);
-
-$x = getRecordsByArtistId(1);
-foreach ($x as $i) {
-    var_dump($i->getTracks(), "<br><br>");
-}
+$x = getArtistByTrackId(22);
 
 // var_dump($x);
-
-
 
 ?>
 

@@ -131,11 +131,11 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
 
     $query = rtrim($select, ",") . " FROM $table $join $where $append"; //consoleLog($query);
     $result = $mysqli->query($query);
-    if (!$result) {
-        return;
-    }
 
     $rows = [];
+    if (!$result) {
+        return $rows;
+    }
     while ($row = $result->fetch_assoc()) {
         $rows[] = $row;
     }

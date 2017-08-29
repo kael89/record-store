@@ -14,9 +14,9 @@ class Track {
     public function __construct($id, $artistId = 0, $genreId = 0, $title = "", $duration = 0) {
         $this->id = $id;
         $this->artistId = $artistId;
-        $this->genreId = $genreId;
+        $this->genreId = isGenre($genreId) ? $genreId : 0;
         $this->title = $title;
-        $this->duration = $duration;
+        $this->duration = ($duration > 0) ? $duration : 0;
 
         $artist = getArtistById($artistId);
         $this->artist = ($artist) ? $artist->getName() : "";
@@ -69,6 +69,7 @@ class Track {
         if (updateTrack($this->id, ["artistId" => $id])) {
             $this->artistId = $id;
             $this->artist = getArtistById($id)->getName();
+            return true;
         }
     }
 

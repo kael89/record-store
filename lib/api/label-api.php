@@ -9,6 +9,26 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Genre.php";
 
+function createLabel($name, $country = "", $foundationYear = 0, $logo = "") {
+    $row = [];
+
+    if ($name !== "") {
+        $row["name"] = $name;
+    } else {
+        return null;
+    }
+
+    $row["country"] = $country;
+    $row["foundationYear"] = $foundationYear;
+    $row["logo"] = $logo;
+    
+    if ($insertId = insertRow("labels", $row)) {
+        return new Label($insertId, $name, $country, $foundationYear, $logo);
+    } else {
+        return null;
+    }
+}
+
 function updateLabel($id, $row) {
     return updateRow("labels", $row, ["labelId =" => $id]);
 }
@@ -40,7 +60,7 @@ function getLabelsByName($name, $search = false) {
 
     $results = getRows("labels", $columns);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $labels = [];
@@ -58,7 +78,7 @@ function getLabelsByCountry($country, $search = false) {
 
     $results = getRows("labels", $columns);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $labels = [];
@@ -95,7 +115,7 @@ function getLabelByRecordId($id) {
 function getLabelsByRecordTitle($title, $search = false) {
     $records = getRecordsByTitle($title, $search);
     if (!$records) {
-        return null;
+        return [];
     }
 
     $labels = [];
@@ -108,7 +128,7 @@ function getLabelsByRecordTitle($title, $search = false) {
 
 function getLabelsByArtistId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("labels");
@@ -121,7 +141,7 @@ function getLabelsByArtistId($id) {
 
     $results = getRows("labels", $columns, $joins, true);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $labels = [];
@@ -136,7 +156,7 @@ function getLabelsByArtistId($id) {
 function getLabelsByArtistName($name, $search = false) {
     $artists = getArtistsByName($name, $search);
     if (!$artists) {
-        return null;
+        return [];
     }
 
     $labels = [];
@@ -149,7 +169,7 @@ function getLabelsByArtistName($name, $search = false) {
 
 function getLabelsByGenreId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("labels");
@@ -162,7 +182,7 @@ function getLabelsByGenreId($id) {
 
     $results = getRows("labels", $columns, $joins, true);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $labels = [];
@@ -177,7 +197,7 @@ function getLabelsByGenreId($id) {
 function getLabelsByGenreName($name, $search = false) {
     $genre = getGenreByName($name, $search);
     if (!$genre) {
-        return null;
+        return [];
     }
 
     return getLabelsByGenreId($genre->getId());
@@ -207,7 +227,7 @@ function getLabelByTrackId($id) {
 function getLabelsByTrackTitle($title, $search = false) {
     $tracks = getTracksByTitle($title, $search);
     if (!$tracks) {
-        return null;
+        return [];
     }
 
     $labels = [];

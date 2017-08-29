@@ -8,8 +8,13 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Genre.php";
+
 // Returns 0 if name already exists in the table
 function createGenre($name) {
+    if ($name === "") {
+        return null;
+    }
+
     $insertId = insertRow("genres", ["name" => $name]);
     return new Genre($insertId, $name);
 }
@@ -54,19 +59,15 @@ function getGenreByName($name, $search = false) {
 
 function getGenresByArtistId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("genres");
     $columns["tracks.artistId"] = "=$id";
     $joins = ["tracks" => "tracks.genreId=genres.genreId"];
 
-    $results = getRows("genres", $columns, $joins, true);
-    if (!$results) {
-        return null;
-    }
-
     $genres = [];
+    $results = getRows("genres", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
         $genres[] = new Genre($genreId, $name);
@@ -77,10 +78,6 @@ function getGenresByArtistId($id) {
 
 function getGenresByArtistName($name, $search = false) {
     $artists = getArtistsByName($name, $search);
-    if (!$artists) {
-        return null;
-    }
-
     $genres = [];
     foreach ($artists as $artist) {
         $newGenres = getGenresByArtistId($artist->getId());
@@ -94,7 +91,7 @@ function getGenresByArtistName($name, $search = false) {
 
 function getGenresByLabelId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("genres");
@@ -105,12 +102,8 @@ function getGenresByLabelId($id) {
         "records" => "records.recordId=recordsTracks.recordId"
     ];
 
-    $results = getRows("genres", $columns, $joins, true);
-    if (!$results) {
-        return null;
-    }
-
     $genres = [];
+    $results = getRows("genres", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
         $genres[] = new Genre($genreId, $name);
@@ -121,10 +114,6 @@ function getGenresByLabelId($id) {
 
 function getGenresByLabelName($name, $search = false) {
     $labels = getLabelsByName($name, $search);
-    if (!$labels) {
-        return null;
-    }
-
     $artists = [];
     foreach ($labels as $label) {
         $newGenres = getGenresByLabelId($label->getId());
@@ -138,7 +127,7 @@ function getGenresByLabelName($name, $search = false) {
 
 function getGenresByRecordId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("genres");
@@ -148,12 +137,8 @@ function getGenresByRecordId($id) {
         "recordsTracks" => "recordsTracks.trackId=tracks.trackId",
     ];
 
-    $results = getRows("genres", $columns, $joins, true);
-    if (!$results) {
-        return null;
-    }
-
     $genres = [];
+    $results = getRows("genres", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
         $genres[] = new Genre($genreId, $name);
@@ -164,10 +149,6 @@ function getGenresByRecordId($id) {
 
 function getGenresByRecordTitle($name, $search = false) {
     $records = getRecordsByTitle($name, $search);
-    if (!$records) {
-        return null;
-    }
-
     $genres = [];
     foreach ($records as $record) {
         $newRecords = getGenresByRecordId($record->getId());
@@ -181,7 +162,7 @@ function getGenresByRecordTitle($name, $search = false) {
 
 function getGenreByTrackId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("genres");
@@ -190,12 +171,8 @@ function getGenreByTrackId($id) {
         "tracks" => "tracks.genreId=genres.genreId",
     ];
 
-    $results = getRows("genres", $columns, $joins, true);
-    if (!$results) {
-        return null;
-    }
-
     $genres = [];
+    $results = getRows("genres", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
         $genres[] = new Genre($genreId, $name);
@@ -206,10 +183,6 @@ function getGenreByTrackId($id) {
 
 function getGenresByTrackTitle() {
     $tracks = getTracksByTitle($name, $search);
-    if (!$tracks) {
-        return null;
-    }
-
     $genres = [];
     foreach ($tracks as $track) {
         $newTracks = getGenreBytrackId($track->getId());

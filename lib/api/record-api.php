@@ -9,6 +9,27 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Record.php";
 
+function createRecord($title = "", $labelId = 0, $releaseDate = "", $cover = "", $price = 0) {
+    $row = [];
+
+    if ($title !== "" && isLabel($labelId)) {
+        $row["title"] = $title;
+        $row["labelId"] = $labelId;
+    } else {
+        return null;
+    }
+
+    $row["releaseDate"] = $releaseDate;
+    $row["cover"] = $cover;
+    $row["price"] = $price;
+
+    if ($insertId = insertRow("records", $row)) {
+        return new Record($insertId, $labelId, $title, $releaseDate, $cover, $price);
+    } else {
+        return null;
+    }
+}
+
 function updateRecord($id, $row) {
     return updateRow("records", $row, ["recordId =" => $id]);
 }
@@ -36,7 +57,7 @@ function getRecordById($id) {
 
 function getRecordsByLabelId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("records");
@@ -44,7 +65,7 @@ function getRecordsByLabelId($id) {
 
     $results = getRows("records", $columns);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $records = [];
@@ -59,7 +80,7 @@ function getRecordsByLabelId($id) {
 function getRecordsByLabelName($name, $search = false) {
     $labels = getLabelsByName($name, $search);
     if (!$labels) {
-        return null;
+        return [];
     }
 
     $records = [];
@@ -79,7 +100,7 @@ function getRecordsByTitle($title, $search = false) {
 
     $results = getRows("records", $columns);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $records = [];
@@ -102,7 +123,7 @@ function getRecordsByPrice($price) {
 
     $results = getRows("records", $columns);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $records = [];
@@ -116,7 +137,7 @@ function getRecordsByPrice($price) {
 
 function getRecordsByArtistId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("records");
@@ -128,7 +149,7 @@ function getRecordsByArtistId($id) {
 
     $results = getRows("records", $columns, $joins, true);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $records = [];
@@ -143,7 +164,7 @@ function getRecordsByArtistId($id) {
 function getRecordsByArtistName($name, $search = false) {
     $artists = getArtistsByName($name, $search);
     if (!$artists) {
-        return null;
+        return [];
     }
 
     $records = [];
@@ -159,7 +180,7 @@ function getRecordsByArtistName($name, $search = false) {
 
 function getRecordsByGenreId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("records");
@@ -171,7 +192,7 @@ function getRecordsByGenreId($id) {
 
     $results = getRows("records", $columns, $joins, true);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $records = [];
@@ -186,7 +207,7 @@ function getRecordsByGenreId($id) {
 function getRecordsByGenreName($name, $search = false) {
     $genre = getGenreByName($name, $search);
     if (!$genre) {
-        return null;
+        return [];
     }
 
     return getRecordsByGenreId($genre->getId());
@@ -194,7 +215,7 @@ function getRecordsByGenreName($name, $search = false) {
 
 function getRecordsByTrackId($id) {
     if ($id < 1) {
-        return null;
+        return [];
     }
 
     $columns = getColumns("records");
@@ -203,7 +224,7 @@ function getRecordsByTrackId($id) {
 
     $results = getRows("records", $columns, $joins);
     if (!$results) {
-        return null;
+        return [];
     }
 
     $records = [];
@@ -218,7 +239,7 @@ function getRecordsByTrackId($id) {
 function getRecordsByTrackTitle($title, $search = false) {
     $tracks = getTracksByTitle($title, $search);
     if (!$tracks) {
-        return null;
+        return [];
     }
 
     $records = [];
