@@ -2,7 +2,6 @@
 /* Program */
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/User.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
 
 switch (getGet("action")) {
     case "signup":

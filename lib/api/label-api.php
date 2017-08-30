@@ -1,13 +1,13 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/artist-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
 
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Genre.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Label.php";
 
 function createLabel($name, $country = "", $foundationYear = 0, $logo = "") {
     $row = [];

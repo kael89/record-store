@@ -26,9 +26,9 @@ require_once "templates/header.php";
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
 </form>
-<script src="js/login.js"></script>
 
 <p id="noAccount">Don't have an account yet?</p>
 <a class="btn btn-primary" href="signup.php">Signup!</a>
 
+<script src="js/login.js"></script>
 <?php require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/templates/footer.php";

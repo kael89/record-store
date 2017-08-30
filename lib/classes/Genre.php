@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/database.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
 
 class Genre {
     private $id;

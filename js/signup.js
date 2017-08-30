@@ -29,7 +29,7 @@ function validateEmail(valid) {
 
     return $.ajax({
         type: 'POST',
-        url: '/record-store/lib/database.php?action=get_rows',
+        url: '/record-store/lib/queries.php?action=get_rows',
         data: {
             "table": 'users',
             "columns": {

@@ -37,8 +37,7 @@ class Record {
         $this->label = getLabelById($labelId)->getName();
 
         $tracks = getTracksByRecordId($id);
-        setTracks($tracks);
-
+        $this->setTracks($tracks);
     }
 
     public function getId() {

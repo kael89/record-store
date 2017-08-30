@@ -23,12 +23,12 @@ function validateUser(valid) {
 
     return $.ajax({
         type: 'POST',
-        url: '/record-store/lib/database.php?action=user_login',
+        url: '/record-store/lib/queries.php?action=user_login',
         data: {
             "email": email,
             "password": password
         }
-    }).done(function(result) {console.log(result);
+    }).done(function(result) {
         if (result) {
             removeError('email');
             $('#loginForm')[0].submit();
