@@ -38,9 +38,9 @@ INSERT INTO genres VALUES(4, 'Nu Metal');
 
 ##records(recordId, labelId, title, releaseDate, cover, price)
 DELETE FROM records;
-INSERT INTO records VALUES(1, 1, 'Kill ''em All', '1983-07-25', NULL, 09.99);
-INSERT INTO records VALUES(2, 1, 'RIde The Lightning', '1984-07-27', NULL, 09.75);
-INSERT INTO records VALUES(3, 2, 'The Number of the Beast', '1982-03-22', NULL, 12.15);
+INSERT INTO records VALUES(1, 1, 'Kill ''em All', '1983-07-25', 'kill_em_all.jpg', 09.99);
+INSERT INTO records VALUES(2, 1, 'Ride The Lightning', '1984-07-27', 'ride_the_lightning.jpg', 09.75);
+INSERT INTO records VALUES(3, 2, 'The Number of the Beast', '1982-03-22', 'the_number_of_the_beast.jpg', 12.15);
 INSERT INTO records VALUES(4, 3, 'Black Sabbath', '1970-02-13', NULL, 08.99);
 INSERT INTO records VALUES(5, 3, 'ParanoId', '1970-09-18', NULL, 08.99);
 INSERT INTO records VALUES(6, 4, 'Sad Wings of Destiny', '1976-03-23', NULL, 07.50);

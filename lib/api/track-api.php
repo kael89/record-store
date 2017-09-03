@@ -1,13 +1,8 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/artist-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/genre-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Track.php";
+requirePhp("tables");
+requirePhp("api");
+requirePhp("class", "track");
 
 function createTrack($title = "", $artistId = 0, $genreId = 0, $duration = 0) {
     $row = [];

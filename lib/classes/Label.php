@@ -1,4 +1,6 @@
 <?php
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+requirePhp("api", "label");
 
 class Label {
     private $id;

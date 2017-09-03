@@ -1,13 +1,8 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/artist-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Genre.php";
+requirePhp("tables");
+requirePhp("api");
+requirePhp("class", "genre");
 
 // Returns 0 if name already exists in the table
 function createGenre($name) {

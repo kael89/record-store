@@ -1,9 +1,6 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/artist-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/genre-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/user-api.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+requirePhp("api");
 
 class Record {
     private $id;

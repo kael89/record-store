@@ -1,13 +1,8 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/genre-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/label-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/track-api.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/classes/Artist.php";
+requirePhp("tables");
+requirePhp("api");
+requirePhp("class", "artist");
 
 function createArtist($name, $country = "", $foundationYear = 0, $logo = "", $photo = "") {
     if ($name !== "") {

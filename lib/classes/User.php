@@ -1,4 +1,5 @@
 <?php
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
 
 class User {
     const salt = "v$%2";

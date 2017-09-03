@@ -1,8 +1,7 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/tables.php";
-
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/api/record-api.php";
+requirePhp("tables");
+requirePhp("api", "record");
 
 switch (getGet("action")) {
     case "get_rows":

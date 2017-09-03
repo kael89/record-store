@@ -4,16 +4,81 @@ if (!isset($mysqli)) {
     $mysqli = connectToDB(); 
 }
 
-
 /*** DEBUG ***/
 function consoleLog() {
     $args = func_get_args();
     
     foreach ($args as $arg) {
-        echo "<script>";
-        echo "console.log(" . json_encode($arg) . ")";
-        echo "</script>";
+        echo "<script>console.log(" . json_encode($arg) . ")</script>";
     }
+}
+
+/*** FILE REFERENCE ***/
+function getPath($path) {
+    return $_SERVER["DOCUMENT_ROOT"] . "/record-store/$path"; 
+}
+
+function requirePhp($type, $name = '') {
+    // Tables for file categories that can be included as a whole
+    $api = [
+        "artist" => "lib/api/artist-api.php",
+        "genre" => "lib/api/genre-api.php",
+        "label" => "lib/api/label-api.php",
+        "record" => "lib/api/record-api.php",
+        "track" => "lib/api/track-api.php",
+        "user" => "lib/api/user-api.php"
+    ];
+    $class = [
+        "artist" => "lib/classes/Artist.php",
+        "genre" => "lib/classes/Genre.php",
+        "label" => "lib/classes/Label.php",
+        "record" => "lib/classes/Record.php",
+        "track" => "lib/classes/Track.php",
+        "user" => "lib/classes/User.php"
+    ];
+
+    $filepaths = [];
+    $arr = [];
+    switch ($type) {
+        // Back-end functionality
+        case "api":
+        case "class":
+            $arr = $$type;
+            if ($name == "") {
+                $filepaths = $arr;
+            } else {
+                $filepaths[] = getPath($arr[$name]);
+            }
+            break;
+        case "template":
+            $filepaths[] = getPath("templates/$name.php");
+            break;
+        case "page": 
+            $filepaths[] = getPath("pages/$name.php");
+            break;
+        case "tables":
+            $filepaths[] = getPath("lib/tables.php");
+            break;
+        case "file":
+        default:
+            $filepaths[] = getPath($name);
+            break;
+    }
+
+    // If $filepaths[] contains more than 1 element,
+    // it is a given array with valid data
+    if (count($filepaths) > 1) {
+        foreach ($filepaths as $key => $path) {
+            require_once getPath($path);
+        }
+    } else {
+        if (!file_exists($filepaths[0])) {
+            return false;
+        }
+        require_once $filepaths[0];
+    }
+
+    return true;
 }
 
 /*** $_POST, $_GET ***/
@@ -178,4 +243,3 @@ function isRow($table, $column, $value) {
 
     return $result->num_rows;
 }
-/******/
