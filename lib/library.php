@@ -18,7 +18,25 @@ function getPath($path) {
     return $_SERVER["DOCUMENT_ROOT"] . "/record-store/$path"; 
 }
 
-function requirePhp($type, $name = '') {
+function getImage($type, $name = "", $size = "sm") {
+    $sizes = [
+        "sm",
+        "lg"
+    ];
+
+    switch ($type) {
+        case "record":
+            if (!in_array($size, $sizes)) {
+                $size = "sm";
+            }
+            return "/record-store/img/records/$size/$name";
+            break;
+        default:
+            break;
+    }
+}
+
+function requirePhp($type, $name = "") {
     // Tables for file categories that can be included as a whole
     $api = [
         "artist" => "lib/api/artist-api.php",

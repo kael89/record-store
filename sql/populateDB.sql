@@ -38,16 +38,16 @@ INSERT INTO genres VALUES(4, 'Nu Metal');
 
 ##records(recordId, labelId, title, releaseDate, cover, price)
 DELETE FROM records;
-INSERT INTO records VALUES(1, 1, 'Kill ''em All', '1983-07-25', 'kill_em_all.jpg', 09.99);
-INSERT INTO records VALUES(2, 1, 'Ride The Lightning', '1984-07-27', 'ride_the_lightning.jpg', 09.75);
-INSERT INTO records VALUES(3, 2, 'The Number of the Beast', '1982-03-22', 'the_number_of_the_beast.jpg', 12.15);
-INSERT INTO records VALUES(4, 3, 'Black Sabbath', '1970-02-13', NULL, 08.99);
-INSERT INTO records VALUES(5, 3, 'ParanoId', '1970-09-18', NULL, 08.99);
-INSERT INTO records VALUES(6, 4, 'Sad Wings of Destiny', '1976-03-23', NULL, 07.50);
-INSERT INTO records VALUES(7, 6, 'British Steel', '1980-04-14', NULL, 08.99);
-INSERT INTO records VALUES(8, 6, 'Painkiller', '1990-09-03', NULL, 12.10);
-INSERT INTO records VALUES(9, 5, 'Roots', '1996-02-20', NULL, 11.70);
-INSERT INTO records VALUES(10, 5, 'Chaos A.D.', '1993-10-19', NULL, 11.30);
+INSERT INTO records VALUES(1, 1, 'Kill ''em All', '1983-07-25', '1.jpg', 09.99);
+INSERT INTO records VALUES(2, 1, 'Ride the Lightning', '1984-07-27', '2.jpg', 09.75);
+INSERT INTO records VALUES(3, 2, 'The Number of the Beast', '1982-03-22', '3.jpg', 12.15);
+INSERT INTO records VALUES(4, 3, 'Black Sabbath', '1970-02-13', '4.jpg', 08.99);
+INSERT INTO records VALUES(5, 3, 'Paranoid', '1970-09-18', '5.jpg', 08.99);
+INSERT INTO records VALUES(6, 4, 'Sad Wings of Destiny', '1976-03-23', '6.jpg', 07.50);
+INSERT INTO records VALUES(7, 6, 'British Steel', '1980-04-14', '7.jpg', 08.99);
+INSERT INTO records VALUES(8, 6, 'Painkiller', '1990-09-03', '8.jpg', 12.10);
+INSERT INTO records VALUES(9, 5, 'Roots', '1996-02-20', '9.jpg', 11.70);
+INSERT INTO records VALUES(10, 5, 'Chaos A.D.', '1993-10-19', '10.jpg', 11.30);
 
 
 ##tracks(trackId, artistId, title, duration)

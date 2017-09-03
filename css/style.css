@@ -35,3 +35,7 @@ legend span {
 #navbarMsg {
     margin-right: 20px;
 }
+
+#recordNavbar {
+    text-transform: uppercase;
+}

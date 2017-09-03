@@ -69,8 +69,8 @@ class Record {
         };
     }
 
-    public function getCover() {
-        return $this->cover;
+    public function getCover($size = "sm") {
+        return getImage("record", $this->cover, $size);
     }
 
     public function setCover($cover) {

@@ -4,11 +4,13 @@ $(function() {
 
 function recordNavbarController() {
     var getParams,
+        matches,
         letter,
-        href;
+        index;
 
     getParams = window.location.search.substr(1);
-    letter = getParams.match(/(letter=)([A-Z])/i)[2];
-    href = 'browse-records.php?letter=' + letter;
-    $('.pagination li').has('a[href="' + href + '"]').addClass('active');
+    matches = getParams.match(/letter=([A-Z])/i);
+    letter = (matches) ? matches[1] : 'a';
+    index = letter.charCodeAt() - 'a'.charCodeAt();
+    $('.pagination li').eq(index).addClass('active');
 }
