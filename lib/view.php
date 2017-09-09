@@ -11,8 +11,8 @@ function viewDate($date) {
 }
 
 function viewDuration($secs) {
-    $min = $secs / 60;
+    $min = (int)($secs / 60);
     $secs -= $min * 60;
 
-    return $min . ":" . $secs;
+    return $min . ":" . str_pad($secs, 2, '0', STR_PAD_LEFT);
 }
