@@ -19,9 +19,9 @@ $user = getSession("user");
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
-                    <li><a href="?page=main">Main Page</a></li>
-                    <li><a href="?page=browse-records">Browse Records</a></li>
-                    <li><a href="?page=browse-artists">Browse Artists</a></li>
+                    <li><a href="?page=main" title="Main Page">Main Page</a></li>
+                    <li><a href="?page=records" title="Records">Records</a></li>
+                    <li><a href="?page=artists" title="Artists">Artists</a></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">

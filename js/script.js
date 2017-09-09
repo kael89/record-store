@@ -7,7 +7,6 @@ function headerController() {
     var matches = getParams.match(/page=[^&]*/);
     var page = (matches != null) ? matches[0] : 'main';
     var regex = page + '$';
-    console.log(regex);
 
     var found = false;
     $('.navbar-nav li a').each(function() {

@@ -50,67 +50,34 @@ INSERT INTO records VALUES(9, 5, 'Roots', '1996-02-20', '9.jpg', 11.70);
 INSERT INTO records VALUES(10, 5, 'Chaos A.D.', '1993-10-19', '10.jpg', 11.30);
 
 
-##tracks(trackId, artistId, title, duration)
+##tracks(trackId, artistId, recordId, genreId, title, duration)
 DELETE FROM tracks;
 #Metallica - Kill 'em All (10 tracks)
-INSERT INTO tracks VALUES(1, 1, 2, 'Hit the Lights', 256);
-INSERT INTO tracks VALUES(2, 1, 2, 'The Four Horsemen', 433);
-INSERT INTO tracks VALUES(3, 1, 2, 'Motorbreath', 188);
-INSERT INTO tracks VALUES(4, 1, 2, 'Jump in the Fire', 281);
-INSERT INTO tracks VALUES(5, 1, 2, '(Anesthesia) - Pulling Teeth', 255);
-INSERT INTO tracks VALUES(6, 1, 2, 'Whiplash', 250);
-INSERT INTO tracks VALUES(7, 1, 2, 'Phantom Lord', 302);
-INSERT INTO tracks VALUES(8, 1, 2, 'No Remorse', 386);
-INSERT INTO tracks VALUES(9, 1, 2, 'Seek & Destroy', 415);
-INSERT INTO tracks VALUES(10, 1, 2, 'Metal Militia', 309);
+INSERT INTO tracks VALUES(2, 1, 1, 2, 'The Four Horsemen', 433);
+INSERT INTO tracks VALUES(1, 1, 1, 2, 'Hit the Lights', 256);
+INSERT INTO tracks VALUES(3, 1, 1, 2, 'Motorbreath', 188);
+INSERT INTO tracks VALUES(4, 1, 1, 2, 'Jump in the Fire', 281);
+INSERT INTO tracks VALUES(5, 1, 1, 2, '(Anesthesia) - Pulling Teeth', 255);
+INSERT INTO tracks VALUES(6, 1, 1, 2, 'Whiplash', 250);
+INSERT INTO tracks VALUES(7, 1, 1, 2, 'Phantom Lord', 302);
+INSERT INTO tracks VALUES(8, 1, 1, 2, 'No Remorse', 386);
+INSERT INTO tracks VALUES(9, 1, 1, 2, 'Seek & Destroy', 415);
+INSERT INTO tracks VALUES(10, 1, 1, 2, 'Metal Militia', 309);
 #Metallica - RIde the Lightning (8 tracks)
-INSERT INTO tracks VALUES(11, 1, 2, 'Fight Fire with Fire', 285);
-INSERT INTO tracks VALUES(12, 1, 2, 'Ride the Lightning', 396);
-INSERT INTO tracks VALUES(13, 1, 2, 'For Whom the Bell Tolls', 309);
-INSERT INTO tracks VALUES(14, 1, 2, 'Fade to Black', 417);
-INSERT INTO tracks VALUES(15, 1, 2, 'Trapped Under Ice', 244);
-INSERT INTO tracks VALUES(16, 1, 2, 'Escape', 263);
-INSERT INTO tracks VALUES(17, 1, 2, 'Creeping Death', 396);
-INSERT INTO tracks VALUES(18, 1, 2, 'The Call of Ktulu', 523);
+INSERT INTO tracks VALUES(11, 1, 2, 2, 'Fight Fire with Fire', 285);
+INSERT INTO tracks VALUES(12, 1, 2, 2, 'Ride the Lightning', 396);
+INSERT INTO tracks VALUES(13, 1, 2, 2, 'For Whom the Bell Tolls', 309);
+INSERT INTO tracks VALUES(14, 1, 2, 2, 'Fade to Black', 417);
+INSERT INTO tracks VALUES(15, 1, 2, 2, 'Trapped Under Ice', 244);
+INSERT INTO tracks VALUES(16, 1, 2, 2, 'Escape', 263);
+INSERT INTO tracks VALUES(17, 1, 2, 2, 'Creeping Death', 396);
+INSERT INTO tracks VALUES(18, 1, 2, 2, 'The Call of Ktulu', 523);
 #Iron MaIden - The Number of the Beast (9 tracks)
-INSERT INTO tracks VALUES(19, 2, 1, 'Invaders', NULL);
-INSERT INTO tracks VALUES(20, 2, 1, 'Children of the Damned', NULL);
-INSERT INTO tracks VALUES(21, 2, 1, 'The Prisoner', NULL);
-INSERT INTO tracks VALUES(22, 2, 1, '22 Acacia Avenue', NULL);
-INSERT INTO tracks VALUES(23, 2, 1, 'The Number of the Beast', NULL);
-INSERT INTO tracks VALUES(24, 2, 1, 'Run to the Hills', NULL);
-INSERT INTO tracks VALUES(25, 2, 1, 'Gangland', NULL);
-INSERT INTO tracks VALUES(26, 2, 1, 'Hallowed Be Thy Name', NULL);
-
-
-##recordsTracks(recordId, trackId, trackNumber)
-DELETE FROM recordsTracks;
-#Metallica - Kill 'em All (10 tracks)
-INSERT INTO recordsTracks VALUES(1, 1, 1);
-INSERT INTO recordsTracks VALUES(1, 2, 2);
-INSERT INTO recordsTracks VALUES(1, 3, 3);
-INSERT INTO recordsTracks VALUES(1, 4, 4);
-INSERT INTO recordsTracks VALUES(1, 5, 5);
-INSERT INTO recordsTracks VALUES(1, 6, 6);
-INSERT INTO recordsTracks VALUES(1, 7, 7);
-INSERT INTO recordsTracks VALUES(1, 8, 8);
-INSERT INTO recordsTracks VALUES(1, 9, 9);
-INSERT INTO recordsTracks VALUES(1, 10, 10);
-#Metallica - RIde the Lightning (8 tracks)
-INSERT INTO recordsTracks VALUES(2, 11, 1);
-INSERT INTO recordsTracks VALUES(2, 12, 2);
-INSERT INTO recordsTracks VALUES(2, 13, 3);
-INSERT INTO recordsTracks VALUES(2, 14, 4);
-INSERT INTO recordsTracks VALUES(2, 15, 5);
-INSERT INTO recordsTracks VALUES(2, 16, 6);
-INSERT INTO recordsTracks VALUES(2, 17, 7);
-INSERT INTO recordsTracks VALUES(2, 18, 8);
-#Iron MaIden - The Number of the Beast (9 tracks)
-INSERT INTO recordsTracks VALUES(3, 19, 1);
-INSERT INTO recordsTracks VALUES(3, 20, 2);
-INSERT INTO recordsTracks VALUES(3, 21, 3);
-INSERT INTO recordsTracks VALUES(3, 22, 4);
-INSERT INTO recordsTracks VALUES(3, 23, 5);
-INSERT INTO recordsTracks VALUES(3, 24, 6);
-INSERT INTO recordsTracks VALUES(3, 25, 7);
-INSERT INTO recordsTracks VALUES(3, 26, 8);
+INSERT INTO tracks VALUES(19, 2, 3, 1, 'Invaders', NULL);
+INSERT INTO tracks VALUES(20, 2, 3, 1, 'Children of the Damned', NULL);
+INSERT INTO tracks VALUES(21, 2, 3, 1, 'The Prisoner', NULL);
+INSERT INTO tracks VALUES(22, 2, 3, 1, '22 Acacia Avenue', NULL);
+INSERT INTO tracks VALUES(23, 2, 3, 1, 'The Number of the Beast', NULL);
+INSERT INTO tracks VALUES(24, 2, 3, 1, 'Run to the Hills', NULL);
+INSERT INTO tracks VALUES(25, 2, 3, 1, 'Gangland', NULL);
+INSERT INTO tracks VALUES(26, 2, 3, 1, 'Hallowed Be Thy Name', NULL);

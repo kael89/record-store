@@ -21,6 +21,7 @@ function getPath($path) {
 function getImage($type, $name = "", $size = "sm") {
     $sizes = [
         "sm",
+        "md",
         "lg"
     ];
 
@@ -239,7 +240,7 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
         }
     }
 
-    $query = rtrim($select, ",") . " FROM $table $join $where $append"; //consoleLog($query);
+    $query = rtrim($select, ",") . " FROM $table $join $where $append"; // consoleLog($query);
     $result = $mysqli->query($query);
 
     $rows = [];

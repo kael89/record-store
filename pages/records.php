@@ -20,20 +20,20 @@ $records = getRecordsByTitle("%", true);
     </nav>
 </div>
 
-<?php displayRecords($records); ?>
+<?php printRecords($records); ?>
 
-<script src="js/browse-records.js"></script>
+<script src="js/records.js"></script>
 
 <?php
 /*** Functions ***/
 function printRecordNavbar() {
     for ($char = ord('a'); $char <= ord('z'); $char++) {
         $letter = chr($char);
-        echo "<li><a href=\"?page=browse-records&letter=$letter\">$letter</a></li>\n";
+        echo "<li><a href=\"?page=records&letter=$letter\">$letter</a></li>\n";
     }
 }
 
-function displayRecords($records) {
+function printRecords($records) {
     define("RECORDS_PER_LINE", 4);
     $size = (int)(12 / RECORDS_PER_LINE);
     if ($size < 1) {
@@ -48,8 +48,7 @@ function displayRecords($records) {
         $id = $record->getId();
         $title = $record->getTitle();
         $cover = $record->getCover();
-        $artists = $record->getArtists();
-        $artist = (count($artists) == 1) ? $artists[0] : "V.A."; 
+        $artist = viewArtistName($record);
 
         echo <<<_END
 $rowStart

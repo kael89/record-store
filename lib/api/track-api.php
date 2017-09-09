@@ -160,10 +160,7 @@ function getTracksByLabelId($id) {
 
     $columns = getColumns("tracks");
     $columns["records.labelId"] = "=$id";
-    $joins = [
-        "recordsTracks" => "recordsTracks.trackId=tracks.trackId",
-        "records" => "records.recordId=recordsTracks.recordId"
-    ];
+    $joins = ["records" => "records.recordId=tracks.recordId"];
     
     $results = getRows("tracks", $columns, $joins);
     if (!$results) {
@@ -202,10 +199,9 @@ function getTracksByRecordId($id) {
     }
 
     $columns = getColumns("tracks");
-    $columns["recordsTracks.recordId"] = "=$id";
-    $joins = ["recordsTracks" => "recordsTracks.trackId=tracks.trackId"];
+    $columns["tracks.recordId"] = "=$id";
     
-    $results = getRows("tracks", $columns, $joins);
+    $results = getRows("tracks", $columns);
     if (!$results) {
         return [];
     }

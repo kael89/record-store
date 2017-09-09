@@ -41,3 +41,10 @@ switch (getGet("action")) {
 /* View */
 ?>
 <p>Welcome to Metal Militia!</p>
+<?php 
+$label = getTracksByrecordId(1);
+consoleLog($label);
+consoleLog($label[0]->getTitle());
+
+
+?>

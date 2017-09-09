@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/view.php";
 
 $page = getGet("page");
 requirePhp("file", "templates/header.php");
