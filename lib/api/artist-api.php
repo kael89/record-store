@@ -11,10 +11,13 @@ function createArtist($name, $country = "", $foundationYear = 0, $logo = "", $ph
         return null;
     }
 
-        $row["duration"] = $duration;
+    $row["country"] = $country;
+    $row["foundationYear"] = ($foundationYear > 1900) ? $foundationYear : 0;
+    $row["logo"] = $logo;
+    $row["photo"] = $photo;
 
     if ($insertId = insertRow("tracks", $row)) {
-        return new Track($insertId, $artistId, $genreId, $title, $duration);
+        return new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
     } else {
         return null;
     }

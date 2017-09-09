@@ -14,9 +14,9 @@ class Record {
     private $artists;
     // String
     private $label;
-    // Array (assoc.) - ["title", "artist", "genre", "duration"]
+    // Array of Track objects
     private $tracks;
-    
+
     public function __construct($id, $labelId, $title = "", $releaseDate = "", $cover = "", $price = 0) {
         $this->id = $id;
         $this->labelId = $labelId;
@@ -24,17 +24,6 @@ class Record {
         $this->releaseDate = $releaseDate;
         $this->cover = $cover;
         $this->price = $price;
-
-        $artists = getArtistsByRecordId($id);
-        $this->artists = [];
-        foreach ($artists as $artist) {
-            $this->artists[] = $artist->getName();
-        }
-
-        $this->label = getLabelById($labelId)->getName();
-
-        $tracks = getTracksByRecordId($id);
-        $this->setTracks($tracks);
     }
 
     public function getId() {
@@ -98,10 +87,18 @@ class Record {
     }
 
     public function getArtists() {
+        if (!isset($this->artists)) {
+            $this->artists = getArtistsByRecordId($this->id);
+        }
+
         return $this->artists;
     }
 
     public function getLabel() {
+        if (!isset($this->label)) {
+            $this->label = getLabelById($this->labelId);
+        }
+
         return $this->label;
     }
 
@@ -111,12 +108,14 @@ class Record {
         }
 
         $this->labelId = $id;
-        $this->label = getLabelById($id)->getName();
         return true;
-
     }
 
     public function getTracks() {
+        if (!isset($this->tracks)) {
+            $this->tracks = getTracksByRecordId($this->id);
+        }
+
         return $this->tracks;
     }
 
@@ -124,8 +123,6 @@ class Record {
         foreach ($tracks as $track) {
             $this->tracks[] = [
                 "title" => $track->getTitle(),
-                "artist" => $track->getArtist(),
-                "genre" => $track->getGenre(),
                 "duration" => $track->getDuration()
             ];
         }

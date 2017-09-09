@@ -46,7 +46,7 @@ function getTrackById($id) {
     }
 
     extract($result[0]);
-    return new Track($trackId, $artistId, $genreId, $title, $duration);
+    return new Track($trackId, $artistId, $recordId, $genreId, $title, $duration);
 }
 
 function getTracksByArtistId($id) {
@@ -65,7 +65,7 @@ function getTracksByArtistId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -101,7 +101,7 @@ function getTracksByGenreId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -128,7 +128,7 @@ function getTracksByTitle($title, $search = false) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -147,7 +147,7 @@ function getTracksByDuration($duration) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -170,7 +170,7 @@ function getTracksByLabelId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $genreId, $title, $duration);
     }
 
     return $tracks;
@@ -209,7 +209,7 @@ function getTracksByRecordId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $genreId, $title, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $genreId, $title, $duration);
     }
 
     return $tracks;

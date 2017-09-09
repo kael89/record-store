@@ -3,11 +3,11 @@ requirePhp("class", "record");
 
 function viewArtistName($record) {
     $artists = $record->getArtists();
-    return (count($artists) == 1) ? $artists[0] : "V.A."; 
+    return (count($artists) == 1) ? $artists[0]->getName() : "V.A."; 
 }
 
 function viewDate($date) {
-    return date_format(new DateTime($date), "F j, Y");
+    return date("F j, Y", strtotime($date));
 }
 
 function viewDuration($secs) {

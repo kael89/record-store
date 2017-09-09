@@ -9,31 +9,29 @@ $title = $record->getTitle();
 $artist = viewArtistName($record);
 $tracks = $record->getTracks();
 $cover = $record->getCover("md");
-$releaseDate = viewDate("", $record->getReleaseDate());
-$label = $record->getLabel();
+$releaseDate = viewDate($record->getReleaseDate());
+$label = $record->getLabel()->getName();
 
 /*** View ***/
 ?>
 <div class="row">
-    <img src="<?= $cover ?>">
-</div>
-<div class="row">
-    <ul>
-        <li>Artist: <?= $artist ?></li>
-        <li>Title: <?= $title ?></li>
-        <li>Release date: <?= $releaseDate ?></li>
-        <li>Label: <?= $label ?></li>
-    </ul>
-</div>
-<div class="row">
-    <?php printTracks($tracks) ?>
+    <div class="col-xs-12 text-center">
+        <img src="<?= $cover ?>">
+        <ul>
+            <li>Artist: <?= $artist ?></li>
+            <li>Title: <?= $title ?></li>
+            <li>Release date: <?= $releaseDate ?></li>
+            <li>Label: <?= $label ?></li>
+        </ul>
+        <h3>Tracklist</h3>
+        <?php printTracks($tracks) ?>
+    </div>
 </div>
 
 <?php
 /*** Functions ***/
 function printTracks($tracks) {
-    echo "<table><tbody>";
-    consoleLog($tracks); die;
+    echo "<table class=\"table\"><tbody>";
     foreach ($tracks as $i => $track) { //consoleLog($track); die;
         $title = $track->getTitle();
         $duration = $track->getDuration();
