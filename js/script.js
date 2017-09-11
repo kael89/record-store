@@ -1,5 +1,6 @@
 $(function() {
     headerController();
+    letterNavbarController();
 })
 
 function headerController() {
@@ -23,4 +24,16 @@ function headerController() {
     if (!found) {
         $('#main-page').addClass('active');
     }
+}
+
+function letterNavbarController() {
+    if (!$('.letter-navbar')) {
+        return;
+    }
+
+    var getParams = window.location.search.substr(1);
+    var matches = getParams.match(/letter=([A-Z])/i);
+    var letter = (matches) ? matches[1] : 'a';
+    var index = letter.charCodeAt() - 'a'.charCodeAt();
+    $('.letter-navbar ul li').eq(index).addClass('active');
 }

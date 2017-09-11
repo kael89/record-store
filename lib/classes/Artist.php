@@ -75,6 +75,10 @@ class Artist {
         return true;
     }
 
+    public function getLogoImage($size = "sm") {
+        return getImage("artists", "logos", $this->logo, $size);
+    }
+
     public function getPhoto() {
         return $this->photo;
     }
@@ -86,5 +90,9 @@ class Artist {
 
         $this->photo = $photo;
         return true;
+    }
+
+    public function getPhotoImage($size = "sm") {
+        return getImage("artists", "photos", $this->photo, $size);
     }
 }

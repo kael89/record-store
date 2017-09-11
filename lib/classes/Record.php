@@ -34,6 +34,23 @@ class Record {
         return $this->labelId;
     }
 
+    public function getLabel() {
+        if (!isset($this->label)) {
+            $this->label = getLabelById($this->labelId);
+        }
+
+        return $this->label;
+    }
+
+    public function setLabel($id) {
+        if (!isLabel($id) || !updateTrack($this->id, ["labelId" => $id])) {
+            return false;
+        }
+
+        $this->labelId = $id;
+        return true;
+    }
+
     public function getTitle() {
         return $this->title;
     }
@@ -58,8 +75,8 @@ class Record {
         };
     }
 
-    public function getCover($size = "sm") {
-        return getImage("record", $this->cover, $size);
+    public function getCover() {
+        return $this->cover;
     }
 
     public function setCover($cover) {
@@ -68,6 +85,10 @@ class Record {
         } else {
             return false;
         };
+    }
+
+    public function getCoverImage($size = "sm") {
+        return getImage("records", "covers", $this->cover, $size);
     }
 
     public function getPrice() {
@@ -92,23 +113,6 @@ class Record {
         }
 
         return $this->artists;
-    }
-
-    public function getLabel() {
-        if (!isset($this->label)) {
-            $this->label = getLabelById($this->labelId);
-        }
-
-        return $this->label;
-    }
-
-    public function setLabel($id) {
-        if (!isLabel($id) || !updateTrack($this->id, ["labelId" => $id])) {
-            return false;
-        }
-
-        $this->labelId = $id;
-        return true;
     }
 
     public function getTracks() {

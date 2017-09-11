@@ -8,7 +8,8 @@ $record = getRecordById($id);
 $title = $record->getTitle();
 $artist = viewArtistName($record);
 $tracks = $record->getTracks();
-$cover = $record->getCover("md");
+$cover = $record->getCoverImage("md");
+$cover = $record->getCoverImage("md");
 $releaseDate = viewDate($record->getReleaseDate());
 $label = $record->getLabel()->getName();
 
@@ -47,7 +48,7 @@ $label = $record->getLabel()->getName();
 /*** Functions ***/
 function printTracks($tracks) {
     echo "<table class=\"table\"><caption>Tracklist</caption><tbody>";
-    foreach ($tracks as $i => $track) { //consoleLog($track); die;
+    foreach ($tracks as $i => $track) {
         $no = $i + 1;
         $title = $track->getTitle();
         $duration = viewDuration($track->getDuration());

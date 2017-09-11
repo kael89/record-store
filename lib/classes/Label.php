@@ -69,4 +69,8 @@ class Label {
         $this->logo = $logo;
         return true;
     }
+
+    public function getLogoImage($size = "sm") {
+        return getImage("labels", "logos", $this->logo, $size);
+    }
 }

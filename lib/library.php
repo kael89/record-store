@@ -18,23 +18,17 @@ function getPath($path) {
     return $_SERVER["DOCUMENT_ROOT"] . "/record-store/$path"; 
 }
 
-function getImage($type, $name = "", $size = "sm") {
+function getImage($type, $category, $name = "", $size = "sm") {
     $sizes = [
         "sm",
         "md",
         "lg"
     ];
 
-    switch ($type) {
-        case "record":
-            if (!in_array($size, $sizes)) {
-                $size = "sm";
-            }
-            return "/record-store/img/records/$size/$name";
-            break;
-        default:
-            break;
+    if (!in_array($size, $sizes)) {
+        $size = "sm";
     }
+    return "/record-store/img/$type/$category/$size/$name";
 }
 
 function requirePhp($type, $name = "") {
