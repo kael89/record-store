@@ -39,7 +39,7 @@ function printArtists($artists) {
 
         echo <<<_END
 $rowStart
-    <div class="record col-sm-$size">
+    <div class="artist col-sm-$size">
         <figure class="text-center">
             <img src="$logo" class="img-thumbnail" alt="$name logo"><br>
             <figcaption><a href="?page=artist-details&id=$id" title ="$name details">$name</a></figcaption>

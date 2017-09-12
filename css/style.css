@@ -51,14 +51,33 @@ legend span {
     margin-bottom: 20px;
 }
 
-.record {
+.record,
+.artist {
     margin: 20px 0px;
+}
+
+.record figcaption,
+.artist figcaption {
+    margin-top: 8px;
 }
 
 .record img {
     width: 200px;
 }
 
-.record figcaption {
-    margin-top: 8px;
+.artist img {
+    background: #3f2e2e;
+    border: none;
+}
+
+.artist {
+    width: 270px;
+    height: 150px;
+    position: relative;
+}
+
+.artist figure {
+    /* border: 1px solid red; */
+    position: absolute;
+    bottom: 0px;
 }
