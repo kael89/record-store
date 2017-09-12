@@ -6,7 +6,7 @@ requirePhp("api", 'record');
 $id = getGet("id");
 $record = getRecordById($id);
 $title = $record->getTitle();
-$artist = viewArtistName($record);
+$artist = viewArtistLink($record);
 $tracks = $record->getTracks();
 $cover = $record->getCoverImage("md");
 $cover = $record->getCoverImage("md");

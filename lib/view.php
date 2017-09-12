@@ -2,9 +2,17 @@
 requirePhp("class", "record");
 
 /*** FORMAT DATA ***/
-function viewArtistName($record) {
+function viewArtistLink($record) {
     $artists = $record->getArtists();
-    return (count($artists) == 1) ? $artists[0]->getName() : "V.A."; 
+    if (count($artists) == 1) {
+        $id = $artists[0]->getId();
+        $name = $artists[0]->getName();
+        $artist = "<a href=\"?page=artist-details&id=$id\" title=\"$name details\">$name</a>";
+    } else {
+        $artist = "V.A.";
+    }
+
+    return $artist;
 }
 
 function viewDate($date) {
@@ -42,17 +50,7 @@ function printRecords($records, $showArtists = true) {
         $recordId = $record->getId();
         $title = $record->getTitle();
         $cover = $record->getCoverImage();
-
-        $artists = $record->getArtists();
-        $artistName = viewArtistName($record);
-        if (!$showArtists) {
-            $artist = "";
-        } elseif (count($artists) == 1) {
-            $artistId = $artists[0]->getId();
-            $artist = "<a href=\"?page=artist-details&id=$artistId\" title=\"$artistName details\">$artistName</a> - ";
-        } else {
-            $artist = "$artistName - ";
-        }
+        $artist = ($showArtists) ? viewArtistLink($record) . " - " : "";
 
         echo <<<_END
 $rowStart
