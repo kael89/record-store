@@ -27,3 +27,42 @@ function printLetterNavbar($page) {
     }
     echo "</ul>";
 }
+
+function printRecords($records, $showArtists = true) {
+    define("RECORDS_PER_LINE", 4);
+    $size = (int)(12 / RECORDS_PER_LINE);
+    if ($size < 1) {
+        $size = 1;
+    }
+
+    foreach ($records as $i => $record) {
+        $rowStart = ($i % RECORDS_PER_LINE == 0) ? "<div class=\"row\">" : "";
+        $rowEnd = ($i % RECORDS_PER_LINE == RECORDS_PER_LINE - 1) ? "</div>" : "";
+
+        $recordId = $record->getId();
+        $title = $record->getTitle();
+        $cover = $record->getCoverImage();
+
+        $artists = $record->getArtists();
+        $artistName = viewArtistName($record);
+        if (!$showArtists) {
+            $artist = "";
+        } elseif (count($artists) == 1) {
+            $artistId = $artists[0]->getId();
+            $artist = "<a href=\"?page=artist-details&id=$artistId\" title=\"$artistName details\">$artistName</a> - ";
+        } else {
+            $artist = "$artistName - ";
+        }
+
+        echo <<<_END
+$rowStart
+    <div class="record col-sm-$size">
+        <figure class="text-center">
+            <img src="$cover" class="img-thumbnail" alt="$title cover"><br>
+            <figcaption>$artist<a href="?page=record-details&id=$recordId" title ="$title details">$title</a></figcaption>
+        </figure>
+    </div>
+$rowEnd
+_END;
+    }
+}

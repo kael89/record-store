@@ -38,4 +38,4 @@ $records = getRecordsByArtistId($id);
     </div>
 </div>
 
-<?php
+<?php printRecords($records, false) ?>
