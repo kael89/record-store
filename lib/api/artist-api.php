@@ -4,7 +4,7 @@ requirePhp("tables");
 requirePhp("api");
 requirePhp("class", "artist");
 
-function createArtist($name, $country = "", $foundationYear = 0, $logo = "", $photo = "") {
+function createArtist($name, $country = "", $foundationYear = 0, $logo = "", $photo = "", $bio = "") {
     if ($name !== "") {
         $row["name"] = $name;
     } else {
@@ -15,9 +15,10 @@ function createArtist($name, $country = "", $foundationYear = 0, $logo = "", $ph
     $row["foundationYear"] = ($foundationYear > 1900) ? $foundationYear : 0;
     $row["logo"] = $logo;
     $row["photo"] = $photo;
+    $row["bio"] = $bio;
 
     if ($insertId = insertRow("tracks", $row)) {
-        return new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
+        return new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
     } else {
         return null;
     }
@@ -49,7 +50,7 @@ function getArtistById($id) {
     }
 
     extract($result[0]);
-    return new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
+    return new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
 }
 
 function getArtistsByName($name, $search = false) {
@@ -60,7 +61,7 @@ function getArtistsByName($name, $search = false) {
     $results = getRows("artists", $columns);
     foreach ($results as $result) {
         extract($result);
-        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
+        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
     }
 
     return $artists;
@@ -74,7 +75,7 @@ function getArtistsByCountry($country, $search = false) {
     $results = getRows("artists", $columns);
     foreach ($results as $result) {
         extract($result);
-        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
+        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
     }
 
     return $artists;
@@ -100,7 +101,7 @@ function getArtistsByGenreId($id) {
     $results = getRows("artists", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
-        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
+        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
     }
 
     return $artists;
@@ -132,7 +133,7 @@ function getArtistsByLabelId($id) {
     $results = getRows("artists", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
-        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
+        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
     }
 
     return $artists;
@@ -161,7 +162,7 @@ function getArtistsByRecordId($id) {
     $results = getRows("artists", $columns, $joins, true);
     foreach ($results as $result) {
         extract($result);
-        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
+        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
     }
 
     return $artists;
@@ -192,7 +193,7 @@ function getArtistByTrackId($id) {
     }
 
     extract($result[0]);
-    return new Artist($artistId, $name, $country, $foundationYear, $logo, $photo);
+    return new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
 }
 
 function getArtistsByTrackTitle($title, $search = false) {

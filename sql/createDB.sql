@@ -21,6 +21,7 @@ CREATE TABLE artists(
     foundationYear YEAR,
     logo VARCHAR(255),
     photo VARCHAR(255),
+    bio MEDIUMTEXT,
     PRIMARY KEY(artistId)
 );
 

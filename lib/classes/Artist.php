@@ -9,14 +9,16 @@ class Artist {
     private $foundationYear;
     private $logo;
     private $photo;
+    private $bio;
 
-    public function __construct($id, $name = "", $country = "", $foundationYear = 0, $logo = "", $photo = "") {
+    public function __construct($id, $name = "", $country = "", $foundationYear = 0, $logo = "", $photo = "", $bio = "") {
         $this->id = $id;
         $this->name = $name;
         $this->country = $country;
         $this->foundationYear = $foundationYear;
         $this->logo = $logo;
         $this->photo = $photo;
+        $this->bio = $bio;
     }
 
     public function getId() {
@@ -50,7 +52,7 @@ class Artist {
     }
 
     public function getFoundationYear() {
-        return $this->FoundationYear;
+        return $this->foundationYear;
     }
 
     public function setFoundationYear(int $year) {
@@ -94,5 +96,18 @@ class Artist {
 
     public function getPhotoImage($size = "sm") {
         return getImage("artists", "photos", $this->photo, $size);
+    }
+
+    public function getBio() {
+        return $this->bio;
+    }
+
+    public function setBio($bio) {
+        if (!updateArtist($this->id, ["bio" => $bio])) {
+            return false;
+        }
+
+        $this->bio = $bio;
+        return true;
     }
 }

@@ -10,6 +10,7 @@ function getTable($tableName) {
         "artists.foundationYear" => "s",
         "artists.logo" => "s",
         "artists.photo" => "s",
+        "artists.bio" => "s",
     ];
 
     $columns["genres"] = [
