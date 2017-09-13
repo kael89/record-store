@@ -1,8 +1,14 @@
 <?php
+/*** Program ***/
 requirePhp("class", "user");
-$user = getSession("user");
-?>
+require_once $_SERVER['DOCUMENT_ROOT'] . "/record-store/lib/classes/User.php";
 
+$user = getSession("user");
+$logoutUri = preg_replace('/\?*?action=[^&]*&?/', '', $_SERVER['REQUEST_URI']);
+$logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=logout';
+
+/*** View ***/
+?>
 <div id="container" class="container">
     <div class="row">
         <img class="img-responsive" src="img/logo.png" alt="Metal Militia Logo">
@@ -32,10 +38,10 @@ $user = getSession("user");
                 <div class="navbar-right">
                     <?php if ($user) { ?>
                         <span id="navbarMsg">Welcome, <? echo $user->getFirstName() ?></span>
-                        <a class=" btn btn-default navbar-btn" href="index.php?action=logout">Logout <span class="glyphicon glyphicon-user"></span></a>
+                        <a class=" btn btn-default navbar-btn" href="<?= $logoutUri ?>">Logout <span class="glyphicon glyphicon-user"></span></a>
                     <?php } else { ?>
-                        <a class=" btn btn-default navbar-btn" href="login.php">Login <span class="glyphicon glyphicon-user"></span></a>
-                        <a class="btn btn-primary navbar-btn" href="signup.php">Signup <span class="glyphicon glyphicon-user"></span></a>
+                        <a class="btn btn-default navbar-btn" href="?page=login">Login <span class="glyphicon glyphicon-user"></span></a>
+                        <a class="btn btn-primary navbar-btn" href="?page=signup">Signup <span class="glyphicon glyphicon-user"></span></a>
                     <?php } ?>
                 </div>
             </div>

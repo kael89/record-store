@@ -2,6 +2,11 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/view.php";
 
+if (getGet("action") == "logout") {
+    requirePhp("api", "user");
+    logoutUser();
+}
+
 $page = getGet("page");
 requirePhp("file", "templates/header.php");
 requirePhp("file", "templates/navbar.php");

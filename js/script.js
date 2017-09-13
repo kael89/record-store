@@ -1,9 +1,10 @@
 $(function() {
-    headerController();
-    letterNavbarController();
+    headerControl();
+    letterNavbarControl();
+    logoutBtnControl();
 })
 
-function headerController() {
+function headerControl() {
     var getParams = window.location.search.substr(1);
     var matches = getParams.match(/page=[^&]*/);
     var page = (matches != null) ? matches[0] : 'main';
@@ -26,7 +27,7 @@ function headerController() {
     }
 }
 
-function letterNavbarController() {
+function letterNavbarControl() {
     if (!$('.letter-navbar')) {
         return;
     }
@@ -36,4 +37,9 @@ function letterNavbarController() {
     var letter = (matches) ? matches[1] : 'a';
     var index = letter.charCodeAt() - 'a'.charCodeAt();
     $('.letter-navbar ul li').eq(index).addClass('active');
+}
+function logoutBtnControl() {
+    $('#logoutBtn').on('click', function() {
+        $.get('/record-store/lib/ajax.php?action=user_logout');
+    })
 }

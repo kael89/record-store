@@ -15,7 +15,7 @@ function createGenre($name) {
 }
 
 function updateGenre($id, $row) {
-    return updateRow("genres", $row, ["genreId =" => $id]);
+    return updateRow("genres", $row, ["genreId=" => $id]);
 }
 
 function isGenre($id) {

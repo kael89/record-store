@@ -108,9 +108,14 @@ function getPost($var) {
 }
 
 /*** $_SESSION ***/
+function startSession() {
+    requirePhp("class", "user");
+    session_start();
+}
+
 function setSession($vars) {
     if (!isset($_SESSION)) {
-        session_start();
+        startSession();
     }
 
     foreach ($vars as $key => $val) {
@@ -120,7 +125,7 @@ function setSession($vars) {
 
 function getSession($var) {
     if (!isset($_SESSION)) {
-        session_start();
+        startSession();
     }
 
     if (isset($_SESSION[$var])) {
@@ -130,7 +135,7 @@ function getSession($var) {
 
 function unsetSession($var) {
     if (!isset($_SESSION)) {
-        session_start();
+        startSession();
     }
 
     unset($_SESSION[$var]);
@@ -234,7 +239,7 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
         }
     }
 
-    $query = rtrim($select, ",") . " FROM $table $join $where $append"; // consoleLog($query);
+    $query = rtrim($select, ",") . " FROM $table $join $where $append"; //consoleLog($query);
     $result = $mysqli->query($query);
 
     $rows = [];
@@ -255,4 +260,9 @@ function isRow($table, $column, $value) {
     $result = $mysqli->query($query);
 
     return $result->num_rows;
+}
+
+/*** ENCRYPTION ***/
+function getSalted($str) {
+    return hash("sha256", $str . "v$%2");
 }

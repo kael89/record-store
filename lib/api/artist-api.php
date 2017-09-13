@@ -29,7 +29,7 @@ function updateArtist($id, $row) {
         return false;
     }
 
-    return updateRow("artists", $row, ["artistId =" => $id]);
+    return updateRow("artists", $row, ["artistId=" => $id]);
 }
 
 function isArtist($id) {
