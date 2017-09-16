@@ -2,11 +2,12 @@
 /*** Program ***/
 requirePhp("class", "record");
 requirePhp("api", 'record');
+requirePhp("view", "record");
 
 $id = getGet("id");
 $record = getRecordById($id);
 $title = $record->getTitle();
-$artist = viewArtistLink($record);
+$artist = viewRecord_ArtistLink($record);
 $tracks = $record->getTracks();
 $cover = $record->getCoverImage("md");
 $cover = $record->getCoverImage("md");

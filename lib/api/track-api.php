@@ -32,6 +32,23 @@ function isTrack($id) {
     return isRow("tracks", "trackId", $id);
 }
 
+function getTracksAll() {
+    $columns = getColumns("tracks");
+
+    $results = getRows("tracks", $columns);
+    if (!$results) {
+        return [];
+    }
+
+    $tracks = [];
+    foreach ($results as $result) {
+        extract($result);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $genreId, $title, $duration);
+    }
+
+    return $tracks;
+}
+
 function getTrackById($id) {
     if ($id < 1) {
         return null;

@@ -49,6 +49,9 @@ function requirePhp($type, $name = "") {
         "track" => "lib/classes/Track.php",
         "user" => "lib/classes/User.php"
     ];
+    $view = [
+        "record" => "lib/view/record-view.php"
+    ];
 
     $filepaths = [];
     $arr = [];
@@ -56,6 +59,7 @@ function requirePhp($type, $name = "") {
         // Back-end functionality
         case "api":
         case "class":
+        case "view":
             $arr = $$type;
             if ($name == "") {
                 $filepaths = $arr;

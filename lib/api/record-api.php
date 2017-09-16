@@ -33,6 +33,23 @@ function isRecord($id) {
     return isRow("records", "recordId", $id);
 }
 
+function getRecordsAll() {
+    $columns = getColumns("records");
+
+    $results = getRows("records", $columns);
+    if (!$results) {
+        return [];
+    }
+
+    $records = [];
+    foreach ($results as $result) {
+        extract($result);
+        $records[] = new Record($recordId, $labelId, $title, $releaseDate, $cover, $price);
+    }
+
+    return $records;
+}
+
 function getRecordById($id) {
     if ($id < 1) {
         return null;

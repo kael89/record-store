@@ -2,6 +2,7 @@
 /*** Program ***/
 requirePhp("class");
 requirePhp("api");
+requirePhp("view", "record");
 
 $letter = getGet("letter");
 if (!$letter) {

@@ -22,6 +22,23 @@ function isGenre($id) {
     return isRow("genres", "genreId", $id);
 }
 
+function getGenresAll() {
+    $columns = getColumns("genres");
+
+    $results = getRows("genres", $columns);
+    if (!$results) {
+        return [];
+    }
+
+    $genres = [];
+    foreach ($results as $result) {
+        extract($result);
+        $genres[] = new Genre($genreId, $name);
+    }
+
+    return $genres;
+}
+
 function getGenreById($id) {
     if ($id < 1) {
         return null;

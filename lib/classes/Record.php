@@ -92,7 +92,7 @@ class Record {
     }
 
     public function getPrice() {
-        return $this->title;
+        return $this->price;
     }
 
     public function setPrice($price) {
@@ -139,5 +139,9 @@ class Record {
             "genre" => $track->getGenre(),
             "duration" => $track->getDuration()
         ];
+    }
+
+    public function getGenres() {
+        return getGenresByRecordId($this->getId());
     }
 }

@@ -32,6 +32,23 @@ function isLabel($id) {
     return isRow("labels", "labelId", $id);
 }
 
+function getLabelsAll() {
+    $columns = getColumns("labels");
+
+    $results = getRows("labels", $columns);
+    if (!$results) {
+        return [];
+    }
+
+    $labels = [];
+    foreach ($results as $result) {
+        extract($result);
+        $labels[] = new Label($labelId, $name, $country, $foundationYear, $logo);
+    }
+
+    return $labels;
+}
+
 function getLabelById($id) {
     if ($id < 1) {
         return null;

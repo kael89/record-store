@@ -36,6 +36,23 @@ function isArtist($id) {
     return isRow("artists", "artistId", $id);
 }
 
+function getArtistsAll() {
+    $columns = getColumns("artists");
+
+    $results = getRows("artists", $columns);
+    if (!$results) {
+        return [];
+    }
+
+    $artists = [];
+    foreach ($results as $result) {
+        extract($result);
+        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
+    }
+
+    return $artists;
+}
+
 function getArtistById($id) {
     if ($id < 1) {
         return null;
