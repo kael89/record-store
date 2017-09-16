@@ -4,6 +4,7 @@ requirePhp("class", "user");
 require_once $_SERVER['DOCUMENT_ROOT'] . "/record-store/lib/classes/User.php";
 
 $user = getSession("user");
+$admin = getSession("admin");
 $logoutUri = preg_replace('/\?*?action=[^&]*&?/', '', $_SERVER['REQUEST_URI']);
 $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=logout';
 
@@ -30,7 +31,9 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                         <ul class="dropdown-menu">
                             <li><a href="records.php?page=browse">Browse by Name</a></li>
                             <li><a href="records.php?page=list">Browse All</a></li>
-                            <li><a href="records.php?page=add">Add a Record</a></li>
+                            <?php if ($admin) { ?>
+                                <li><a href="records.php?page=add">Add Records</a></li>
+                            <?php } ?>
                         </ul>
                     </li>
                     <li id="menu-artists" class="dropdown">
@@ -38,7 +41,9 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                         <ul class="dropdown-menu">
                             <li><a href="artists.php?page=browse">Browse by Name</a></li>
                             <li><a href="artists.php?page=list">Browse All</a></li>
-                            <li><a href="artists.php?page=add">Add an Artist</a></li>
+                            <?php if ($admin) { ?>
+                                <li><a href="artists.php?page=add">Add Artists</a></li>
+                            <?php } ?>
                         </ul>
                     </li>
                     <li id="menu-index"><a href="index.php?page=about" title="About">About</a></li>

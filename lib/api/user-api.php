@@ -44,9 +44,11 @@ function loginUser($email, $password) {
     extract($result[0]);
     $user = new User($userId, $firstName, $lastName, $email, $password, $admin);
     setSession(["user" => $user]);
+    setSession(["admin" => $user->getAdmin()]);
     return true;
 }
 
 function logoutUser() {
     unsetSession("user");
+    unsetSession("admin");
 }
