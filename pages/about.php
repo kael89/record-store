@@ -7,7 +7,7 @@
     requirePhp("api", "user");
     requirePhp("class", "user");
 
-    $user = getSession("user");
-    consoleLog($user);
-    consoleLog($user->getAdmin());
+    // $user = getSession("user");
+    // consoleLog($user);
+    // consoleLog($user->getAdmin());
 ?>

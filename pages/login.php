@@ -24,6 +24,6 @@
 </form>
 
 <p id="noAccount">Don't have an account yet?</p>
-<a class="btn btn-primary" href="?page=signup">Signup!</a>
+<a class="btn btn-primary" href="index.php?page=signup">Signup!</a>
 
 <script src="js/login.js"></script>

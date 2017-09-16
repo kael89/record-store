@@ -42,7 +42,7 @@ $rowStart
     <div class="artist col-sm-$size">
         <figure class="text-center">
             <img src="$logo" class="img-thumbnail" alt="$name logo"><br>
-            <figcaption><a href="?page=artist-details&id=$id" title ="$name details">$name</a></figcaption>
+            <figcaption><a href="artists.php?page=details&id=$id" title ="$name details">$name</a></figcaption>
         </figure>
     </div>
 $rowEnd

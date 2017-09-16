@@ -5,26 +5,11 @@ $(function() {
 })
 
 function headerControl() {
-    var getParams = window.location.search.substr(1);
-    var matches = getParams.match(/page=[^&]*/);
-    var page = (matches != null) ? matches[0] : 'about';
-    var regex = page + '$';
+    var uri = window.location.pathname.substr(1);
+    var matches = uri.match(/\/(.*).php/);
+    var menu = (matches != null) ? matches[1] : 'index';
 
-    var found = false;
-    $('.navbar-nav li a').each(function() {
-        var href = $(this).attr('href');
-
-        if (href.search(regex) != -1) {
-            $(this).parents('li').addClass('active');
-            found = true;
-            return false;
-        }
-        return true;
-    });
-
-    if (!found) {
-        $('#about-page').addClass('active');
-    }
+    $('#navbar > ul > li#menu-' + menu).addClass('active')
 }
 
 function letterNavbarControl() {

@@ -23,11 +23,25 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                 </button>
                 <a class="navbar-brand" href="#">Menu</a>
             </div>
-            <div class="collapse navbar-collapse" id="navbar">
+            <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="?page=records" title="Records">Records</a></li>
-                    <li><a href="?page=artists" title="Artists">Artists</a></li>
-                    <li id="about-page"><a href="?page=about" title="About">About</a></li>
+                    <li id="menu-records" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Records">Records</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="records.php?page=browse">Browse by Name</a></li>
+                            <li><a href="records.php?page=list">Browse All</a></li>
+                            <li><a href="records.php?page=add">Add a Record</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-artists" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Artists">Artists</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="artists.php?page=browse">Browse by Name</a></li>
+                            <li><a href="artists.php?page=list">Browse All</a></li>
+                            <li><a href="artists.php?page=add">Add an Artist</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-index"><a href="index.php?page=about" title="About">About</a></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">
@@ -40,8 +54,8 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                         <span id="navbarMsg">Welcome, <? echo $user->getFirstName() ?></span>
                         <a class=" btn btn-default navbar-btn" href="<?= $logoutUri ?>">Logout <span class="glyphicon glyphicon-user"></span></a>
                     <?php } else { ?>
-                        <a class="btn btn-default navbar-btn" href="?page=login">Login <span class="glyphicon glyphicon-user"></span></a>
-                        <a class="btn btn-primary navbar-btn" href="?page=signup">Signup <span class="glyphicon glyphicon-user"></span></a>
+                        <a class="btn btn-default navbar-btn" href="index.php?page=login">Login <span class="glyphicon glyphicon-user"></span></a>
+                        <a class="btn btn-primary navbar-btn" href="index.php?page=signup">Signup <span class="glyphicon glyphicon-user"></span></a>
                     <?php } ?>
                 </div>
             </div>

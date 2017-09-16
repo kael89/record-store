@@ -7,7 +7,7 @@ function viewArtistLink($record) {
     if (count($artists) == 1) {
         $id = $artists[0]->getId();
         $name = $artists[0]->getName();
-        $artist = "<a href=\"?page=artist-details&id=$id\" title=\"$name details\">$name</a>";
+        $artist = "<a href=\"artists.php?page=details&id=$id\" title=\"$name details\">$name</a>";
     } else {
         $artist = "V.A.";
     }
@@ -57,7 +57,7 @@ $rowStart
     <div class="record col-sm-$size">
         <figure class="text-center">
             <img src="$cover" class="img-thumbnail" alt="$title cover"><br>
-            <figcaption>$artist<a href="?page=record-details&id=$recordId" title ="$title details">$title</a></figcaption>
+            <figcaption>$artist<a href="records.php?page=details&id=$recordId" title ="$title details">$title</a></figcaption>
         </figure>
     </div>
 $rowEnd
