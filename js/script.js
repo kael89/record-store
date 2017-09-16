@@ -7,7 +7,7 @@ $(function() {
 function headerControl() {
     var getParams = window.location.search.substr(1);
     var matches = getParams.match(/page=[^&]*/);
-    var page = (matches != null) ? matches[0] : 'main';
+    var page = (matches != null) ? matches[0] : 'about';
     var regex = page + '$';
 
     var found = false;
@@ -23,7 +23,7 @@ function headerControl() {
     });
 
     if (!found) {
-        $('#main-page').addClass('active');
+        $('#about-page').addClass('active');
     }
 }
 

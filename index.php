@@ -10,8 +10,8 @@ if (getGet("action") == "logout") {
 $page = getGet("page");
 requirePhp("file", "templates/header.php");
 requirePhp("file", "templates/navbar.php");
-// If requested page does not exist, serve main page
+// If requested page does not exist, serve "About" page
 if (!requirePhp("file", "pages/$page.php")) {
-    requirePhp("file", "pages/main.php");
+    requirePhp("file", "pages/about.php");
 }
 requirePhp("file", "templates/footer.php");
