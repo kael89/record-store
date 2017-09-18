@@ -23,6 +23,7 @@ function letterNavbarControl() {
     var index = letter.charCodeAt() - 'a'.charCodeAt();
     $('.letter-navbar ul li').eq(index).addClass('active');
 }
+
 function logoutBtnControl() {
     $('#logoutBtn').on('click', function() {
         $.get('/record-store/lib/ajax.php?action=user_logout');

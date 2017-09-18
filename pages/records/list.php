@@ -7,6 +7,7 @@ requirePhp("view", "record");
 <div class="row">
     <div class="col-xs-12">
         <?php printRecordList(); ?>
+        <script></script>
     </div>
 </div>
 
@@ -25,7 +26,7 @@ function printRecordList() {
             <th>Release Date</th>
             <th>Genre</th>
             <th>Price</th>
-        </tr>    
+        </tr>
 _END;
 
     $i = 1;
@@ -33,6 +34,7 @@ _END;
         $artist = viewRecord_ArtistLink($record);
         $title = viewRecord_RecordLink($record);
         $genre = viewRecord_Genre($record);
+        $price = viewPrice($record->getPrice());
 
         echo <<<_END
         <tr>
@@ -41,7 +43,7 @@ _END;
             <td>$artist</td>
             <td>{$record->getReleaseDate()}</td>
             <td>$genre</td>
-            <td>{$record->getPrice()}</td>
+            <td>$price</td>
         </tr>
 _END;
         $i++;  
