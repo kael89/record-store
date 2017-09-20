@@ -33,10 +33,11 @@ function isRecord($id) {
     return isRow("records", "recordId", $id);
 }
 
-function getRecordsAll() {
+function getRecordsAll($sort = true) {
     $columns = getColumns("records");
+    $orderyBy = ($sort) ? "ORDER BY records.title" : "";
 
-    $results = getRows("records", $columns);
+    $results = getRows("records", $columns, [], false, $orderyBy);
     if (!$results) {
         return [];
     }

@@ -89,3 +89,12 @@ legend span {
 .artist-bio {
     padding: 10px 50px 50px 50px;
 }
+
+.sortlist th:not(.non-sortable):hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#loading {
+    display: none;
+}

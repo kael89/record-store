@@ -2,7 +2,7 @@
 /*** Program ***/
 requirePhp("class", "artist");
 requirePhp("api", "artist");
-requirePhp("view", "record");
+requirePhp("view");
 
 $id = getGet("id");
 $artist = getArtistById($id);

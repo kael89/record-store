@@ -16,6 +16,8 @@ class Record {
     private $label;
     // Array of Track objects
     private $tracks;
+    // Array of Genre objects
+    private $genres;
 
     public function __construct($id, $labelId, $title = "", $releaseDate = "", $cover = "", $price = 0) {
         $this->id = $id;
@@ -142,6 +144,10 @@ class Record {
     }
 
     public function getGenres() {
-        return getGenresByRecordId($this->getId());
+        if (!isset($this->genres)) {
+            $this->genres = getGenresByRecordId($this->getId());
+        }
+
+        return $this->genres;
     }
 }

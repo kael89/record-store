@@ -1,8 +1,17 @@
 $(function() {
+    bindLoadingImage();
     headerControl();
     letterNavbarControl();
-    logoutBtnControl();
+    sortList();
 })
+
+function bindLoadingImage() {
+    $('#loading').ajaxStart(function() {
+        $(this).show();
+    }).ajaxStop(function() {
+        $(this).hide();
+    });
+}
 
 function headerControl() {
     var uri = window.location.pathname.substr(1);
@@ -24,8 +33,20 @@ function letterNavbarControl() {
     $('.letter-navbar ul li').eq(index).addClass('active');
 }
 
-function logoutBtnControl() {
-    $('#logoutBtn').on('click', function() {
-        $.get('/record-store/lib/ajax.php?action=user_logout');
-    })
+function sortList() {
+    var $sortList = $('.sortlist');
+    var cat = $sortList.data('content');
+
+    if (!$sortList) {
+        return;
+    }
+
+    $sortList.find('th').on('click', function() {
+        var uri = '/record-store/pages/' + cat + '/list.php?sort=' + $(this).data('sort');
+
+        $.get(uri, function(data) {
+            $('#listContainer').replaceWith(data);
+            sortList();
+        })
+    });
 }

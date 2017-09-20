@@ -59,7 +59,6 @@ function requirePhp($type, $name = "") {
         // Back-end functionality
         case "api":
         case "class":
-        case "view":
             $arr = $$type;
             if ($name == "") {
                 $filepaths = $arr;
@@ -75,6 +74,9 @@ function requirePhp($type, $name = "") {
             break;
         case "tables":
             $filepaths[] = getPath("lib/tables.php");
+            break;
+        case "view":
+            $filepaths[] = getPath("lib/view.php");
             break;
         case "file":
         default:
@@ -243,7 +245,9 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
         }
     }
 
-    $query = rtrim($select, ",") . " FROM $table $join $where $append"; //consoleLog($query);
+    $query = rtrim($select, ",") . " FROM $table $join $where $append"; 
+    // Debug DB query
+    // consoleLog($query);
     $result = $mysqli->query($query);
 
     $rows = [];

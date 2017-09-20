@@ -21,3 +21,5 @@ $title = ucwords(str_replace('-', ' ', getGet("page")));
     <script src="js/lib/library.js"></script>
 </head>
 <body>
+    <div id="container" class="container">
+        <div id="loading" class="row"><div class="col-xs-12">I am loading man</div></div>

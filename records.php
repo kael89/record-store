@@ -1,6 +1,6 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/view/library-view.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/view.php";
 
 if (getGet("action") == "logout") {
     requirePhp("api", "user");

@@ -34,3 +34,7 @@ function removeError(field) {
     $fieldFeedback.removeClass('glyphicon glyphicon-remove');
     $fieldLabel.html('');
 }
+
+function getUrl(page) {
+    return '/' + (window.location.pathname + window.location.search).substr(1);
+}
