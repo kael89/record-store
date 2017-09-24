@@ -47,12 +47,6 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                 </li>
                 <li id="menu-index"><a href="index.php?page=about" title="About">About</a></li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-            </form>
             <div class="navbar-right">
                 <?php if ($user) { ?>
                     <span id="navbarMsg">Welcome, <? echo $user->getFirstName() ?></span>
