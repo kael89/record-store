@@ -1,6 +1,8 @@
 <?php
 /*** Program ***/
-$title = ucwords(str_replace('-', ' ', getGet("page")));
+$fullPath = str_replace(".php", "", getUrlPath($_SERVER["REQUEST_URI"]));
+$title = ($fullPath != "index") ? ucfirst($fullPath) . " - " : "";
+$title .= ucwords(str_replace('-', ' ', getGet("page")));
 
 /*** View ***/
 ?>

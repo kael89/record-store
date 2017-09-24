@@ -13,8 +13,14 @@ function consoleLog() {
     }
 }
 
+/*** URL ***/
+function getUrlPath() {
+    define('ROOT_FOLDER', 'record-store/');
+    return str_replace("/" . ROOT_FOLDER, "", parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH));
+}
+
 /*** FILE REFERENCE ***/
-function getPath($path) {
+function getFilepath($path) {
     return $_SERVER["DOCUMENT_ROOT"] . "/record-store/$path"; 
 }
 
@@ -63,24 +69,24 @@ function requirePhp($type, $name = "") {
             if ($name == "") {
                 $filepaths = $arr;
             } else {
-                $filepaths[] = getPath($arr[$name]);
+                $filepaths[] = getFilepath($arr[$name]);
             }
             break;
         case "template":
-            $filepaths[] = getPath("templates/$name.php");
+            $filepaths[] = getFilepath("templates/$name.php");
             break;
         case "page": 
-            $filepaths[] = getPath("pages/$name.php");
+            $filepaths[] = getFilepath("pages/$name.php");
             break;
         case "tables":
-            $filepaths[] = getPath("lib/tables.php");
+            $filepaths[] = getFilepath("lib/tables.php");
             break;
         case "view":
-            $filepaths[] = getPath("lib/view.php");
+            $filepaths[] = getFilepath("lib/view.php");
             break;
         case "file":
         default:
-            $filepaths[] = getPath($name);
+            $filepaths[] = getFilepath($name);
             break;
     }
 
@@ -88,7 +94,7 @@ function requirePhp($type, $name = "") {
     // it is a given array with valid data
     if (count($filepaths) > 1) {
         foreach ($filepaths as $key => $path) {
-            require_once getPath($path);
+            require_once getFilepath($path);
         }
     } else {
         if (!file_exists($filepaths[0])) {

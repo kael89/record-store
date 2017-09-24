@@ -18,7 +18,7 @@ $label = $record->getLabel()->getName();
 ?>
 <div class="row">
     <div class="col-xs-6 text-center">
-        <img src="<?= $cover ?>">
+        <img src="<?= $cover ?>" class="img-cover img-responsive center-block">
         <table class="table">
             <tbody>
                 <tr>

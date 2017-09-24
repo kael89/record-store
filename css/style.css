@@ -139,6 +139,15 @@ legend span {
     margin-right: 110px;
 }
 
+.img-cover,
+.img-photo {
+    width: 500px;
+}
+
+.img-logo {
+    width: 300px;
+}
+
 .img-upload {
     margin: 46px;
 }

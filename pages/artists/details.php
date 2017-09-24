@@ -18,8 +18,8 @@ $records = getRecordsByArtistId($id);
 ?>
 <div class="row">
     <div class="col-xs-6 text-center">
-        <img src="<?= $logo ?>" width="300px" alt="<?= "$name logo"?>">
-        <img src="<?= $photo ?>" width="500px" alt="<?= "$name photo"?>">
+        <img src="<?= $logo ?>" class="img-responsive center-block" alt="<?= "$name logo"?>">
+        <img src="<?= $photo ?>" class="img-responsive center-block" alt="<?= "$name photo"?>">
         <table class="table">
             <tbody>
                 <tr>
