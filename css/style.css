@@ -1,8 +1,23 @@
+/*
+Colors
+
+**color 1: #958888
+  (side background)
+**color 2: #3f2e2e
+  (container background)
+**color 3: #ffffff
+  (text)
+
+*/
+
+.overflow {
+    overflow: auto;
+}
+
 html,
 body,
 #container {
     height: 100%;
-    /* overflow: auto; */
 }
 
 html, body {
@@ -46,13 +61,12 @@ legend span {
 }
 
 .navbar {
-    margin-bottom: 0px;
+    margin-bottom: 20px;
 }
 
 .letter-navbar ul {
     text-transform: uppercase;
-    margin-top: 20px;
-    margin-bottom: 0px;
+    margin: 0px;
 }
 
 .record,
@@ -87,7 +101,11 @@ legend span {
 }
 
 .artist-bio {
-    padding: 10px 50px 50px 50px;
+    padding: 0px 50px 50px 50px;
+}
+
+.artist-bio .title {
+    margin-top: 0px;
 }
 
 .sortlist th:not(.non-sortable):hover {
@@ -97,4 +115,34 @@ legend span {
 
 #loading {
     display: none;
+}
+
+.form-horizontal {
+    padding: 0px 15px;
+}
+
+.form-add input,
+.form-add textarea,
+.placeholder {
+    background: #3f2e2e;
+    color: #ffffff;
+    font-weight: normal;
+}
+
+/*
+.form-add input:not([type="file"]) {
+    border: 2px solid #ffffff;
+}
+*/
+
+#add-artist {
+    margin-right: 110px;
+}
+
+.img-upload {
+    margin: 46px;
+}
+
+.img-upload:last-of-type {
+    padding-bottom: 92px;
 }

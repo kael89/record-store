@@ -32,16 +32,8 @@ function getRecordList() {
     return $list;
 }
 
-function printRecordList($recordList, $sortBy) {
-    $sortOptions = [
-        "title",
-        "artist",
-        "date",
-        "genre",
-        "price"
-    ];
-    
-    if (in_array(strtolower($sortBy), $sortOptions)) {
+function printRecordList($recordList, $sortBy = "") {
+    if ($sortBy) {
         usort($recordList, function($a, $b) use ($sortBy) {
             if ($sortBy != "price") {
                 return strcmp($a[$sortBy], $b[$sortBy]);

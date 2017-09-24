@@ -36,10 +36,11 @@ function isArtist($id) {
     return isRow("artists", "artistId", $id);
 }
 
-function getArtistsAll() {
+function getArtistsAll($sort = true) {
     $columns = getColumns("artists");
+    $orderyBy = ($sort) ? "ORDER BY artists.name" : "";
 
-    $results = getRows("artists", $columns);
+    $results = getRows("artists", $columns, [], false, $orderyBy);
     if (!$results) {
         return [];
     }

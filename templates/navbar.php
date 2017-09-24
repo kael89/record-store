@@ -31,7 +31,7 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                         <li><a href="records.php?page=browse">Browse by Name</a></li>
                         <li><a href="records.php?page=list">Browse All</a></li>
                         <?php if ($admin) { ?>
-                            <li><a href="records.php?page=add">Add Records</a></li>
+                            <li><a href="records.php?page=add">Add Record</a></li>
                         <?php } ?>
                     </ul>
                 </li>
@@ -41,7 +41,7 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                         <li><a href="artists.php?page=browse">Browse by Name</a></li>
                         <li><a href="artists.php?page=list">Browse All</a></li>
                         <?php if ($admin) { ?>
-                            <li><a href="artists.php?page=add">Add Artists</a></li>
+                            <li><a href="artists.php?page=add">Add Artist</a></li>
                         <?php } ?>
                     </ul>
                 </li>

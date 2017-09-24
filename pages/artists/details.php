@@ -18,8 +18,8 @@ $records = getRecordsByArtistId($id);
 ?>
 <div class="row">
     <div class="col-xs-6 text-center">
-        <img src="<?= $logo ?>" width="300px">
-        <img src="<?= $photo ?>" width="500px">
+        <img src="<?= $logo ?>" width="300px" alt="<?= "$name logo"?>">
+        <img src="<?= $photo ?>" width="500px" alt="<?= "$name photo"?>">
         <table class="table">
             <tbody>
                 <tr>
@@ -34,7 +34,7 @@ $records = getRecordsByArtistId($id);
         </table>
     </div>
     <div class="artist-bio col-xs-6">
-        <h3>Biography</h3>
+        <h2 class="title">Biography</h2>
         <?= $bio ?>
     </div>
 </div>
