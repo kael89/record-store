@@ -2,7 +2,7 @@ $(function() {
     bindLoadingImage();
     headerControl();
     letterNavbarControl();
-    sortList();
+    listControl();
 })
 
 function bindLoadingImage() {
@@ -33,7 +33,7 @@ function letterNavbarControl() {
     $('.letter-navbar ul li').eq(index).addClass('active');
 }
 
-function sortList() {
+function listControl() {
     var $sortList = $('.sortlist');
     var cat = $sortList.data('content');
 
@@ -42,11 +42,6 @@ function sortList() {
     }
 
     $sortList.find('th').on('click', function() {
-        var uri = '/record-store/pages/' + cat + '/list.php?sort=' + $(this).data('sort');
-
-        $.get(uri, function(data) {
-            $('#listContainer').replaceWith(data);
-            sortList();
-        })
+        sortList(cat, $(this).data('sort'));
     });
 }

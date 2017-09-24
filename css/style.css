@@ -40,6 +40,14 @@ legend span {
     margin-left: -10px;
 }
 
+.i {
+    font-style: italic;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
 #container {
     background: #3f2e2e;
     color: #ffffff;

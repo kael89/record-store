@@ -36,16 +36,12 @@ function isArtist($id) {
     return isRow("artists", "artistId", $id);
 }
 
-function getArtistsAll($sort = true) {
+function getArtistsAll() {
     $columns = getColumns("artists");
-    $orderyBy = ($sort) ? "ORDER BY artists.name" : "";
-
-    $results = getRows("artists", $columns, [], false, $orderyBy);
-    if (!$results) {
-        return [];
-    }
+    $order = "ORDER BY artists.name";
 
     $artists = [];
+    $results = getRows("artists", $columns, [], false, $order);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -74,9 +70,10 @@ function getArtistById($id) {
 function getArtistsByName($name, $search = false) {
     $columns = getColumns("artists");
     $columns["artists.name"] = ($search) ? " LIKE '$name'" : "='$name'";
+    $order = "ORDER BY artists.name";
 
     $artists = [];
-    $results = getRows("artists", $columns);
+    $results = getRows("artists", $columns, [], false, $order);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);

@@ -12,6 +12,7 @@ $artistList = getArtistList();
         <?php printArtistList($artistList, $sortBy); ?>
     </div>
 </div>
+<script src="js/ajax.js"></script>
 
 <?php
 /*** Functions ***/

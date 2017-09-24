@@ -94,7 +94,7 @@ $rowStart
     <div class="record col-sm-$size">
         <figure class="text-center">
             <img src="{$record->getCoverImage()}" class="img-thumbnail" alt="{$record->getTitle()} cover"><br>
-            <figcaption>$artistLink $recordLink</figcaption>
+            <figcaption><span class="i">$artistLink</span> $recordLink</figcaption>
         </figure>
     </div>
 $rowEnd
