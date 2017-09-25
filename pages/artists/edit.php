@@ -40,15 +40,18 @@ $access = getSession("admin") ? "" : "hidden";
                         <td><input id="country" class="form-control" type="text" name="country" placeholder="Insert country" value="<?= $country ?>"></td>
                     </tr>
                     <tr>
-                        <th span="row"><label for="year">Foundation Year:</label></th>
-                        <td><input id="year" class="form-control" type="text" name="year" placeholder="Insert year" value="<?= $year ?>"></td>
+                        <th span="row"><label for="foundationYear">Foundation Year:</label></th>
+                        <td><input id="foundationYear" class="form-control" type="text" name="foudationYear" placeholder="Insert year" value="<?= $foundationYear ?>"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-xs-6 artist-bio">
+            <div class="text-right">
+                <button id="edit" class="btn btn-success">Edit</button>
+            </div>
             <h2 class="title"><label for="bio">Biography</label></h3>
-            <textarea id="bio" class="form-control" name="bio" rows="20" cols="50" placeholder="Insert biography" value="<? $bio ?>"></textarea>
+            <textarea id="bio" class="form-control" name="bio" rows="20" cols="50" placeholder="Insert biography"><?= $bio ?></textarea>
         </div>
     </div>
     <div class="form-group">
@@ -56,7 +59,8 @@ $access = getSession("admin") ? "" : "hidden";
             <button class="btn btn-success">Add records</button> for this artist
         </div>
         <div class="col-xs-6 text-right">
-            <button id="add-artist" class="btn btn-primary btn-lg">Save</button>
+            <button id="cancel" class="btn btn-danger" type="button">Cancel</button>
+            <button id="add-artist" class="btn btn-primary">Save</button>
         </div>
     </div>
 </form>

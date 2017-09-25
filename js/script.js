@@ -36,11 +36,10 @@ function letterNavbarControl() {
 
 function listControl() {
     var $sortList = $('.sortlist');
-    var cat = $sortList.data('content');
-
     if (!$sortList) {
         return;
     }
+    var cat = $sortList.data('content');
 
     $sortList.find('th').on('click', function() {
         sortList(cat, $(this).data('sort'));
@@ -49,10 +48,11 @@ function listControl() {
 
 function editBtnControl() {
     var $editBtn = $('#edit');
-
     if (!$editBtn) {
         return;
     }
 
-    $editBtn.on('click', editPage);
+    $editBtn.on('click', function() {
+        toggleDetailsPage('edit');
+    });
 }

@@ -1,5 +1,6 @@
 <?php
 /*** Program ***/
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
 requirePhp("class", "artist");
 requirePhp("api", "artist");
 requirePhp("view");
@@ -37,7 +38,7 @@ $access = getSession("admin") ? "" : "hidden";
     </div>
     <div class="artist-bio col-xs-6">
         <div class="text-right <?= $access ?>">
-            <button id="edit" class="btn btn-lg btn-success">Edit</button>
+            <button id="edit" class="btn btn-success">Edit</button>
         </div>
         <h2 class="title">Biography</h2>
         <?= $bio ?>
