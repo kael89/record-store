@@ -59,3 +59,4 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
         </div>
     </div>
 </nav>
+<div id="main">

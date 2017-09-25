@@ -3,6 +3,7 @@ $(function() {
     headerControl();
     letterNavbarControl();
     listControl();
+    editBtnControl();
 })
 
 function bindLoadingImage() {
@@ -44,4 +45,14 @@ function listControl() {
     $sortList.find('th').on('click', function() {
         sortList(cat, $(this).data('sort'));
     });
+}
+
+function editBtnControl() {
+    var $editBtn = $('#edit');
+
+    if (!$editBtn) {
+        return;
+    }
+
+    $editBtn.on('click', editPage);
 }

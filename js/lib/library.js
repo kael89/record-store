@@ -34,3 +34,21 @@ function removeError(field) {
     $fieldFeedback.removeClass('glyphicon glyphicon-remove');
     $fieldLabel.html('');
 }
+
+function getUrlPath() {
+    var rootFolder = '/record-store/';
+
+    return window.location.pathname.replace(rootFolder, '');
+}
+
+function getFilePath(page) {
+    return '/record-store/' + page;
+}
+
+function getGet(name) {
+    var regex = name + '=([^&]*)';
+    var match = window.location.search.match(regex);
+
+    x = (typeof(match[1]) != 'undefined') ? match[1] : '';
+    return x;
+}
