@@ -111,8 +111,12 @@ legend span {
     padding: 0px 50px 50px 50px;
 }
 
-.artist-bio .title {
+.bio-title {
     margin-top: 0px;
+}
+
+.bio-title label {
+    font-weight: normal;
 }
 
 .sortlist th:not(.non-sortable):hover {
@@ -136,11 +140,9 @@ legend span {
     font-weight: normal;
 }
 
-/*
-.form-add input:not([type="file"]) {
-    border: 2px solid #ffffff;
+.img-upload input {
+    border: none;
 }
-*/
 
 #add-artist {
     margin-right: 110px;
@@ -153,12 +155,4 @@ legend span {
 
 .img-logo {
     width: 300px;
-}
-
-.img-upload {
-    margin: 46px;
-}
-
-.img-upload:last-of-type {
-    padding-bottom: 92px;
 }

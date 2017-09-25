@@ -35,6 +35,7 @@ function bindEditControls() {
 }
 
 function bindDetailsControls() {
+    $(window).unbind('beforeunload');
     editBtnControl();
 }
 

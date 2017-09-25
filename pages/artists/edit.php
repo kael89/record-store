@@ -23,18 +23,23 @@ $access = getSession("admin") ? "" : "hidden";
     <div class="form-group">
         <div class="col-xs-6 text-center">
             <fieldset class="form-inline">
-                <label class="control-label">Name:*<input class="form-control" type="text" name="name" placeholder="Insert name" value="<?= $name ?>"></label>
-            </fieldset>
-            <figure class="img-upload">
-                <figcaption><label for="logo">Logo:</label></figcaption>
+            <div class="img-upload">
+                <img src="<?= $logo ?>" class="img-logo img-responsive center-block" alt="<?= "$name logo"?>">
+                <label for="logo">Upload new logo:</label>
                 <input id="logo" class="form-control" type="file" name="logo" accept="image/*">
-            </figure>
-            <figure class="img-upload">
-                <figcaption><label for="photo">Photo:</label></figcaption>
+            </div>
+            <div class="img-upload">
+                <img src="<?= $photo ?>" class="img-photo img-responsive center-block" alt="<?= "$name photo"?>">
+                <label for="photo">Upload new photo:</label>
                 <input id="photo" class="form-control" type="file" name="logo" accept="image/*">
-            </figure>
+            <div class="form-horizontal"></div>
+            </fieldset>
             <table class="table">
                 <tbody>
+                    <tr>
+                        <th span="row"><label for="name">Name:</label></th>
+                        <td><input id="name" class="form-control" type="text" name="name" placeholder="Insert name" value="<?= $name ?>"></td>
+                    </tr>
                     <tr>
                         <th span="row"><label for="country">Country:</label></th>
                         <td><input id="country" class="form-control" type="text" name="country" placeholder="Insert country" value="<?= $country ?>"></td>
@@ -50,7 +55,7 @@ $access = getSession("admin") ? "" : "hidden";
             <div class="text-right">
                 <button id="edit" class="btn btn-success">Edit</button>
             </div>
-            <h2 class="title"><label for="bio">Biography</label></h3>
+            <h2 class="bio-title"><label for="bio">Biography</label></h2>
             <textarea id="bio" class="form-control" name="bio" rows="20" cols="50" placeholder="Insert biography"><?= $bio ?></textarea>
         </div>
     </div>

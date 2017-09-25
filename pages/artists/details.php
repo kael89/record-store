@@ -26,6 +26,10 @@ $access = getSession("admin") ? "" : "hidden";
         <table class="table">
             <tbody>
                 <tr>
+                    <th span="row">Name:</th>
+                    <td><?= $name ?></td>
+                </tr>
+                <tr>
                     <th span="row">Country:</th>
                     <td><?= $country ?></td>
                 </tr>
@@ -41,7 +45,9 @@ $access = getSession("admin") ? "" : "hidden";
             <button id="edit" class="btn btn-success">Edit</button>
         </div>
         <h2 class="title">Biography</h2>
-        <?= $bio ?>
+        <div class="text-justify">
+            <?= $bio ?>
+        </div>
     </div>
 </div>
 
