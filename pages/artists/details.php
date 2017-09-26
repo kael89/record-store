@@ -42,7 +42,7 @@ $access = getSession("admin") ? "" : "hidden";
     </div>
     <div class="artist-bio col-xs-6">
         <div class="text-right <?= $access ?>">
-            <button id="edit" class="btn btn-success">Edit</button>
+            <button class="btn btn-success btn-edit">Edit</button>
         </div>
         <h2 class="title">Biography</h2>
         <div class="text-justify">

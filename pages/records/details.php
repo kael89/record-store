@@ -1,5 +1,6 @@
 <?php
 /*** Program ***/
+require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
 requirePhp("class", "record");
 requirePhp("api", 'record');
 requirePhp("view");
@@ -10,15 +11,16 @@ $title = $record->getTitle();
 $artist = viewArtistLink($record->getArtists());
 $tracks = $record->getTracks();
 $cover = $record->getCoverImage("md");
-$cover = $record->getCoverImage("md");
 $releaseDate = viewDate($record->getReleaseDate());
 $label = $record->getLabel()->getName();
+
+$access = getSession("admin") ? "" : "hidden";
 
 /*** View ***/
 ?>
 <div class="row">
     <div class="col-xs-6 text-center">
-        <img src="<?= $cover ?>" class="img-cover img-responsive center-block">
+        <img src="<?= $cover ?>" class="img-cover img-responsive center-block" alt="<? "$title logo"?>">
         <table class="table">
             <tbody>
                 <tr>
@@ -41,6 +43,9 @@ $label = $record->getLabel()->getName();
         </table>
     </div>
     <div class="col-xs-6 text-center">
+        <div class="text-right <?= $access ?>">
+            <button class="btn btn-success btn-edit">Edit</button>
+        </div>
         <?php printTracks($tracks) ?>
     </div>
 </div>

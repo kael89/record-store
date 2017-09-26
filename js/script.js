@@ -4,6 +4,8 @@ $(function() {
     letterNavbarControl();
     listControl();
     editBtnControl();
+    cancelBtnControl();
+    insertBtnControl();
 })
 
 function bindLoadingImage() {
@@ -23,7 +25,7 @@ function headerControl() {
 }
 
 function letterNavbarControl() {
-    if (!$('.letter-navbar')) {
+    if (!$('.letter-navbar').length) {
         return;
     }
 
@@ -36,7 +38,7 @@ function letterNavbarControl() {
 
 function listControl() {
     var $sortList = $('.sortlist');
-    if (!$sortList) {
+    if (!$sortList.length) {
         return;
     }
     var cat = $sortList.data('content');
@@ -47,12 +49,46 @@ function listControl() {
 }
 
 function editBtnControl() {
-    var $editBtn = $('#edit');
-    if (!$editBtn) {
+    var $editBtn = $('.btn-edit');
+    if (!$editBtn.length) {
         return;
     }
 
     $editBtn.on('click', function() {
         toggleDetailsPage('edit');
     });
+}
+
+function cancelBtnControl() {
+    var $cancelBtn = $('.btn-cancel');
+    if (!$cancelBtn.length) {
+        return;
+    }
+
+    $cancelBtn.on('click', function() {
+        if (discardAlert()) {
+            toggleDetailsPage('details');
+        }
+    });
+
+    alertOnUnload();
+}
+
+function insertBtnControl() {
+    var $insertBtn = $('.btn-insert');
+    if (!$insertBtn.length) {
+        return;
+    }
+
+    $insertBtn.on('click', alertOnUnload);
+}
+
+function alertOnUnload() {
+    $(window).on('beforeunload', function() {
+        return 'Alert';
+    });
+}
+
+function discardAlert() {
+    return window.confirm('Your changes have not been saved. Are you sure you want to cancel?');
 }

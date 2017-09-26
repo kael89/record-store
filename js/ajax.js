@@ -20,39 +20,10 @@ function toggleDetailsPage(action) {
     $.get(url, function(data) {
         $('#main').html(data);
         if (action == 'edit') {
-            bindEditControls();
+            cancelBtnControl();
         } else {
-            bindDetailsControls();
+            editBtnControl();
+            $(window).off('beforeunload');
         }
-    })
-}
-
-function bindEditControls() {
-    $(window).on('beforeunload', function() {
-        return 'Alert';
-    })
-    cancelBtnControl();
-}
-
-function bindDetailsControls() {
-    $(window).unbind('beforeunload');
-    editBtnControl();
-}
-
-
-function cancelBtnControl() {
-    var $cancelBtn = $('#cancel');
-    if (!$cancelBtn) {
-        return;
-    }
-
-    $cancelBtn.on('click', function() {
-        if (discardAlert()) {
-            toggleDetailsPage('details');
-        }
-    })
-}
-
-function discardAlert() {
-    return window.confirm('Your changes have not been saved. Are you sure you want to cancel?');
+    });
 }
