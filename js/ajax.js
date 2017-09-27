@@ -13,17 +13,27 @@ function toggleDetailsPage(action) {
         return;
     }
 
-    var cat = getUrlPath().replace('.php', '');
     var id = getGet('id');
-    var url = getFilePath('pages/' + cat + '/' + action + '.php?id=' + id);
+    var url = getFilePath('pages/' + getPageCat() + '/' + action + '.php?id=' + id);
 
     $.get(url, function(data) {
         $('#main').html(data);
         if (action == 'edit') {
             cancelBtnControl();
+            $('.btn-edit').hide();
         } else {
             editBtnControl();
             $(window).off('beforeunload');
         }
+    });
+}
+
+function insertData() {
+    var formData = $('.form-edit').serialize();
+    var id = getGet('id');
+    var url = getFilePath(getPageCat() + '.php?page=details&id = ' + id);
+
+    $.post(url, formData, function(data) {
+        $('#main').replaceWith(data);
     });
 }

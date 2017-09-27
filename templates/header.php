@@ -17,6 +17,7 @@ $title .= ucwords(str_replace('-', ' ', getGet("page")));
 
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/details.css">
 
     <script src="js/lib/jquery-3.2.1.js"></script>
     <script src="js/lib/bootstrap.js"></script>

@@ -88,7 +88,7 @@ legend span {
 }
 
 .record img {
-    width: 200px;
+    width: 170px;
 }
 
 .artist img {
@@ -107,18 +107,6 @@ legend span {
     bottom: 0px;
 }
 
-.artist-bio {
-    padding: 0px 50px 50px 50px;
-}
-
-.bio-title {
-    margin-top: 0px;
-}
-
-.bio-title label {
-    font-weight: normal;
-}
-
 .sortlist th:not(.non-sortable):hover {
     text-decoration: underline;
     cursor: pointer;
@@ -130,29 +118,4 @@ legend span {
 
 .form-horizontal {
     padding: 0px 15px;
-}
-
-.form-add input,
-.form-add textarea,
-.placeholder {
-    background: #3f2e2e;
-    color: #ffffff;
-    font-weight: normal;
-}
-
-.img-upload input {
-    border: none;
-}
-
-#artistInsert {
-    margin-right: 110px;
-}
-
-.img-cover,
-.img-photo {
-    width: 500px;
-}
-
-.img-logo {
-    width: 300px;
 }

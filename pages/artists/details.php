@@ -23,7 +23,24 @@ $access = getSession("admin") ? "" : "hidden";
     <div class="col-xs-6 text-center">
         <img src="<?= $logo ?>" class="img-logo img-responsive center-block" alt="<?= "$name logo"?>">
         <img src="<?= $photo ?>" class="img-photo img-responsive center-block" alt="<?= "$name photo"?>">
-        <table class="table">
+    </div>
+    <div class="artist-bio col-xs-6">
+        <div class="row">
+            <div class="col-xs-4">
+                <h2 class="bio-title">Biography</h2>
+            </div>
+            <div class="col-xs-offset-4 col-xs-4 text-right <?= $access ?>">
+                <button class="btn btn-success btn-edit">Edit</button>
+            </div>
+        </div>
+        <div class="text-justify">
+            <?= $bio ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <table class="table info-table">
             <tbody>
                 <tr>
                     <th span="row">Name:</th>
@@ -40,15 +57,7 @@ $access = getSession("admin") ? "" : "hidden";
             </tbody>
         </table>
     </div>
-    <div class="artist-bio col-xs-6">
-        <div class="text-right <?= $access ?>">
-            <button class="btn btn-success btn-edit">Edit</button>
-        </div>
-        <h2 class="title">Biography</h2>
-        <div class="text-justify">
-            <?= $bio ?>
-        </div>
-    </div>
+    <div class="col-xs-6"></div>
 </div>
 
 <?php printRecords($records, false) ?>

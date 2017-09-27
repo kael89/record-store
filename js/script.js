@@ -1,6 +1,6 @@
 $(function() {
     bindLoadingImage();
-    headerControl();
+    navbarControl();
     letterNavbarControl();
     listControl();
     editBtnControl();
@@ -16,7 +16,7 @@ function bindLoadingImage() {
     });
 }
 
-function headerControl() {
+function navbarControl() {
     var uri = window.location.pathname.substr(1);
     var matches = uri.match(/\/(.*).php/);
     var menu = (matches != null) ? matches[1] : 'index';
@@ -80,7 +80,11 @@ function insertBtnControl() {
         return;
     }
 
-    $insertBtn.on('click', alertOnUnload);
+    $insertBtn.on('submit', function(e) {
+        e.preventDefault();
+        insertData();
+    })
+    // $insertBtn.on('click', alertOnUnload);
 }
 
 function alertOnUnload() {

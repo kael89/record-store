@@ -19,7 +19,7 @@ $insertBtn = ($id) ? "Save" : "Add record";
 
 /*** View ***/
 ?>
-<form class="form-horizontal form-add">
+<form id="addRecord" class="form-horizontal form-edit">
     <div class="form-group">
         <div class="col-xs-6 text-center">
             <fieldset class="form-inline">
@@ -29,7 +29,7 @@ $insertBtn = ($id) ? "Save" : "Add record";
                     <input id="cover" class="form-control" type="file" name="cover" accept="image/*">
                 </div>
             </fieldset>
-            <table class="table">
+            <table class="table info-table">
                 <tbody>
                     <tr>
                         <th span="row"><label for="artist">Artist:</label></th>
@@ -59,7 +59,7 @@ $insertBtn = ($id) ? "Save" : "Add record";
                 <?php if ($id) { ?>
                 <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
                 <?php } ?>
-                <button id="artistInsert" class="btn btn-primary btn-insert"><?= $insertBtn ?></button>
+                <button id="editRecord" class="btn btn-primary btn-insert"><?= $insertBtn ?></button>
             </div>
         </div>
     </div>

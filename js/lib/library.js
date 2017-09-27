@@ -45,6 +45,10 @@ function getFilePath(page) {
     return '/record-store/' + page;
 }
 
+function getPageCat() {
+    return getUrlPath().replace('.php', '');
+}
+
 function getGet(name) {
     var regex = name + '=([^&]*)';
     var match = window.location.search.match(regex);

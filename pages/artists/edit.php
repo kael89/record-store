@@ -19,10 +19,11 @@ $records = ($id) ? getRecordsByArtistId($id) : [];
 
 $access = ($id) ? "" : "hidden";
 $insertBtn = ($id) ? "Save" : "Add artist";
+$successMsg = ($id) ? "Artist details updated!" : "Artist successfully added!";
 
 /*** View ***/
 ?>
-<form class="form-horizontal form-add overflow">
+<form id="addArtist" class="form-horizontal form-edit overflow">
     <div class="form-group">
         <div class="col-xs-6 text-center">
             <fieldset class="form-inline">
@@ -37,7 +38,18 @@ $insertBtn = ($id) ? "Save" : "Add artist";
                     <input id="photo" class="form-control" type="file" name="logo" accept="image/*">
                 <div class="form-horizontal"></div>
             </fieldset>
-            <table class="table">
+        </div>
+        <div class="col-xs-6 artist-bio">
+            <div class="text-right">
+                <button class="btn btn-success btn-edit <?= $access ?>">Edit</button>
+            </div>
+            <h2 class="bio-title"><label for="bio">Biography</label></h2>
+            <textarea id="bio" class="form-control" name="bio" rows="20" cols="50" placeholder="Insert biography"><?= $bio ?></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-6">
+            <table class="table info-table">
                 <tbody>
                     <tr>
                         <th span="row"><label for="name">Name:</label></th>
@@ -54,12 +66,11 @@ $insertBtn = ($id) ? "Save" : "Add artist";
                 </tbody>
             </table>
         </div>
-        <div class="col-xs-6 artist-bio">
-            <div class="text-right">
-                <button class="btn btn-success btn-edit <?= $access ?>">Edit</button>
+        <div class="col-xs-6">
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                <?= $successMsg ?>
             </div>
-            <h2 class="bio-title"><label for="bio">Biography</label></h2>
-            <textarea id="bio" class="form-control" name="bio" rows="20" cols="50" placeholder="Insert biography"><?= $bio ?></textarea>
         </div>
     </div>
     <div class="form-group">
@@ -70,7 +81,7 @@ $insertBtn = ($id) ? "Save" : "Add artist";
             <?php if ($id) { ?>
             <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
             <?php } ?>
-            <button id="artistInsert" class="btn btn-primary btn-insert"><?= $insertBtn ?></button>
+            <button class="btn btn-primary btn-insert"><?= $insertBtn ?></button>
         </div>
     </div>
 </form>

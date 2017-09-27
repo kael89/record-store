@@ -1,0 +1,35 @@
+.artist-bio {
+    padding: 0px 50px;
+}
+
+.bio-title {
+    margin-top: 0px;
+}
+
+.bio-title label {
+    font-weight: normal;
+}
+
+.info-table {
+    margin-bottom: 0px;
+}
+
+.form-edit input,
+.form-edit textarea {
+    background: #3f2e2e;
+    color: #ffffff;
+    font-weight: normal;
+}
+
+.img-upload input {
+    border: none;
+}
+
+.img-cover,
+.img-photo {
+    width: 500px;
+}
+
+.img-logo {
+    width: 300px;
+}
