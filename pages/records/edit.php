@@ -15,7 +15,8 @@ $releaseDate = ($id) ? viewDate($record->getReleaseDate()) : "";
 $label = ($id) ? $record->getLabel()->getName() : "";
 
 $access = ($id) ? "" : "hidden";
-$insertBtn = ($id) ? "Save" : "Add record";
+$insertBtnText = ($id) ? "Save" : "Add record";
+$successMsg = ($id) ? "Record details updated!" : "Record successfully added!";
 
 /*** View ***/
 ?>
@@ -24,7 +25,7 @@ $insertBtn = ($id) ? "Save" : "Add record";
         <div class="col-xs-6 text-center">
             <fieldset class="form-inline">
                 <div class="img-upload">
-                    <img src="<?= $cover ?>" class="img-cover img-responsive center-block" alt="<?= "$title logo" ?>">
+                    <img src="<?= $cover ?>" class="details-cover img-responsive center-block" alt="<?= "$title logo" ?>">
                     <label for="cover">Upload new cover:</label>
                     <input id="cover" class="form-control" type="file" name="cover" accept="image/*">
                 </div>
@@ -55,11 +56,15 @@ $insertBtn = ($id) ? "Save" : "Add record";
                 <button class="btn btn-success btn-edit <?= $access ?>">Edit</button>
             </div>
             <?php printTracks($tracks) ?>
+            <div class="success-msg alert alert-danger alert-dismissible hidden">
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                <?= $successMsg ?>
+            </div>
             <div class="text-right">
                 <?php if ($id) { ?>
                 <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
                 <?php } ?>
-                <button id="editRecord" class="btn btn-primary btn-insert"><?= $insertBtn ?></button>
+                <button class="btn btn-primary btn-insert" type="button"><?= $insertBtnText ?></button>
             </div>
         </div>
     </div>

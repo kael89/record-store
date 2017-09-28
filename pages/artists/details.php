@@ -20,11 +20,11 @@ $access = getSession("admin") ? "" : "hidden";
 /*** View ***/
 ?>
 <div class="row">
-    <div class="col-xs-6 text-center">
-        <img src="<?= $logo ?>" class="img-logo img-responsive center-block" alt="<?= "$name logo"?>">
-        <img src="<?= $photo ?>" class="img-photo img-responsive center-block" alt="<?= "$name photo"?>">
+    <div class="col-xs-6 artist-photos text-center">
+        <img src="<?= $logo ?>" class="details-logo img-responsive center-block" alt="<?= "$name logo"?>">
+        <img src="<?= $photo ?>" class="details-photo img-responsive center-block" alt="<?= "$name photo"?>">
     </div>
-    <div class="artist-bio col-xs-6">
+    <div class="col-xs-6 artist-bio ">
         <div class="row">
             <div class="col-xs-4">
                 <h2 class="bio-title">Biography</h2>

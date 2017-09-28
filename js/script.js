@@ -5,7 +5,6 @@ $(function() {
     listControl();
     editBtnControl();
     cancelBtnControl();
-    insertBtnControl();
 })
 
 function bindLoadingImage() {
@@ -80,7 +79,7 @@ function insertBtnControl() {
         return;
     }
 
-    $insertBtn.on('submit', function(e) {
+    $insertBtn.on('click', function(e) {
         e.preventDefault();
         insertData();
     })

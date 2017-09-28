@@ -1,3 +1,9 @@
+.artist-photos,
+.artist-bio {
+    min-height: 420px;
+    max-height: 420px;
+}
+
 .artist-bio {
     padding: 0px 50px;
 }
@@ -21,15 +27,36 @@
     font-weight: normal;
 }
 
+.form-edit .alert {
+    position: absolute;
+    right: 10px;
+    bottom: 30px;
+}
+
+.form-edit .form-group {
+    margin-right: 0px;
+}
+
 .img-upload input {
     border: none;
 }
 
-.img-cover,
-.img-photo {
+.details-logo {
+    width: 300px;
+    margin-top: -20px;
+}
+
+.details-cover,
+.details-photo {
     width: 500px;
 }
 
-.img-logo {
-    width: 300px;
+.details-photo {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+}
+
+.success-msg {
+    display: none;
 }

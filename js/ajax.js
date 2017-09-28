@@ -19,6 +19,7 @@ function toggleDetailsPage(action) {
     $.get(url, function(data) {
         $('#main').html(data);
         if (action == 'edit') {
+            insertBtnControl();
             cancelBtnControl();
             $('.btn-edit').hide();
         } else {
@@ -33,7 +34,10 @@ function insertData() {
     var id = getGet('id');
     var url = getFilePath(getPageCat() + '.php?page=details&id = ' + id);
 
+    console.log($('.success-msg'));
+    $('.success-msg').show();
+    /*
     $.post(url, formData, function(data) {
         $('#main').replaceWith(data);
-    });
+    });*/
 }

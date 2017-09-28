@@ -44,10 +44,6 @@ legend span {
     font-style: italic;
 }
 
-.hidden {
-    visibility: hidden;
-}
-
 #container {
     background: #3f2e2e;
     color: #ffffff;
@@ -114,8 +110,4 @@ legend span {
 
 #loading {
     display: none;
-}
-
-.form-horizontal {
-    padding: 0px 15px;
 }

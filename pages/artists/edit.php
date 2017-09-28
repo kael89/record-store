@@ -18,22 +18,22 @@ $bio = ($id) ? $artist->getBio() : "";
 $records = ($id) ? getRecordsByArtistId($id) : [];
 
 $access = ($id) ? "" : "hidden";
-$insertBtn = ($id) ? "Save" : "Add artist";
+$insertBtnText = ($id) ? "Save" : "Add artist";
 $successMsg = ($id) ? "Artist details updated!" : "Artist successfully added!";
 
 /*** View ***/
 ?>
 <form id="addArtist" class="form-horizontal form-edit overflow">
     <div class="form-group">
-        <div class="col-xs-6 text-center">
+        <div class="col-xs-6 artist-photos text-center">
             <fieldset class="form-inline">
                 <div class="img-upload">
-                    <img src="<?= $logo ?>" class="img-logo img-responsive center-block" alt="<?= "$name logo" ?>">
+                    <img src="<?= $logo ?>" class="details-logo img-responsive center-block" alt="<?= "$name logo" ?>">
                     <label for="logo">Upload new logo:</label>
                     <input id="logo" class="form-control" type="file" name="logo" accept="image/*">
                 </div>
                 <div class="img-upload">
-                    <img src="<?= $photo ?>" class="img-photo img-responsive center-block" alt="<?= "$name photo" ?>">
+                    <img src="<?= $photo ?>" class="details-photo img-responsive center-block" alt="<?= "$name photo" ?>">
                     <label for="photo">Upload new photo:</label>
                     <input id="photo" class="form-control" type="file" name="logo" accept="image/*">
                 <div class="form-horizontal"></div>
@@ -66,22 +66,21 @@ $successMsg = ($id) ? "Artist details updated!" : "Artist successfully added!";
                 </tbody>
             </table>
         </div>
-        <div class="col-xs-6">
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <?= $successMsg ?>
-            </div>
-        </div>
+        <div class="col-xs-6"></div>
     </div>
     <div class="form-group">
         <div class="col-xs-6 text-center">
             <button class="btn btn-success">Add records</button>
         </div>
         <div class="col-xs-6 text-right">
+            <div class="success-msg alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                <?= $successMsg ?>
+            </div>
             <?php if ($id) { ?>
             <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
             <?php } ?>
-            <button class="btn btn-primary btn-insert"><?= $insertBtn ?></button>
+            <button class="btn btn-primary btn-insert" type="button"><?= $insertBtnText ?></button>
         </div>
     </div>
 </form>
