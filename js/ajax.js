@@ -47,7 +47,8 @@ function insertData(action) {
         data: new FormData($('.form-edit')[0]),
         processData: false,
         contentType: false
-    }).done(function() {
+    }).done(function(data) {
+        console.log(data);
         toggleDetailsPage('insert');
     });
 }

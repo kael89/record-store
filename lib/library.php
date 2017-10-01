@@ -107,21 +107,15 @@ function requirePhp($type, $name = "") {
 
 /*** $_POST, $_GET ***/
 function getGet($var) {
-    if (isset($_GET[$var])) {
-        return $_GET[$var];
-    }
+    return isset($_GET[$var]) ? $_GET[$var] : null;
 }
 
 function getPost($var) {
-    if (isset($_POST[$var])) {
-        return $_POST[$var];
-    }
+    return isset($_POST[$var]) ? $_POST[$var] : null;
 }
 
 function getFile($var) {
-    if (isset($_FILES[$var])) {
-        return $_FILES[$var];
-    }
+    return isset($_FILE[$var]) ? $_FILE[$var] : null;
 }
 
 /*** $_SESSION ***/

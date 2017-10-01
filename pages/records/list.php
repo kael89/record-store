@@ -7,10 +7,8 @@ $recordList = getRecordList();
 
 /*** View ***/
 ?>
-<div id="main" class="row">
-    <div class="col-xs-12">
-        <?php printRecordList($recordList, $sortBy); ?>
-    </div>
+<div class="col-xs-12">
+    <?php printRecordList($recordList, $sortBy); ?>
 </div>
 
 <?php

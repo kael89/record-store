@@ -7,10 +7,8 @@ $artistList = getArtistList();
 
 /*** View ***/
 ?>
-<div id="main" class="row">
-    <div class="col-xs-12">
-        <?php printArtistList($artistList, $sortBy); ?>
-    </div>
+<div class="col-xs-12">
+    <?php printArtistList($artistList, $sortBy); ?>
 </div>
 
 <?php

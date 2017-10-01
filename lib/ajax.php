@@ -27,13 +27,18 @@ switch (getGet("action")) {
         extract($_FILES);
         // Update database through object methods
         $id = getGet("id");
-        $artist = getArtistById($id);
-        $artist->setName($name);
-        $artist->setCountry($country);
-        $artist->setFoundationYear($foundationYear);
-        $artist->setLogo($logo);
-        $artist->setPhoto($photo);
-        $artist->setBio($bio);
+        echo "my id : $id";
+        if ($id) {
+            $artist = getArtistById($id);
+            $artist->setName($name);
+            $artist->setCountry($country);
+            $artist->setFoundationYear($foundationYear);
+            $artist->setLogo($logo);
+            $artist->setPhoto($photo);
+            $artist->setBio($bio);
+        } else {
+            $artist = createArtist($name, $country, $foundationYear, $logo, $photo, $bio);
+        }
         break;
     default:
         break;

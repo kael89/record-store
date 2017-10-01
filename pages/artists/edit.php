@@ -73,7 +73,7 @@ $insertBtnText = ($id) ? "Save" : "Add artist";
         </div>
         <div class="col-xs-6 text-right">
             <?php if ($id) { ?>
-            <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
+                <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
             <?php } ?>
             <button class="btn btn-primary btn-insert" type="button" data-action="edit_artist"><?= $insertBtnText ?></button>
         </div>

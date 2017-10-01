@@ -53,8 +53,7 @@
 }
 
 #successMsg {
-    /* display: none; */
-    /* /* display: inline-block; */
+    display: none;
     position: absolute;
     bottom: 60px;
     right: 50px;

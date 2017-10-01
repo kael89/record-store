@@ -75,6 +75,7 @@ function cancelBtnControl() {
 
 function insertBtnControl() {
     var $insertBtn = $('.btn-insert');
+    console.log($insertBtn);
     if (!$insertBtn.length) {
         return;
     }
