@@ -24,12 +24,16 @@ html, body {
     overflow: hidden;
 }
 
+body {
+    background: #958888;
+}
+
 #container {
     overflow: auto;
 }
 
-body {
-    background: #958888;
+#main {
+    position: relative;
 }
 
 legend {

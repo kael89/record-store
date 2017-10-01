@@ -90,7 +90,7 @@ class Record {
     }
 
     public function getCoverImage($size = "sm") {
-        return getImage("records", "covers", $this->cover, $size);
+        return getImageSrc("records", "covers", $size, $this->cover);
     }
 
     public function getPrice() {

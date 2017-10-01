@@ -1,8 +1,15 @@
 <?php
 /*** Program ***/
 $fullPath = str_replace(".php", "", getUrlPath($_SERVER["REQUEST_URI"]));
-$title = ($fullPath != "index") ? ucfirst($fullPath) . " - " : "";
-$title .= ucwords(str_replace('-', ' ', getGet("page")));
+$cat = ($fullPath != "index") ? ucfirst($fullPath) : "";
+$page = getGet("page") ? ucwords(str_replace('-', ' ', getGet("page"))) : "";
+
+if ($cat) {
+    $title = $page ? "$cat - $page" : $cat;
+} else {
+    // Specifies a generic title when there are no page details
+    $title = $page ?: "Metal Militia";
+}
 
 /*** View ***/
 ?>

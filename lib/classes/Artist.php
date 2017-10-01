@@ -55,8 +55,8 @@ class Artist {
         return $this->foundationYear;
     }
 
-    public function setFoundationYear(int $year) {
-        if (!updateArtist($this->id, ["foundationYear" => $year])) {
+    public function setFoundationYear($year) {
+        if (!updateArtist($this->id, ["foundationYear" => (int)$year])) {
             return false;
         }
 
@@ -68,7 +68,11 @@ class Artist {
         return $this->logo;
     }
 
-    public function setLogo($logo) {
+    public function setLogo($logoFile) {
+        $logo = uploadImage($logoFile, "artists", "logos", "md", $this->id);
+        if (!$logo) {
+            return false;
+        }
         if (!updateArtist($this->id, ["logo" => $logo])) {
             return false;
         }
@@ -78,14 +82,18 @@ class Artist {
     }
 
     public function getLogoImage($size = "sm") {
-        return getImage("artists", "logos", $this->logo, $size);
+        return getImageSrc("artists", "logos", $size, $this->logo);
     }
 
     public function getPhoto() {
         return $this->photo;
     }
 
-    public function setPhoto($photo) {
+    public function setPhoto($photoFile) {
+        $photo = uploadImage($photoFile, "artists", "photos", "md", $this->id);
+        if (!$photo) {
+            return false;
+        }
         if (!updateArtist($this->id, ["photo" => $photo])) {
             return false;
         }
@@ -95,7 +103,7 @@ class Artist {
     }
 
     public function getPhotoImage($size = "sm") {
-        return getImage("artists", "photos", $this->photo, $size);
+        return getImageSrc("artists", "photos", $size, $this->photo);
     }
 
     public function getBio() {

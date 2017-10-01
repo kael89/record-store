@@ -26,7 +26,7 @@ function createRecord($title = "", $labelId = 0, $releaseDate = "", $cover = "",
 }
 
 function updateRecord($id, $row) {
-    return updateRow("records", $row, ["recordId=" => $id]);
+    return updateRow("records", $row, ["recordId" => $id]);
 }
 
 function isRecord($id) {

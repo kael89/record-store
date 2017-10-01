@@ -23,16 +23,15 @@ $artists = getArtistsByName("%", true);
 
 <?php
 /*** Functions ***/
-function printArtists($artists) {
-    define("ARTISTS_PER_LINE", 4);
-    $size = (int)(12 / ARTISTS_PER_LINE);
+function printArtists($artists, $lineCount) {
+    $size = (int)(12 / $lineCount);
     if ($size < 1) {
         $size = 1;
     }
 
     foreach ($artists as $i => $artist) {
-        $rowStart = ($i % ARTISTS_PER_LINE == 0) ? "<div class=\"row\">" : "";
-        $rowEnd = ($i % ARTISTS_PER_LINE == ARTISTS_PER_LINE - 1) ? "</div>" : "";
+        $rowStart = ($i % $lineCount == 0) ? "<div class=\"row\">" : "";
+        $rowEnd = ($i % $lineCount == $lineCount - 1) ? "</div>" : "";
 
         $id = $artist->getId();
         $name = $artist->getName();

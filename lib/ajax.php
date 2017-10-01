@@ -22,6 +22,20 @@ switch (getGet("action")) {
 
         echo json_encode(loginUser($email, $password));
         break;
+    case "edit_artist":
+        extract($_POST);
+        extract($_FILES);
+        // Update database through object methods
+        $id = getGet("id");
+        $artist = getArtistById($id);
+        $artist->setName($name);
+        $artist->setCountry($country);
+        $artist->setFoundationYear($foundationYear);
+        $artist->setLogo($logo);
+        $artist->setPhoto($photo);
+        $artist->setBio($bio);
+        break;
     default:
         break;
+
 }

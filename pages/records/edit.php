@@ -24,8 +24,8 @@ $successMsg = ($id) ? "Record details updated!" : "Record successfully added!";
     <div class="form-group">
         <div class="col-xs-6 text-center">
             <fieldset class="form-inline">
-                <div class="img-upload">
-                    <img src="<?= $cover ?>" class="details-cover img-responsive center-block" alt="<?= "$title logo" ?>">
+                <div class="details-cover img-upload">
+                    <img src="<?= $cover ?>" class="img-responsive center-block" alt="<?= "$title logo" ?>">
                     <label for="cover">Upload new cover:</label>
                     <input id="cover" class="form-control" type="file" name="cover" accept="image/*">
                 </div>

@@ -25,7 +25,7 @@ function createTrack($title = "", $artistId = 0, $genreId = 0, $duration = 0) {
 }
 
 function updateTrack($id, $row) {
-    return updateRow("tracks", $row, ["trackId=" => $id]);
+    return updateRow("tracks", $row, ["trackId" => $id]);
 }
 
 function isTrack($id) {

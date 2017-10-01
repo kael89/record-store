@@ -1,11 +1,6 @@
-.artist-photos,
-.artist-bio {
-    min-height: 420px;
-    max-height: 420px;
-}
-
 .artist-bio {
     padding: 0px 50px;
+    height: 400px;
 }
 
 .bio-title {
@@ -43,20 +38,24 @@
 
 .details-logo {
     width: 300px;
+    max-height: 120px;
     margin-top: -20px;
 }
 
-.details-cover,
+.details-cover {
+    width: 500px;
+    max-height: 500px;
+}
+
 .details-photo {
     width: 500px;
+    max-height: 330px;
 }
 
-.details-photo {
+#successMsg {
+    /* display: none; */
+    /* /* display: inline-block; */
     position: absolute;
-    bottom: 20px;
-    left: 40px;
-}
-
-.success-msg {
-    display: none;
+    bottom: 60px;
+    right: 50px;
 }

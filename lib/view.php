@@ -75,23 +75,38 @@ function printLetterNavbar($cat) {
     echo "</ul>";
 }
 
-function printRecords($records, $showArtists = true) {
-    define("RECORDS_PER_LINE", 4);
-    $size = (int)(12 / RECORDS_PER_LINE);
+function printRecords($records, $lineCount, $showArtists = true) {
+    $size = (int)(12 / $lineCount);
     if ($size < 1) {
         $size = 1;
     }
 
+    $x = "";
     foreach ($records as $i => $record) {
-        $rowStart = ($i % RECORDS_PER_LINE == 0) ? "<div class=\"row\">" : "";
-        $rowEnd = ($i % RECORDS_PER_LINE == RECORDS_PER_LINE - 1) ? "</div>" : "";
+        $rowStart = ($i % $lineCount == 0) ? "<div class=\"row\">" : "";
+        if (($i % $lineCount == $lineCount - 1) || $i == count($records) - 1) {
+            $rowEnd = "</div>";
+        } else {
+            $rowEnd = "";
+        }
 
         $artistLink = ($showArtists) ? viewArtistLink($record->getArtists()) . " - " : "";
         $recordLink = viewRecordLink($record);
 
         echo <<<_END
 $rowStart
-    <div class="record col-sm-$size">
+    <div class="record col-xs-$size">
+        <figure class="text-center">
+            <img src="{$record->getCoverImage()}" class="img-thumbnail" alt="{$record->getTitle()} cover"><br>
+            <figcaption><span class="i">$artistLink</span> $recordLink</figcaption>
+        </figure>
+    </div>
+$rowEnd
+_END;
+
+    $x .= <<<_END
+$rowStart
+    <div class="record col-xs-$size">
         <figure class="text-center">
             <img src="{$record->getCoverImage()}" class="img-thumbnail" alt="{$record->getTitle()} cover"><br>
             <figcaption><span class="i">$artistLink</span> $recordLink</figcaption>

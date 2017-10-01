@@ -19,5 +19,8 @@ $records = getRecordsByTitle("%", true);
         <?php printLetterNavbar("records") ?>
     </nav>
 </div>
-
-<?php printRecords($records); ?>
+<div class="row">
+    <div class="col-xs-12">
+        <?php printRecords($records, 4); ?>
+    </div>
+</div>

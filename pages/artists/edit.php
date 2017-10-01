@@ -5,7 +5,7 @@ requirePhp("class", "artist");
 requirePhp("api", "artist");
 requirePhp("view");
 
-// If $id is valid, we are editing an existing artist.
+// If $id is valid, we are updating an existing artist.
 // Otherwise, we are adding a new artist
 $id = getGet("id");
 $artist = ($id) ? getArtistById($id) : "";
@@ -19,11 +19,10 @@ $records = ($id) ? getRecordsByArtistId($id) : [];
 
 $access = ($id) ? "" : "hidden";
 $insertBtnText = ($id) ? "Save" : "Add artist";
-$successMsg = ($id) ? "Artist details updated!" : "Artist successfully added!";
 
 /*** View ***/
 ?>
-<form id="addArtist" class="form-horizontal form-edit overflow">
+<form class="form-horizontal form-edit overflow" enctype="multipart/form-data">
     <div class="form-group">
         <div class="col-xs-6 artist-photos text-center">
             <fieldset class="form-inline">
@@ -35,7 +34,7 @@ $successMsg = ($id) ? "Artist details updated!" : "Artist successfully added!";
                 <div class="img-upload">
                     <img src="<?= $photo ?>" class="details-photo img-responsive center-block" alt="<?= "$name photo" ?>">
                     <label for="photo">Upload new photo:</label>
-                    <input id="photo" class="form-control" type="file" name="logo" accept="image/*">
+                    <input id="photo" class="form-control" type="file" name="photo" accept="image/*">
                 <div class="form-horizontal"></div>
             </fieldset>
         </div>
@@ -61,7 +60,7 @@ $successMsg = ($id) ? "Artist details updated!" : "Artist successfully added!";
                     </tr>
                     <tr>
                         <th span="row"><label for="foundationYear">Foundation Year:</label></th>
-                        <td><input id="foundationYear" class="form-control" type="text" name="foudationYear" placeholder="Insert year" value="<?= $foundationYear ?>"></td>
+                        <td><input id="foundationYear" class="form-control" type="text" name="foundationYear" placeholder="Insert year" value="<?= $foundationYear ?>"></td>
                     </tr>
                 </tbody>
             </table>
@@ -73,14 +72,10 @@ $successMsg = ($id) ? "Artist details updated!" : "Artist successfully added!";
             <button class="btn btn-success">Add records</button>
         </div>
         <div class="col-xs-6 text-right">
-            <div class="success-msg alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <?= $successMsg ?>
-            </div>
             <?php if ($id) { ?>
             <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
             <?php } ?>
-            <button class="btn btn-primary btn-insert" type="button"><?= $insertBtnText ?></button>
+            <button class="btn btn-primary btn-insert" type="button" data-action="edit_artist"><?= $insertBtnText ?></button>
         </div>
     </div>
 </form>

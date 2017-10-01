@@ -1,4 +1,8 @@
 <?php
+// Define constants
+define("ROOT_FOLDER", "record-store/");
+// Max file size: 1MB
+define("MAX_FILE_SIZE", 1048576);
 
 if (!isset($mysqli)) {
     $mysqli = connectToDB(); 
@@ -15,26 +19,22 @@ function consoleLog() {
 
 /*** URL ***/
 function getUrlPath() {
-    define('ROOT_FOLDER', 'record-store/');
     return str_replace("/" . ROOT_FOLDER, "", parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH));
 }
 
 /*** FILE REFERENCE ***/
-function getFilepath($path) {
+function getFilePath($path) {
     return $_SERVER["DOCUMENT_ROOT"] . "/record-store/$path"; 
 }
 
-function getImage($type, $category, $name = "", $size = "sm") {
-    $sizes = [
-        "sm",
-        "md",
-        "lg"
-    ];
+function getImageDir($type, $category, $size = "sm") {
+    return getFilePath("img/$type/$category/$size");
+}
 
-    if (!in_array($size, $sizes)) {
-        $size = "sm";
-    }
-    return "/record-store/img/$type/$category/$size/$name";
+function getImageSrc($type, $category, $size, $name) {
+    $imagePath = getImageDir($type, $category, $size) . "/$name";
+    $lastModified = filemtime($imagePath);
+    return "/record-store/img/$type/$category/$size/$name?=$lastModified";
 }
 
 function requirePhp($type, $name = "") {
@@ -90,8 +90,7 @@ function requirePhp($type, $name = "") {
             break;
     }
 
-    // If $filepaths[] contains more than 1 element,
-    // it is a given array with valid data
+    // If $filepaths[] contains more than 1 element, it is a given array with valid data
     if (count($filepaths) > 1) {
         foreach ($filepaths as $key => $path) {
             require_once getFilepath($path);
@@ -116,6 +115,12 @@ function getGet($var) {
 function getPost($var) {
     if (isset($_POST[$var])) {
         return $_POST[$var];
+    }
+}
+
+function getFile($var) {
+    if (isset($_FILES[$var])) {
+        return $_FILES[$var];
     }
 }
 
@@ -151,6 +156,29 @@ function unsetSession($var) {
     }
 
     unset($_SESSION[$var]);
+}
+
+/*** FILE UPLOAD ***/
+// Returns the filename of the uploaded file on success, or an empty string on failure
+function uploadFile($file, $targetDir, $newName = "") {
+    if ($newName) {
+        $targetFile = $newName . "." . pathinfo($file["name"], PATHINFO_EXTENSION);
+    } else {
+        $targetFile = basename($file["name"]);
+    }
+
+    if ($file["size"] > MAX_FILE_SIZE) {
+        return "";
+    }
+    if (!move_uploaded_file($file["tmp_name"], "$targetDir/$targetFile")) {
+        return "";
+    }
+    return $targetFile;
+}
+
+function uploadImage($file, $type, $cat, $size, $newName = "") {
+    $targetDir = getImageDir($type, $cat, $size);
+    return uploadFile($file, $targetDir, $newName);
 }
 
 /*** DATABASE ***/
@@ -193,7 +221,10 @@ function updateRow($table, $row, $where) {
     $mysqli = getSession("mysqli");
     $columns = array_keys($row);
     $values = array_values($row);
-    $params = getParams($table, $columns);
+    $params = getParams($table, $columns) . getParams($table, array_keys($where));
+    if (!$params) {
+        return false;
+    }
 
     //SET
     $query = "UPDATE $table SET ";
@@ -204,11 +235,8 @@ function updateRow($table, $row, $where) {
     //WHERE
     $query = rtrim($query, ",") . " WHERE (TRUE)";
     foreach ($where as $column => $value) {
-        $query .= " AND $column ?";
-
+        $query .= " AND ($column = ?)";
         $values[] = $value;
-        $columnName = array_slice(explode(' ', $column), 0, 1);
-        $params .= getParams($table, $columnName);
     }
 
     $stmt = $mysqli->prepare($query);

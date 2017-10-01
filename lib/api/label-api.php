@@ -25,7 +25,7 @@ function createLabel($name, $country = "", $foundationYear = 0, $logo = "") {
 }
 
 function updateLabel($id, $row) {
-    return updateRow("labels", $row, ["labelId=" => $id]);
+    return updateRow("labels", $row, ["labelId" => $id]);
 }
 
 function isLabel($id) {

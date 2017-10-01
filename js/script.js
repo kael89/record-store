@@ -81,9 +81,9 @@ function insertBtnControl() {
 
     $insertBtn.on('click', function(e) {
         e.preventDefault();
-        insertData();
+        var action = $(this).data('action');
+        insertData(action);
     })
-    // $insertBtn.on('click', alertOnUnload);
 }
 
 function alertOnUnload() {

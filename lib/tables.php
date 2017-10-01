@@ -53,7 +53,7 @@ function getTable($tableName) {
         "users.admin" => "i"
     ];
 
-    return $columns[$tableName];
+    return array_key_exists($tableName, $columns) ? $columns[$tableName] : [];
 }
 
 function getColumns($tableName) {
@@ -66,17 +66,15 @@ function getColumns($tableName) {
 }
 
 function getParams($tableName, $columns) {
-    $params = "";
-
     $table = getTable($tableName);
+
+    $params = "";
     if (!empty($table)) {
         foreach ($columns as $column) {
-            $value = $table[$tableName . "." . $column];
-            if (!$value) {
-                continue;
+            $key = $tableName . "." . $column;
+            if (array_key_exists($key, $table)) {
+                $params .= $table[$key];
             }
-
-            $params .= $value; 
         }
     }
 

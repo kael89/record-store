@@ -7,37 +7,47 @@ function sortList(cat, order) {
     })
 }
 
-function toggleDetailsPage(action) {
-    var actions = ['details', 'edit'];
+function toggleDetailsPage(action = 'details') {
+    var actions = ['details', 'edit', 'insert'];
     if (!actions.includes(action)) {
-        return;
+        action = 'details';
     }
 
     var id = getGet('id');
-    var url = getFilePath('pages/' + getPageCat() + '/' + action + '.php?id=' + id);
+    var page = (action == 'edit') ? 'edit.php' : 'details.php';
+    var url = getFilePath('pages/' + getPageCat() + '/' + page + '?id=' + id);
 
     $.get(url, function(data) {
         $('#main').html(data);
-        if (action == 'edit') {
-            insertBtnControl();
-            cancelBtnControl();
-            $('.btn-edit').hide();
-        } else {
-            editBtnControl();
-            $(window).off('beforeunload');
+        switch (action) {
+            case 'edit':
+                insertBtnControl();
+                cancelBtnControl();
+                $('.btn-edit').hide();
+                break;
+            case 'insert':
+                $('#successMsg').show();
+                // fallthrough
+            case 'edit':
+            default:
+                editBtnControl();
+                $(window).off('beforeunload');
+                break;
         }
     });
 }
 
-function insertData() {
-    var formData = $('.form-edit').serialize();
+function insertData(action) {
     var id = getGet('id');
-    var url = getFilePath(getPageCat() + '.php?page=details&id = ' + id);
 
-    console.log($('.success-msg'));
-    $('.success-msg').show();
-    /*
-    $.post(url, formData, function(data) {
-        $('#main').replaceWith(data);
-    });*/
+
+    $.ajax({
+        url: getFilePath('lib/ajax.php?action=' + action + '&id=' + id),
+        type: 'POST',
+        data: new FormData($('.form-edit')[0]),
+        processData: false,
+        contentType: false
+    }).done(function() {
+        toggleDetailsPage('insert');
+    });
 }

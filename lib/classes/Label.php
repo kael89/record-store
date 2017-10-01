@@ -50,7 +50,7 @@ class Label {
     }
 
     public function setFoundationYear($year) {
-        if (updateLabel($this->id, ["foundationYear" => $year])) {
+        if (updateLabel($this->id, ["foundationYear" => (int)$year])) {
             $this->foundationYear = $year;
         } else {
             return false;
@@ -71,6 +71,6 @@ class Label {
     }
 
     public function getLogoImage($size = "sm") {
-        return getImage("labels", "logos", $this->logo, $size);
+        return getImageSrc("labels", "logos", $size, $this->logo);
     }
 }

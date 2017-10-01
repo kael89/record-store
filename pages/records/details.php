@@ -20,7 +20,9 @@ $access = getSession("admin") ? "" : "hidden";
 ?>
 <div class="row">
     <div class="col-xs-6 text-center">
-        <img src="<?= $cover ?>" class="details-cover img-responsive center-block" alt="<? "$title logo"?>">
+        <div class="details-cover">
+            <img src="<?= $cover ?>" class="img-responsive center-block" alt="<? "$title logo"?>">
+        </div>
         <table class="table info-table">
             <tbody>
                 <tr>

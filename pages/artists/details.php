@@ -14,14 +14,14 @@ $logo = $artist->getLogoImage("md");
 $photo = $artist->getPhotoImage("md");
 $bio = $artist->getBio();
 $records = getRecordsByArtistId($id);
-
-$access = getSession("admin") ? "" : "hidden";
+$successMsg = "Artist details updated!";
 
 /*** View ***/
 ?>
 <div class="row">
-    <div class="col-xs-6 artist-photos text-center">
-        <img src="<?= $logo ?>" class="details-logo img-responsive center-block" alt="<?= "$name logo"?>">
+    <div class="col-xs-6 text-center">
+        <img src="<?= $logo ?>" class="details-logo img-responsive 
+        center-block" alt="<?= "$name logo"?>">
         <img src="<?= $photo ?>" class="details-photo img-responsive center-block" alt="<?= "$name photo"?>">
     </div>
     <div class="col-xs-6 artist-bio ">
@@ -57,7 +57,13 @@ $access = getSession("admin") ? "" : "hidden";
             </tbody>
         </table>
     </div>
-    <div class="col-xs-6"></div>
 </div>
-
-<?php printRecords($records, false) ?>
+<div class="row">
+    <div class="col-xs-12">
+        <?php printRecords($records, 4, false) ?>
+    </div>
+</div>
+<div id="successMsg" class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+    <?= $successMsg ?>
+</div>
