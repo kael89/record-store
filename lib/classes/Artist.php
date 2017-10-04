@@ -68,17 +68,22 @@ class Artist {
         return $this->logo;
     }
 
-    public function setLogo($logoFile) {
-        $logo = uploadImage($logoFile, "artists", "logos", "md", $this->id);
-        if (!$logo) {
-            return false;
-        }
+    public function setLogo($logo) {
         if (!updateArtist($this->id, ["logo" => $logo])) {
             return false;
         }
 
         $this->logo = $logo;
         return true;
+    }
+
+    public function uploadLogo($logoFile) {
+        $logo = uploadImage($logoFile, "artists", "logos", "md", $this->id);
+        if (!$logo) {
+            return false;
+        }
+
+        return $this->setLogo($logo);
     }
 
     public function getLogoImage($size = "sm") {
@@ -89,17 +94,22 @@ class Artist {
         return $this->photo;
     }
 
-    public function setPhoto($photoFile) {
-        $photo = uploadImage($photoFile, "artists", "photos", "md", $this->id);
-        if (!$photo) {
-            return false;
-        }
+    public function setPhoto($photo) {
         if (!updateArtist($this->id, ["photo" => $photo])) {
             return false;
         }
 
         $this->photo = $photo;
         return true;
+    }
+
+    public function uploadPhoto($photoFile) {
+        $photo = uploadImage($photoFile, "artists", "photos", "md", $this->id);
+        if (!$photo) {
+            return false;
+        }
+
+        return $this->setPhoto($photo);
     }
 
     public function getPhotoImage($size = "sm") {

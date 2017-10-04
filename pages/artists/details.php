@@ -14,7 +14,7 @@ $logo = $artist->getLogoImage("md");
 $photo = $artist->getPhotoImage("md");
 $bio = $artist->getBio();
 $records = getRecordsByArtistId($id);
-$successMsg = "Artist details updated!";
+$successMsg = getGet("add") ? "Artist added!" : "Artist details updated!";
 
 /*** View ***/
 ?>

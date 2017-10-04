@@ -155,15 +155,16 @@ function unsetSession($var) {
 /*** FILE UPLOAD ***/
 // Returns the filename of the uploaded file on success, or an empty string on failure
 function uploadFile($file, $targetDir, $newName = "") {
+    if ($file["error"] != UPLOAD_ERR_OK || $file["size"] > MAX_FILE_SIZE) {
+        return "";
+    }
+
     if ($newName) {
         $targetFile = $newName . "." . pathinfo($file["name"], PATHINFO_EXTENSION);
     } else {
         $targetFile = basename($file["name"]);
     }
 
-    if ($file["size"] > MAX_FILE_SIZE) {
-        return "";
-    }
     if (!move_uploaded_file($file["tmp_name"], "$targetDir/$targetFile")) {
         return "";
     }
@@ -171,6 +172,10 @@ function uploadFile($file, $targetDir, $newName = "") {
 }
 
 function uploadImage($file, $type, $cat, $size, $newName = "") {
+    if ($file["error"] != UPLOAD_ERR_OK) {
+        return "";
+    }
+
     $targetDir = getImageDir($type, $cat, $size);
     return uploadFile($file, $targetDir, $newName);
 }
@@ -194,7 +199,7 @@ function insertRow($table, $row) {
     $values = array_values($row);
     $params = array(getParams($table, $columns));
 
-    $query = "INSERT INTO $table(" . implode(',', $columns) . ")" . "VALUES(" . str_repeat("?,", count($values));
+    $query = "INSERT INTO $table(" . implode(',', $columns) . ")" . " VALUES(" . str_repeat("?,", count($values));
     $query = rtrim($query, ",") . ")";
     $stmt = $mysqli->prepare($query);
 

@@ -53,5 +53,5 @@ function getGet(name) {
     var regex = name + '=([^&]*)';
     var match = window.location.search.match(regex);
 
-    return (typeof(match[1]) != 'undefined') ? match[1] : '';
+    return (match) ? match[1] : '';
 }

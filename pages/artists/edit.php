@@ -8,17 +8,37 @@ requirePhp("view");
 // If $id is valid, we are updating an existing artist.
 // Otherwise, we are adding a new artist
 $id = getGet("id");
-$artist = ($id) ? getArtistById($id) : "";
-$name = ($id) ? $artist->getName() : "";
-$country = ($id) ? $artist->getCountry() : "";
-$foundationYear = ($id) ? $artist->getFoundationYear() : "";
-$logo = ($id) ? $artist->getLogoImage("md") : "";
-$photo = ($id) ? $artist->getPhotoImage("md") : "";
-$bio = ($id) ? $artist->getBio() : "";
-$records = ($id) ? getRecordsByArtistId($id) : [];
+if ($id) {
+    $artist = getArtistById($id);
+    $name = $artist->getName();
+    $country = $artist->getCountry();
+    $foundationYear = $artist->getFoundationYear();
+    $logo = $artist->getLogoImage("md");
+    $photo = $artist->getPhotoImage("md");
+    $bio = $artist->getBio();
+    $records = getRecordsByArtistId($id);
 
-$access = ($id) ? "" : "hidden";
-$insertBtnText = ($id) ? "Save" : "Add artist";
+    $access = "";
+    $logoAlt = "alt=\"$name logo\"";
+    $photoAlt = "alt=\"$name photo\"";
+    $insertBtnText = "Save";
+    $action = "edit_artist";
+} else {
+    $artist = "";
+    $name = "";
+    $country = "";
+    $foundationYear = "";
+    $logo = "";
+    $photo = "";
+    $bio = "";
+    $records = [];
+
+    $access = "hidden";
+    $logoAlt = "";
+    $photoAlt = "";
+    $insertBtnText = "Add artist";
+    $action = "insert_artist";
+}
 
 /*** View ***/
 ?>
@@ -27,14 +47,14 @@ $insertBtnText = ($id) ? "Save" : "Add artist";
         <div class="col-xs-6 artist-photos text-center">
             <fieldset class="form-inline">
                 <div class="img-upload">
-                    <img src="<?= $logo ?>" class="details-logo img-responsive center-block" alt="<?= "$name logo" ?>">
-                    <label for="logo">Upload new logo:</label>
-                    <input id="logo" class="form-control" type="file" name="logo" accept="image/*">
+                    <img src="<?= $logo ?>" class="details-logo img-responsive center-block" <?= $logoAlt ?>>
+                    <label for="logoFile">Upload new logo:</label>
+                    <input id="logoFile" class="form-control" type="file" name="logoFile" accept="image/*">
                 </div>
                 <div class="img-upload">
-                    <img src="<?= $photo ?>" class="details-photo img-responsive center-block" alt="<?= "$name photo" ?>">
-                    <label for="photo">Upload new photo:</label>
-                    <input id="photo" class="form-control" type="file" name="photo" accept="image/*">
+                    <img src="<?= $photo ?>" class="details-photo img-responsive center-block" <?= $photoAlt ?>>
+                    <label for="photoFile">Upload new photo:</label>
+                    <input id="photoFile" class="form-control" type="file" name="photoFile" accept="image/*">
                 <div class="form-horizontal"></div>
             </fieldset>
         </div>
@@ -75,7 +95,7 @@ $insertBtnText = ($id) ? "Save" : "Add artist";
             <?php if ($id) { ?>
                 <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
             <?php } ?>
-            <button class="btn btn-primary btn-insert" type="button" data-action="edit_artist"><?= $insertBtnText ?></button>
+            <button class="btn btn-primary btn-insert" type="button" data-action="<?= $action ?>"><?= $insertBtnText ?></button>
         </div>
     </div>
 </form>

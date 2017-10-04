@@ -28,7 +28,7 @@ function validateUser(valid) {
             "email": email,
             "password": password
         }
-    }).done(function(result) { console.log(result);
+    }).done(function(result) {
         if (result == 'true') {
             removeError('email');
             $('#loginForm')[0].submit();

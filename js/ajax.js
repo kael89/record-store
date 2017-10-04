@@ -8,11 +8,10 @@ function sortList(cat, order) {
 }
 
 function toggleDetailsPage(action = 'details') {
-    var actions = ['details', 'edit', 'insert'];
+    var actions = ['details', 'edit', 'update'];
     if (!actions.includes(action)) {
         action = 'details';
     }
-
     var id = getGet('id');
     var page = (action == 'edit') ? 'edit.php' : 'details.php';
     var url = getFilePath('pages/' + getPageCat() + '/' + page + '?id=' + id);
@@ -25,10 +24,10 @@ function toggleDetailsPage(action = 'details') {
                 cancelBtnControl();
                 $('.btn-edit').hide();
                 break;
-            case 'insert':
+            case 'update':
                 $('#successMsg').show();
                 // fallthrough
-            case 'edit':
+            case 'details':
             default:
                 editBtnControl();
                 $(window).off('beforeunload');
@@ -40,15 +39,17 @@ function toggleDetailsPage(action = 'details') {
 function insertData(action) {
     var id = getGet('id');
 
-
     $.ajax({
         url: getFilePath('lib/ajax.php?action=' + action + '&id=' + id),
         type: 'POST',
         data: new FormData($('.form-edit')[0]),
         processData: false,
         contentType: false
-    }).done(function(data) {
-        console.log(data);
-        toggleDetailsPage('insert');
+    }).done(function(insertId) {
+        if (insertId) {
+            window.location.search = 'page=details&id=' + insertId + '&add=true';
+        } else {
+            toggleDetailsPage('update');
+        }
     });
 }

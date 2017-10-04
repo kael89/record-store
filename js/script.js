@@ -5,6 +5,8 @@ $(function() {
     listControl();
     editBtnControl();
     cancelBtnControl();
+    insertBtnControl();
+    toggleSuccessMsg();
 })
 
 function bindLoadingImage() {
@@ -75,13 +77,13 @@ function cancelBtnControl() {
 
 function insertBtnControl() {
     var $insertBtn = $('.btn-insert');
-    console.log($insertBtn);
     if (!$insertBtn.length) {
         return;
     }
 
     $insertBtn.on('click', function(e) {
         e.preventDefault();
+        $(window).off('beforeunload');
         var action = $(this).data('action');
         insertData(action);
     })
@@ -95,4 +97,10 @@ function alertOnUnload() {
 
 function discardAlert() {
     return window.confirm('Your changes have not been saved. Are you sure you want to cancel?');
+}
+
+function toggleSuccessMsg() {
+    if (getGet('add')) {
+        $('#successMsg').show();
+    }
 }

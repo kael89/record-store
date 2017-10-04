@@ -4,7 +4,7 @@ requirePhp("tables");
 requirePhp("api");
 requirePhp("class", "artist");
 
-function createArtist($name, $country = "", $foundationYear = 0, $logo = "", $photo = "", $bio = "") {
+function insertArtist($name, $country = "", $foundationYear = 0, $logo = "", $photo = "", $bio = "") {
     if ($name !== "") {
         $row["name"] = $name;
     } else {
@@ -17,11 +17,7 @@ function createArtist($name, $country = "", $foundationYear = 0, $logo = "", $ph
     $row["photo"] = $photo;
     $row["bio"] = $bio;
 
-    if ($insertId = insertRow("tracks", $row)) {
-        return new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
-    } else {
-        return null;
-    }
+    return insertRow("artists", $row);
 }
 
 function updateArtist($id, $row) {

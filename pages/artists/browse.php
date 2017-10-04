@@ -18,8 +18,11 @@ $artists = getArtistsByName("%", true);
         <?php printLetterNavbar("artists") ?>
     </nav>
 </div>
-
-<?php printArtists($artists); ?>
+<div class="row">
+    <div class="col-xs-12">
+        <?php printArtists($artists, 4); ?>
+    </div>
+</div>
 
 <?php
 /*** Functions ***/
@@ -31,7 +34,11 @@ function printArtists($artists, $lineCount) {
 
     foreach ($artists as $i => $artist) {
         $rowStart = ($i % $lineCount == 0) ? "<div class=\"row\">" : "";
-        $rowEnd = ($i % $lineCount == $lineCount - 1) ? "</div>" : "";
+        if (($i % $lineCount == $lineCount - 1) || $i == count($artists) - 1) {
+            $rowEnd = "</div>";
+        } else {
+            $rowEnd = "";
+        }
 
         $id = $artist->getId();
         $name = $artist->getName();
