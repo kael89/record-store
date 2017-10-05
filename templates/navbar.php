@@ -29,7 +29,7 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Records">Records</a>
                     <ul class="dropdown-menu">
                         <li><a href="records.php?page=browse">Browse by Name</a></li>
-                        <li><a href="records.php?page=list">Browse All</a></li>
+                        <li><a href="records.php?page=list">Record List</a></li>
                         <?php if ($admin) { ?>
                             <li><a href="records.php?page=edit">Add Record</a></li>
                         <?php } ?>
@@ -39,7 +39,7 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Artists">Artists</a>
                     <ul class="dropdown-menu">
                         <li><a href="artists.php?page=browse">Browse by Name</a></li>
-                        <li><a href="artists.php?page=list">Browse All</a></li>
+                        <li><a href="artists.php?page=list">Artist List</a></li>
                         <?php if ($admin) { ?>
                             <li><a href="artists.php?page=edit">Add Artist</a></li>
                         <?php } ?>

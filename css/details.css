@@ -11,7 +11,7 @@
     font-weight: normal;
 }
 
-.info-table {
+.table-info {
     margin-bottom: 0px;
 }
 
@@ -19,27 +19,34 @@
 .form-edit textarea {
     background: #3f2e2e;
     color: #ffffff;
-    font-weight: normal;
 }
 
 .form-edit .alert {
     position: absolute;
-    right: 10px;
-    bottom: 30px;
+    right: 50px;
+    bottom: 10px;
 }
 
 .form-edit .form-group {
     margin-right: 0px;
 }
 
+.form-edit .table-info th,
+.form-edit .table-info td {
+    padding: 0px;
+}
+
 .img-upload input {
     border: none;
+}
+
+#detailsLogo {
+    margin: 20px 0px;
 }
 
 .details-logo {
     width: 300px;
     max-height: 120px;
-    /* margin-top: -20px; */
 }
 
 .details-cover {
@@ -49,7 +56,7 @@
 
 .details-photo {
     width: 500px;
-    max-height: 330px;
+    max-height: 300px;
 }
 
 #successMsg {
@@ -57,4 +64,14 @@
     position: absolute;
     bottom: 60px;
     right: 50px;
+}
+
+#addArtistMain {
+    margin-bottom: 0px;
+}
+
+#saveBtns {
+    position: absolute;
+    right: 50px;
+    bottom: 80px;
 }

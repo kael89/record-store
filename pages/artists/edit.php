@@ -42,58 +42,63 @@ if ($id) {
 ?>
 <form class="form-horizontal form-edit overflow" enctype="multipart/form-data">
     <div class="form-group">
-        <div class="col-xs-6 text-center">
+        <div class="col-xs-12 text-center">
             <fieldset class="form-inline">
                 <div class="img-upload">
                     <img src="<?= $logo ?>" class="details-logo img-responsive center-block" <?= $logoAlt ?>>
                     <label for="logoFile">Upload new logo:</label>
                     <input id="logoFile" class="form-control" type="file" name="logoFile" accept="image/*">
                 </div>
+            </fieldset>
+        </div>
+    </div>
+    <div id="addArtistMain" class="form-group">
+        <div class="col-xs-6 text-center">
+            <fieldset class="form-inline">
                 <div class="img-upload">
                     <img src="<?= $photo ?>" class="details-photo img-responsive center-block" <?= $photoAlt ?>>
                     <label for="photoFile">Upload new photo:</label>
                     <input id="photoFile" class="form-control" type="file" name="photoFile" accept="image/*">
-                <div class="form-horizontal"></div>
+                </div>
+                <table class="table table-info">
+                    <tbody>
+                        <tr>
+                            <th span="row"><label for="name">Name:</label></th>
+                            <td><input id="name" class="form-control" type="text" name="name" placeholder="Insert name" value="<?= $name ?>"></td>
+                        </tr>
+                        <tr>
+                            <th span="row"><label for="country">Country:</label></th>
+                            <td><input id="country" class="form-control" type="text" name="country" placeholder="Insert country" value="<?= $country ?>"></td>
+                        </tr>
+                        <tr>
+                            <th span="row"><label for="foundationYear">Foundation Year:</label></th>
+                            <td><input id="foundationYear" class="form-control" type="text" name="foundationYear" placeholder="Insert year" value="<?= $foundationYear ?>"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </fieldset>
         </div>
         <div class="col-xs-6 artist-bio">
-            <div class="text-right">
-                <button class="btn btn-success btn-edit <?= $access ?>">Edit</button>
-            </div>
-            <h2 class="bio-title"><label for="bio">Biography</label></h2>
+            <label for="bio"><h3 class="bio-title">Biography</h3></label>
             <textarea id="bio" class="form-control" name="bio" rows="20" cols="50" placeholder="Insert biography"><?= $bio ?></textarea>
         </div>
     </div>
     <div class="form-group">
-        <div class="col-xs-6">
-            <table class="table info-table">
-                <tbody>
-                    <tr>
-                        <th span="row"><label for="name">Name:</label></th>
-                        <td><input id="name" class="form-control" type="text" name="name" placeholder="Insert name" value="<?= $name ?>"></td>
-                    </tr>
-                    <tr>
-                        <th span="row"><label for="country">Country:</label></th>
-                        <td><input id="country" class="form-control" type="text" name="country" placeholder="Insert country" value="<?= $country ?>"></td>
-                    </tr>
-                    <tr>
-                        <th span="row"><label for="foundationYear">Foundation Year:</label></th>
-                        <td><input id="foundationYear" class="form-control" type="text" name="foundationYear" placeholder="Insert year" value="<?= $foundationYear ?>"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-xs-9">
+            <?php printRecords($records, 3, false) ?>
         </div>
-        <div class="col-xs-6"></div>
-    </div>
-    <div class="form-group">
-        <div class="col-xs-6 text-center">
-            <button class="btn btn-success">Add records</button>
-        </div>
-        <div class="col-xs-6 text-right">
-            <?php if ($id) { ?>
-                <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
-            <?php } ?>
-            <button class="btn btn-primary btn-insert" type="button" data-action="<?= $action ?>"><?= $insertBtnText ?></button>
-        </div>
+        <div class="col-xs-3"></div>
     </div>
 </form>
+<div id="saveBtns">
+    <?php if ($id) { ?>
+        <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
+    <?php } ?>
+    <button class="btn btn-primary btn-insert" type="button" data-action="<?= $action ?>"><?= $insertBtnText ?></button>
+</div>
+<!-- <div class="row">
+
+    <div class="col-xs-3 text-center">
+            <button class="btn btn-success">Add records</button>
+        </div>
+</div> -->

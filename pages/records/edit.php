@@ -45,7 +45,7 @@ if ($id) {
                 <label for="coverFile">Upload new cover:</label>
                 <input id="coverFile" class="form-control" type="file" name="coverFile" accept="image/*">
             </fieldset>
-            <table class="table info-table">
+            <table class="table table-info">
                 <tbody>
                     <tr>
                         <th span="row"><label for="artist">Artist:</label></th>
