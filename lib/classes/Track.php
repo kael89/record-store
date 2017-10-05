@@ -6,15 +6,15 @@ class Track {
     private $id;
     private $artistId;
     private $recordId;
-    private $genreId;
     private $title;
+    private $genreId;
     private $duration;
 
-    public function __construct($id, $artistId = 0, $recordId = 0, $genreId = 0, $title = "", $duration = 0) {
+    public function __construct($id, $artistId, $recordId, $title = "", $genreId = null, $duration = 0) {
         $this->id = $id;
         $this->artistId = $artistId;
         $this->recordId = $recordId;
-        $this->genreId = isGenre($genreId) ? $genreId : 0;
+        $this->genreId = isGenre($genreId) ? $genreId : null;
         $this->title = $title;
         $this->duration = ($duration > 0) ? $duration : 0;
     }
@@ -53,6 +53,18 @@ class Track {
         }
     }
 
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function setTitle($title) {
+        if (updateTrack($this->id, ["title" => $title])) {
+            $this->title = $title;
+        } else {
+            return false;
+        };
+    }
+
     public function getGenreId() {
         return $this->genreId;
     }
@@ -65,18 +77,6 @@ class Track {
         if (updateTrack($this->id, ["genreId" => $id])) {
             $this->genreId = $id;
         }
-    }
-
-    public function getTitle() {
-        return $this->title;
-    }
-
-    public function setTitle($title) {
-        if (updateTrack($this->id, ["title" => $title])) {
-            $this->title = $title;
-        } else {
-            return false;
-        };
     }
 
     public function getDuration() {

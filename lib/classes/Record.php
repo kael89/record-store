@@ -4,8 +4,8 @@ requirePhp("api");
 
 class Record {
     private $id;
-    private $labelId;
     private $title;
+    private $labelId;
     private $releaseDate;
     private $cover;
     private $price;
@@ -19,7 +19,7 @@ class Record {
     // Array of Genre objects
     private $genres;
 
-    public function __construct($id, $labelId, $title = "", $releaseDate = "", $cover = "", $price = 0) {
+    public function __construct($id, $title = "", $labelId = null, $releaseDate = "", $cover = "", $price = 0) {
         $this->id = $id;
         $this->labelId = $labelId;
         $this->title = $title;
@@ -30,6 +30,18 @@ class Record {
 
     public function getId() {
         return $this->id;
+    }
+
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function setTitle($title) {
+        if (updateRecord($this->id, ["title" => $title])) {
+            $this->title = $title;
+        } else {
+            return false;
+        };
     }
 
     public function getLabelId() {
@@ -53,24 +65,12 @@ class Record {
         return true;
     }
 
-    public function getTitle() {
-        return $this->title;
-    }
-
-    public function setTitle($title) {
-        if (updateRecord($this->id, ["title" => $title])) {
-            $this->title = $title;
-        } else {
-            return false;
-        };
-    }
-
     public function getReleaseDate() {
         return $this->releaseDate;
     }
 
     public function setReleaseDate($date) {
-        if (updateArtist($this->id, ["releaseDate" => $date])) {
+        if (updateRecord($this->id, ["releaseDate" => $date])) {
             $this->releaseDate = $date;
         } else {
             return false;
@@ -82,7 +82,7 @@ class Record {
     }
 
     public function setCover($cover) {
-        if (updateArtist($this->id, ["cover" => $cover])) {
+        if (updateRecord($this->id, ["cover" => $cover])) {
             $this->cover = $cover;
         } else {
             return false;
@@ -91,6 +91,15 @@ class Record {
 
     public function getCoverImage($size = "sm") {
         return getImageSrc("records", "covers", $size, $this->cover);
+    }
+
+    public function uploadCover($coverFile) {
+        $cover = uploadImage($coverFile, "records", "covers", "md", $this->id);
+        if (!$cover) {
+            return false;
+        }
+
+        return $this->setCover($cover);
     }
 
     public function getPrice() {

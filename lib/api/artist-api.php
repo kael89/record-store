@@ -8,7 +8,7 @@ function insertArtist($name, $country = "", $foundationYear = 0, $logo = "", $ph
     if ($name !== "") {
         $row["name"] = $name;
     } else {
-        return null;
+        return 0;
     }
 
     $row["country"] = $country;

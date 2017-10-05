@@ -14,6 +14,8 @@ $logo = $artist->getLogoImage("md");
 $photo = $artist->getPhotoImage("md");
 $bio = $artist->getBio();
 $records = getRecordsByArtistId($id);
+
+$access = getSession("admin") ? "" : "hidden";
 $successMsg = getGet("add") ? "Artist added!" : "Artist details updated!";
 
 /*** View ***/

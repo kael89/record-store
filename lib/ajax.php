@@ -52,6 +52,38 @@ switch (getGet("action")) {
 
         echo $id;
         break;
+    case "edit_record":
+        extract($_POST);
+        extract($_FILES);
+
+        // Update database through object methods
+        $id = getGet("id");
+        if ($id) {
+            $record = getRecordById($id);
+            $record->setTitle($title);
+            // set tracks
+            $record->uploadCover($coverFile);
+            $record->setReleaseDate($releaseDate);
+            // set label
+        }
+        break;
+    case "insert_record":
+        extract($_POST);
+        extract($_FILES);
+
+        // retrieve label Id
+        $labelId = NULL;
+        // retrieve price
+        $price = 0;
+
+        $id = insertRecord($title, $labelId, $releaseDate, "", $price);
+        $record = getRecordById($id);
+        if ($record) {
+            $record->uploadCover($coverFile);
+        }
+
+        echo $id;
+        break;
     default:
         break;
 }

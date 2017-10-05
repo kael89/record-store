@@ -18,7 +18,6 @@ if ($id) {
     $bio = $artist->getBio();
     $records = getRecordsByArtistId($id);
 
-    $access = "";
     $logoAlt = "alt=\"$name logo\"";
     $photoAlt = "alt=\"$name photo\"";
     $insertBtnText = "Save";
@@ -33,7 +32,6 @@ if ($id) {
     $bio = "";
     $records = [];
 
-    $access = "hidden";
     $logoAlt = "";
     $photoAlt = "";
     $insertBtnText = "Add artist";
@@ -44,7 +42,7 @@ if ($id) {
 ?>
 <form class="form-horizontal form-edit overflow" enctype="multipart/form-data">
     <div class="form-group">
-        <div class="col-xs-6 artist-photos text-center">
+        <div class="col-xs-6 text-center">
             <fieldset class="form-inline">
                 <div class="img-upload">
                     <img src="<?= $logo ?>" class="details-logo img-responsive center-block" <?= $logoAlt ?>>

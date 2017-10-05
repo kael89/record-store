@@ -5,30 +5,45 @@ requirePhp("class", "record");
 requirePhp("api", 'record');
 requirePhp("view");
 
+// If $id is valid, we are updating an existing artist.
+// Otherwise, we are adding a new artist
 $id = getGet("id");
-$record = ($id) ? getRecordById($id) : "";
-$title = ($id) ? $record->getTitle() : "";
-$artist = ($id) ? viewArtistName($record->getArtists()) : "";
-$tracks = ($id) ? $record->getTracks() : [];
-$cover = ($id) ? $record->getCoverImage("md") : "";
-$releaseDate = ($id) ? viewDate($record->getReleaseDate()) : "";
-$label = ($id) ? $record->getLabel()->getName() : "";
+if ($id) {
+    $record = getRecordById($id);
+    $title = $record->getTitle();
+    $artist = viewArtistName($record->getArtists());
+    $tracks = $record->getTracks();
+    $cover = $record->getCoverImage("md");
+    $releaseDate = viewDate($record->getReleaseDate());
+    $label = $record->getLabel();
+    $labelname = ($label) ? $label->getName() : "";
 
-$access = ($id) ? "" : "hidden";
-$insertBtnText = ($id) ? "Save" : "Add record";
-$successMsg = ($id) ? "Record details updated!" : "Record successfully added!";
+    $coverAlt = "alt=\"$title logo\"";
+    $insertBtnText = "Save";
+    $action = "edit_record";
+} else {
+    $record = "";
+    $title = "";
+    $artist = "";
+    $tracks = [];
+    $cover = "";
+    $releaseDate = "";
+    $labelName = "";
+
+    $coverAlt = "";
+    $insertBtnText = "Add record";
+    $action = "insert_record";
+}
 
 /*** View ***/
 ?>
-<form id="addRecord" class="form-horizontal form-edit">
+<form class="form-horizontal form-edit overflow" enctype="multipart/form-data">
     <div class="form-group">
         <div class="col-xs-6 text-center">
             <fieldset class="form-inline">
-                <div class="details-cover img-upload">
-                    <img src="<?= $cover ?>" class="img-responsive center-block" alt="<?= "$title logo" ?>">
-                    <label for="cover">Upload new cover:</label>
-                    <input id="cover" class="form-control" type="file" name="cover" accept="image/*">
-                </div>
+                <img src="<?= $cover ?>" class="details-cover img-responsive center-block" <?= $coverAlt ?>>
+                <label for="coverFile">Upload new cover:</label>
+                <input id="coverFile" class="form-control" type="file" name="coverFile" accept="image/*">
             </fieldset>
             <table class="table info-table">
                 <tbody>
@@ -46,25 +61,18 @@ $successMsg = ($id) ? "Record details updated!" : "Record successfully added!";
                     </tr>
                     <tr>
                         <th span="row"><label for="label">Label:</label></th>
-                        <td><input id="label" class="form-control" type="text" name="label" placeholder="Insert Label" value="<?= $label ?>"></td>
+                        <td><input id="label" class="form-control" type="text" name="label" placeholder="Insert Label" value="<?= $labelName ?>"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-xs-6 text-center">
-            <div class="text-right">
-                <button class="btn btn-success btn-edit <?= $access ?>">Edit</button>
-            </div>
             <?php printTracks($tracks) ?>
-            <div class="success-msg alert alert-danger alert-dismissible hidden">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <?= $successMsg ?>
-            </div>
             <div class="text-right">
                 <?php if ($id) { ?>
-                <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
+                    <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
                 <?php } ?>
-                <button class="btn btn-primary btn-insert" type="button"><?= $insertBtnText ?></button>
+                <button class="btn btn-primary btn-insert" type="button" data-action="<?= $action ?>"><?= $insertBtnText ?></button>
             </div>
         </div>
     </div>

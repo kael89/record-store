@@ -12,17 +12,17 @@ $artist = viewArtistLink($record->getArtists());
 $tracks = $record->getTracks();
 $cover = $record->getCoverImage("md");
 $releaseDate = viewDate($record->getReleaseDate());
-$label = $record->getLabel()->getName();
+$label = $record->getLabel();
+$labelName = $label ? $label->getName() : "";
 
 $access = getSession("admin") ? "" : "hidden";
+$successMsg = getGet("add") ? "Record added!" : "Record details updated!";
 
 /*** View ***/
 ?>
 <div class="row">
     <div class="col-xs-6 text-center">
-        <div class="details-cover">
-            <img src="<?= $cover ?>" class="img-responsive center-block" alt="<? "$title logo"?>">
-        </div>
+        <img src="<?= $cover ?>" class="details-cover img-responsive center-block" alt="<? "$title logo"?>">
         <table class="table info-table">
             <tbody>
                 <tr>
@@ -39,7 +39,7 @@ $access = getSession("admin") ? "" : "hidden";
                 </tr>
                 <tr>
                     <th span="row">Label:</th>
-                    <td><?= $label ?></td>
+                    <td><?= $labelName ?></td>
                 </tr>
             </tbody>
         </table>
@@ -50,6 +50,10 @@ $access = getSession("admin") ? "" : "hidden";
         </div>
         <?php printTracks($tracks) ?>
     </div>
+</div>
+<div id="successMsg" class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+    <?= $successMsg ?>
 </div>
 
 <?php
