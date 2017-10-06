@@ -64,17 +64,13 @@ switch (getGet("action")) {
             // set tracks
             $record->uploadCover($coverFile);
             $record->setReleaseDate($releaseDate);
-            // set label
+            $record->setLabel($labelId);
+            $record->setPrice($price);
         }
         break;
     case "insert_record":
         extract($_POST);
         extract($_FILES);
-
-        // retrieve label Id
-        $labelId = NULL;
-        // retrieve price
-        $price = 0;
 
         $id = insertRecord($title, $labelId, $releaseDate, "", $price);
         $record = getRecordById($id);

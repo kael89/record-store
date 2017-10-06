@@ -14,6 +14,7 @@ $cover = $record->getCoverImage("md");
 $releaseDate = viewDate($record->getReleaseDate());
 $label = $record->getLabel();
 $labelName = $label ? $label->getName() : "";
+$price = viewPrice($record->getPrice());
 
 $access = getSession("admin") ? "" : "hidden";
 $successMsg = getGet("add") ? "Record added!" : "Record details updated!";
@@ -40,6 +41,10 @@ $successMsg = getGet("add") ? "Record added!" : "Record details updated!";
                 <tr>
                     <th span="row">Label:</th>
                     <td><?= $labelName ?></td>
+                </tr>
+                <tr>
+                    <th span="row">Price:</th>
+                    <td><?= $price ?></td>
                 </tr>
             </tbody>
         </table>

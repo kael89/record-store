@@ -34,14 +34,11 @@
 .form-edit .table-info th,
 .form-edit .table-info td {
     padding: 0px;
+    border: none;
 }
 
 .img-upload input {
     border: none;
-}
-
-#detailsLogo {
-    margin: 20px 0px;
 }
 
 .details-logo {
@@ -70,7 +67,7 @@
     margin-bottom: 0px;
 }
 
-#saveBtns {
+.save-btns {
     position: absolute;
     right: 50px;
     bottom: 80px;

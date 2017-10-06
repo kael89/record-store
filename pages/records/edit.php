@@ -8,27 +8,35 @@ requirePhp("view");
 // If $id is valid, we are updating an existing artist.
 // Otherwise, we are adding a new artist
 $id = getGet("id");
+$artistOptions = getArtistsAll();
+$labelOptions = getLabelsAll();
+
 if ($id) {
     $record = getRecordById($id);
+    $artists = $record->getArtists();
+    $artistId = (count($artists) == 1) ? $artists[0]->getId() : 0;
     $title = $record->getTitle();
-    $artist = viewArtistName($record->getArtists());
     $tracks = $record->getTracks();
     $cover = $record->getCoverImage("md");
     $releaseDate = viewDate($record->getReleaseDate());
     $label = $record->getLabel();
+    $labelId = ($label) ? $label->getId() : 0;
     $labelname = ($label) ? $label->getName() : "";
-
-    $coverAlt = "alt=\"$title logo\"";
+    $price = $record->getPrice();
+    
+    $coverAlt = "alt=\"$title cover\"";
     $insertBtnText = "Save";
     $action = "edit_record";
 } else {
     $record = "";
+    $artistId = 0;
     $title = "";
-    $artist = "";
     $tracks = [];
     $cover = "";
     $releaseDate = "";
+    $labelId = 0;
     $labelName = "";
+    $price = "";
 
     $coverAlt = "";
     $insertBtnText = "Add record";
@@ -49,7 +57,11 @@ if ($id) {
                 <tbody>
                     <tr>
                         <th span="row"><label for="artist">Artist:</label></th>
-                        <td><input id="artist" class="form-control" type="text" name="artist" placeholder="Insert artist" value="<?= $artist ?>"></td>
+                        <td>
+                            <select id="artist" class="form-control" name="artist">
+                                <?php printArtistOptions($artistOptions, $artistId) ?>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <th span="row"><label for="title">Title:</label></th>
@@ -61,7 +73,15 @@ if ($id) {
                     </tr>
                     <tr>
                         <th span="row"><label for="label">Label:</label></th>
-                        <td><input id="label" class="form-control" type="text" name="label" placeholder="Insert Label" value="<?= $labelName ?>"></td>
+                        <td>
+                            <select id="label" class="form-control" name="labelId">
+                                <?php printLabelOptions($labelOptions, $labelId) ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th span="row"><label for="price">Price:</label></th>
+                        <td><input id="price" class="form-control" type="text" name="price" placeholder="Insert price" value="<?= $price ?>"></td>
                     </tr>
                 </tbody>
             </table>
@@ -80,6 +100,25 @@ if ($id) {
 
 <?php
 /*** Functions ***/
+function printArtistOptions($artists, $selectedId) {
+    echo "<option value=\"0\">V.A.</option>";
+
+    foreach ($artists as $artist) {
+        $select = ($artist->getId() == $selectedId) ? "selected" : "";
+        echo "<option value=\"{$artist->getId()}\" $select>{$artist->getName()}</option>";
+    }
+}
+
+function printLabelOptions($labels, $selectedId) {
+    $select = ($selectedId) ? "" : "select";
+    echo "<option value=\"0\" $select>--</option>";
+
+    foreach ($labels as $label) {
+        $select = ($label->getId() == $selectedId) ? "selected" : "";
+        echo "<option value=\"{$label->getId()}\" $select>{$label->getName()}</option>";
+    }
+}
+
 function printTracks($tracks) {
     echo "<table class=\"table\"><caption>Tracklist</caption><tbody>";
     foreach ($tracks as $i => $track) {

@@ -3,14 +3,7 @@ requirePhp("class");
 
 /*** View ***/
 function viewArtistName($artists) {
-    switch (count($artists)) {
-        case 0:
-            return "N/A";
-        case 1:
-            return $artists[0]->getName();
-        default:
-            return "V.A";
-    }
+    return (count($artists) == 1) ? $artists[0]->getName() : "V.A.";
 }
 
 function viewArtistLink($artists) {

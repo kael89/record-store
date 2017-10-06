@@ -20,7 +20,7 @@ $successMsg = getGet("add") ? "Artist added!" : "Artist details updated!";
 
 /*** View ***/
 ?>
-<div id="detailsLogo" class="row">
+<div id="logoRow" class="row">
     <div class="col-xs-4 col-xs-offset-4">
         <img src="<?= $logo ?>" class="details-logo img-responsive 
         center-block" alt="<?= "$name logo"?>">
@@ -52,7 +52,6 @@ $successMsg = getGet("add") ? "Artist added!" : "Artist details updated!";
         </table>
     </div>
     <div class="col-xs-6 artist-bio ">
-        <h3 class="bio-title">Biography</h3>
         <div class="text-justify">
             <?= $bio ?>
         </div>

@@ -41,7 +41,7 @@ if ($id) {
 /*** View ***/
 ?>
 <form class="form-horizontal form-edit overflow" enctype="multipart/form-data">
-    <div class="form-group">
+    <div id="logoRow" class="form-group">
         <div class="col-xs-12 text-center">
             <fieldset class="form-inline">
                 <div class="img-upload">
@@ -79,7 +79,6 @@ if ($id) {
             </fieldset>
         </div>
         <div class="col-xs-6 artist-bio">
-            <label for="bio"><h3 class="bio-title">Biography</h3></label>
             <textarea id="bio" class="form-control" name="bio" rows="20" cols="50" placeholder="Insert biography"><?= $bio ?></textarea>
         </div>
     </div>
@@ -90,7 +89,7 @@ if ($id) {
         <div class="col-xs-3"></div>
     </div>
 </form>
-<div id="saveBtns">
+<div class="save-btns">
     <?php if ($id) { ?>
         <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
     <?php } ?>
