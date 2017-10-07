@@ -56,8 +56,8 @@ function insertData(action) {
 function deleteItem(action, id, destUrl) {
     var url = getFilePath('lib/ajax.php?action=' + action + '&id=' + id);
 
-    $.get(url).done(function(data1) {
-        alert(data1);
+    $.get(url).done(function(x) {
+        alert(x);
         $.get(destUrl, function(data) {
             $('#main').html(data);
             btnControls();

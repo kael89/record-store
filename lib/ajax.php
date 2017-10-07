@@ -53,8 +53,8 @@ switch (getGet("action")) {
         }
         break;
     case "delete_artist":
-        $id = getGet("id");
-        echo deleteArtist($id);
+        $artist = getArtistById(getGet("id"));
+        $artist->delete();
         break;
     case "insert_record":
         extract($_POST);
@@ -85,8 +85,8 @@ switch (getGet("action")) {
         }
         break;
     case "delete_record":
-        $id = getGet("id");
-        echo deleteRecord($id);
+        $record = getRecordById(getGet("id"));
+        $record->delete();
     default:
         break;
 }

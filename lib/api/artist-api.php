@@ -29,7 +29,6 @@ function updateArtist($id, $row) {
 }
 
 function deleteArtist($id) {
-    deleteRecordsByArtistId($id);
     deleteRows("artists", ["artistId" => $id]);
 }
 

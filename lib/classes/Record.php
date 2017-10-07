@@ -28,6 +28,17 @@ class Record {
         $this->price = $price;
     }
 
+    public function delete() {
+        foreach ($this->getTracks() as $track) {
+            $track->delete();
+        }
+        deleteRecord($this->id);
+    }
+
+    public function deleteImages() {
+        ;
+    }
+
     public function getId() {
         return $this->id;
     }

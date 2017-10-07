@@ -28,10 +28,6 @@ function deleteTrack($id) {
     return deleteRows("tracks", ["trackId" => $id]);
 }
 
-function deleteTracksByRecordId($recordId) {
-    return deleteRows("tracks", ["recordId" => $recordId]);
-}
-
 function isTrack($id) {
     return isRow("tracks", "trackId", $id);
 }

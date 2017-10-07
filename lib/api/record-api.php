@@ -25,15 +25,7 @@ function updateRecord($id, $row) {
 }
 
 function deleteRecord($id) {
-    deleteTracksByRecordId($id);
     deleteRows("records", ["recordId" => $id]);
-}
-
-function deleteRecordsByArtistId($artistId) {
-    $records = getRecordsByArtistId($artistId);
-    foreach ($records as $record) {
-        deleteRecord($record->getId());
-    }
 }
 
 function restoreRecords($records) {

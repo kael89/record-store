@@ -19,6 +19,10 @@ class Track {
         $this->duration = ($duration > 0) ? $duration : 0;
     }
 
+    public function delete() {
+        deleteTrack($this->id);
+    }
+
     public function getId() {
         return $this->id;
     }

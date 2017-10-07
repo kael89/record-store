@@ -16,7 +16,7 @@ if ($id) {
     $logo = $artist->getLogoImage("md");
     $photo = $artist->getPhotoImage("md");
     $bio = $artist->getBio();
-    $records = getRecordsByArtistId($id);
+    $records = $artist->getRecords();
 
     $logoAlt = "alt=\"$name logo\"";
     $photoAlt = "alt=\"$name photo\"";

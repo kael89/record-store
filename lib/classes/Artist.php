@@ -11,6 +11,9 @@ class Artist {
     private $photo;
     private $bio;
 
+    // Array of Record objects
+    private $records;
+
     public function __construct($id, $name = "", $country = "", $foundationYear = 0, $logo = "", $photo = "", $bio = "") {
         $this->id = $id;
         $this->name = $name;
@@ -19,6 +22,17 @@ class Artist {
         $this->logo = $logo;
         $this->photo = $photo;
         $this->bio = $bio;
+    }
+
+    public function delete() {
+        foreach ($this->getRecords() as $record) {
+            $record->delete();
+        }
+        deleteArtist($this->id);
+    }
+
+    public function deleteImages() {
+        ;
     }
 
     public function getId() {
@@ -127,5 +141,13 @@ class Artist {
 
         $this->bio = $bio;
         return true;
+    }
+
+    public function getRecords() {
+        if (!isset($this->records)) {
+            $this->records = getRecordsByArtistId($this->id);
+        }
+
+        return $this->records;
     }
 }
