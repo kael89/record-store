@@ -3,9 +3,7 @@ $(function() {
     navbarControl();
     letterNavbarControl();
     listControl();
-    editBtnControl();
-    cancelBtnControl();
-    insertBtnControl();
+    btnControls();
     toggleSuccessMsg();
 })
 
@@ -46,6 +44,36 @@ function listControl() {
 
     $sortList.find('th').on('click', function() {
         sortList(cat, $(this).data('sort'));
+    });
+}
+
+function btnControls() {
+    deleteBtnControl();
+    editBtnControl();
+    cancelBtnControl();
+    insertBtnControl();
+}
+
+function deleteBtnControl() {
+    $('.delete').on('click', function() {
+        var item = $(this).data('item');
+        var action;
+        switch (getPageCat()) {
+            case 'artists':
+                action = 'delete_artist';
+                break;
+            case 'records':
+                action = 'delete_record';
+                break;
+            default:
+                return;
+        }
+        var id = $(this).data('id');
+        destUrl = getFilePath('pages/records/list.php');
+
+        if (window.confirm('Are you sure you want to delete ' + item + '?')) {
+            deleteItem(action, id, destUrl);
+        }
     });
 }
 

@@ -53,3 +53,14 @@ function insertData(action) {
         }
     });
 }
+
+function deleteItem(action, id, destUrl) {
+    var url = getFilePath('lib/ajax.php?action=' + action + '&id=' + id);
+
+    $.get(url).done(function(data1) {
+        $.get(destUrl, function(data) {
+            $('#main').html(data);
+            btnControls();
+        });
+    });
+}

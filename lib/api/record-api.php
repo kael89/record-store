@@ -7,12 +7,11 @@ requirePhp("class", "record");
 function insertRecord($title = "", $labelId = null, $releaseDate = "", $cover = "", $price = 0) {
     $row = [];
 
-    if ($title !== "") {
-        $row["title"] = $title;
-    } else {
+    if ($title === "") {
         return 0;
     }
 
+    $row["title"] = $title;
     $row["labelId"] = $labelId;
     $row["releaseDate"] = $releaseDate;
     $row["cover"] = $cover;
@@ -23,6 +22,20 @@ function insertRecord($title = "", $labelId = null, $releaseDate = "", $cover = 
 
 function updateRecord($id, $row) {
     return updateRow("records", $row, ["recordId" => $id]);
+}
+
+function deleteRecord($id) {
+    $tracksBackup = getTracksByRecordId($id);
+    if ($tracksBackup && !deleteTracks(["recordId" => $id])) {
+        return 0;
+    }
+
+    if (!deleteRows("records", ["recordId" => $id])) {
+        restoreTracks($tracksBackup);
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 function isRecord($id) {

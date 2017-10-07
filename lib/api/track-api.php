@@ -4,28 +4,38 @@ requirePhp("tables");
 requirePhp("api");
 requirePhp("class", "track");
 
-function createTrack($title = "", $artistId = 0, $genreId = 0, $duration = 0) {
+function insertTrack($title = "", $artistId, $recordId, $genreId = null, $duration = 0) {
     $row = [];
 
-    if ($title !== "" && isArtist($artistId)) {
-        $row["title"] = $title;
-        $row["artistId"] = $artistId;
-    } else {
-        return null;
+    if ($title === "" || !isArtist($artistId)) {
+        return 0;
     }
 
+    $row["title"] = $title;
+    $row["artistId"] = $artistId;
+    $row["recordId"] = $recordId;
     $row["genreId"] = $genreId;
     $row["duration"] = $duration;
 
-    if ($insertId = insertRow("tracks", $row)) {
-        return new Track($insertId, $artistId, $genreId, $title, $duration);
-    } else {
-        return null;
-    }
+    return insertRow("tracks", $row);
 }
 
 function updateTrack($id, $row) {
     return updateRow("tracks", $row, ["trackId" => $id]);
+}
+
+function deleteTrack($id) {
+    return deleteRows("tracks", ["trackId" => $id]);
+}
+
+function deleteTracks($columns) {
+    return deleteRows("tracks", $columns);
+}
+
+function restoreTracks($tracks) {
+    foreach ($tracks as $tracks) {
+        insertTrack($track->getTitle(), $track->getArtistId(), $track->getRecordId(), $track->getGenreId(), $track->getDuration());
+    }
 }
 
 function isTrack($id) {

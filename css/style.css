@@ -116,3 +116,7 @@ legend span {
 #loading {
     display: none;
 }
+
+.glyphicon-remove {
+    color: red;
+}

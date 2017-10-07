@@ -52,6 +52,18 @@ switch (getGet("action")) {
 
         echo $id;
         break;
+    case "insert_record":
+        extract($_POST);
+        extract($_FILES);
+
+        $id = insertRecord($title, $labelId, $releaseDate, "", $price);
+        $record = getRecordById($id);
+        if ($record) {
+            $record->uploadCover($coverFile);
+        }
+
+        echo $id;
+        break;
     case "edit_record":
         extract($_POST);
         extract($_FILES);
@@ -68,18 +80,9 @@ switch (getGet("action")) {
             $record->setPrice($price);
         }
         break;
-    case "insert_record":
-        extract($_POST);
-        extract($_FILES);
-
-        $id = insertRecord($title, $labelId, $releaseDate, "", $price);
-        $record = getRecordById($id);
-        if ($record) {
-            $record->uploadCover($coverFile);
-        }
-
-        echo $id;
-        break;
+    case "delete_record":
+        $id = getGet("id");
+        echo deleteRecord($id);
     default:
         break;
 }

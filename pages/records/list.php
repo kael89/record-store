@@ -19,8 +19,10 @@ function getRecordList() {
     $list = [];
     foreach ($records as $record) {
         $list[] = [
-            "title" => viewRecordLink($record),
-            "artist" => viewArtistLink($record->getArtists()),
+            "id" => $record->getId(),
+            "title" => $record->getTitle(),
+            "recordLink" => viewRecordLink($record),
+            "artistLink" => viewArtistLink($record->getArtists()),
             "date" => $record->getReleaseDate(),
             "genre" => viewGenreName($record->getGenres()),
             "price" => viewPrice($record->getPrice())
@@ -45,6 +47,7 @@ function printRecordList($recordList, $sortBy = "") {
 <table class="table sortlist" data-content="records">
     <tbody>
         <tr>
+            <th></th>
             <th class="non-sortable">#</th>
             <th data-sort="title">Title</th>
             <th data-sort="artist">Artist</th>
@@ -58,9 +61,10 @@ _END;
     foreach ($recordList as $record) {
         echo <<<_END
         <tr>
+            <td><a class="delete" href="#" title="Delete record" data-id="{$record["id"]}" data-item="{$record["title"]}"><span class="glyphicon glyphicon-remove"></a></td>
             <td>$i</td>
-            <td>{$record["title"]}</td>
-            <td>{$record["artist"]}</td>
+            <td>{$record["recordLink"]}</td>
+            <td>{$record["artistLink"]}</td>
             <td>{$record["date"]}</td>
             <td>{$record["genre"]}</td>
             <td>{$record["price"]}</td>
