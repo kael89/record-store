@@ -4,7 +4,7 @@ $(function() {
     letterNavbarControl();
     listControl();
     btnControls();
-    toggleSuccessMsg();
+    bindSuccessMsg();
 })
 
 function bindLoadingImage() {
@@ -51,11 +51,11 @@ function btnControls() {
     deleteBtnControl();
     editBtnControl();
     cancelBtnControl();
-    insertBtnControl();
+    saveBtnControl();
 }
 
 function deleteBtnControl() {
-    $('.delete').on('click', function() {
+    $('.btn-delete').on('click', function() {
         var item = $(this).data('item');
         var action = $(this).data('action');
         var desturl;
@@ -103,13 +103,13 @@ function cancelBtnControl() {
     alertOnUnload();
 }
 
-function insertBtnControl() {
-    var $insertBtn = $('.btn-insert');
-    if (!$insertBtn.length) {
+function saveBtnControl() {
+    var $saveBtn = $('.btn-save');
+    if (!$saveBtn.length) {
         return;
     }
 
-    $insertBtn.on('click', function(e) {
+    $saveBtn.on('click', function(e) {
         e.preventDefault();
         $(window).off('beforeunload');
         var action = $(this).data('action');
@@ -127,7 +127,7 @@ function discardAlert() {
     return window.confirm('Your changes have not been saved. Are you sure you want to cancel?');
 }
 
-function toggleSuccessMsg() {
+function bindSuccessMsg() {
     if (getGet('add')) {
         $('#successMsg').show();
     }

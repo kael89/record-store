@@ -51,6 +51,7 @@ $successMsg = getGet("add") ? "Record added!" : "Record details updated!";
     </div>
     <div class="col-xs-6 text-center">
         <div class="text-right <?= $access ?>">
+            <button class="btn btn-danger btn-delete" data-id="<?= $id ?>" data-item="<?= $name ?>" data-action="delete_artist">Delete</button>
             <button class="btn btn-success btn-edit">Edit</button>
         </div>
         <?php printTracks($tracks) ?>

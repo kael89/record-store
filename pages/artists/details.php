@@ -25,10 +25,9 @@ $successMsg = getGet("add") ? "Artist added!" : "Artist details updated!";
         <img src="<?= $logo ?>" class="details-logo img-responsive 
         center-block" alt="<?= "$name logo"?>">
     </div>
-    <div class="col-xs-4">
-        <div class="text-right <?= $access ?>">
-            <button class="btn btn-success btn-edit">Edit</button>
-        </div>
+    <div class="col-xs-4 text-right <?= $access ?>">
+        <button class="btn btn-danger btn-delete" data-id="<?= $id ?>" data-item="<?= $name ?>" data-action="delete_artist">Delete</button>
+        <button class="btn btn-success btn-edit">Edit</button>
     </div>
 </div>
 <div class="row">

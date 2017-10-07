@@ -4,11 +4,16 @@ require_once "{$_SERVER["DOCUMENT_ROOT"]}/record-store/lib/library.php";
 requirePhp("view");
 $sortBy = getGet("sort");
 $artistList = getArtistList();
+$successMsg = "Artist deleted";
 
 /*** View ***/
 ?>
 <div class="col-xs-12">
     <?php printArtistList($artistList, $sortBy); ?>
+</div>
+<div id="successMsg" class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+    <?= $successMsg ?>
 </div>
 
 <?php
@@ -59,7 +64,7 @@ _END;
     foreach ($artistList as $artist) {
         echo <<<_END
         <tr>
-            <td><a class="delete" href="#" title="Delete record" data-id="{$artist["id"]}" data-item="{$artist["name"]}" data-action="delete_artist"><span class="glyphicon glyphicon-remove"></a></td>
+            <td><a class="btn-delete" href="#" title="Delete record" data-id="{$artist["id"]}" data-item="{$artist["name"]}" data-action="delete_artist"><span class="glyphicon glyphicon-remove"></a></td>
             <td>$i</td>
             <td>{$artist["artistLink"]}</td>
             <td>{$artist["country"]}</td>

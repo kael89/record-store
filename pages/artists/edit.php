@@ -20,7 +20,7 @@ if ($id) {
 
     $logoAlt = "alt=\"$name logo\"";
     $photoAlt = "alt=\"$name photo\"";
-    $insertBtnText = "Save";
+    $saveBtnText = "Save";
     $action = "edit_artist";
 } else {
     $artist = "";
@@ -34,7 +34,7 @@ if ($id) {
 
     $logoAlt = "";
     $photoAlt = "";
-    $insertBtnText = "Add artist";
+    $saveBtnText = "Add artist";
     $action = "insert_artist";
 }
 
@@ -93,7 +93,7 @@ if ($id) {
     <?php if ($id) { ?>
         <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
     <?php } ?>
-    <button class="btn btn-primary btn-insert" type="button" data-action="<?= $action ?>"><?= $insertBtnText ?></button>
+    <button class="btn btn-primary btn-save" type="button" data-action="<?= $action ?>"><?= $saveBtnText ?></button>
 </div>
 <!-- <div class="row">
 

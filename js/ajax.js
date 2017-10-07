@@ -46,7 +46,7 @@ function insertData(action) {
         contentType: false
     }).done(function(insertId) {
         if (insertId) {
-            window.location.search = 'page=details&id=' + insertId + '&add=true';
+            window.location.search = 'page=details&id=' + insertId + '&add=1';
         } else {
             toggleDetailsPage('update');
         }
@@ -56,10 +56,10 @@ function insertData(action) {
 function deleteItem(action, id, destUrl) {
     var url = getFilePath('lib/ajax.php?action=' + action + '&id=' + id);
 
-    $.get(url).done(function(x) {
-        alert(x);
+    $.get(url).done(function() {
         $.get(destUrl, function(data) {
             $('#main').html(data);
+            $('#successMsg').show();
             btnControls();
         });
     });

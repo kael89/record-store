@@ -25,7 +25,7 @@ if ($id) {
     $price = $record->getPrice();
     
     $coverAlt = "alt=\"$title cover\"";
-    $insertBtnText = "Save";
+    $saveBtnText = "Save";
     $action = "edit_record";
 } else {
     $record = "";
@@ -39,7 +39,7 @@ if ($id) {
     $price = "";
 
     $coverAlt = "";
-    $insertBtnText = "Add record";
+    $saveBtnText = "Add record";
     $action = "insert_record";
 }
 
@@ -92,7 +92,7 @@ if ($id) {
                 <?php if ($id) { ?>
                     <button class="btn btn-danger btn-cancel" type="button">Cancel</button>
                 <?php } ?>
-                <button class="btn btn-primary btn-insert" type="button" data-action="<?= $action ?>"><?= $insertBtnText ?></button>
+                <button class="btn btn-primary btn-save" type="button" data-action="<?= $action ?>"><?= $saveBtnText ?></button>
             </div>
         </div>
     </div>
