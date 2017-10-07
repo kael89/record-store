@@ -2,7 +2,7 @@ function sortList(cat, order) {
     var uri = '/record-store/pages/' + cat + '/list.php?sort=' + order;
     
     $.get(uri, function(data) {
-        $('#main').replaceWith(data);
+        $('#main').html(data);
         listControl();
     })
 }
@@ -20,8 +20,7 @@ function toggleDetailsPage(action = 'details') {
         $('#main').html(data);
         switch (action) {
             case 'edit':
-                insertBtnControl();
-                cancelBtnControl();
+                btnControls();
                 $('.btn-edit').hide();
                 break;
             case 'update':
@@ -29,7 +28,7 @@ function toggleDetailsPage(action = 'details') {
                 // fallthrough
             case 'details':
             default:
-                editBtnControl();
+                btnControls();
                 $(window).off('beforeunload');
                 break;
         }
@@ -58,6 +57,7 @@ function deleteItem(action, id, destUrl) {
     var url = getFilePath('lib/ajax.php?action=' + action + '&id=' + id);
 
     $.get(url).done(function(data1) {
+        alert(data1);
         $.get(destUrl, function(data) {
             $('#main').html(data);
             btnControls();

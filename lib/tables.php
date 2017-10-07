@@ -11,11 +11,13 @@ function getTable($tableName) {
         "artists.logo" => "s",
         "artists.photo" => "s",
         "artists.bio" => "s",
+        "artists.deleted" => "i"
     ];
 
     $columns["genres"] = [
         "genres.genreId" => "i",
-        "genres.name" => "s"
+        "genres.name" => "s",
+        "genres.deleted" => "i"
     ];
 
     $columns["labels"] = [
@@ -23,7 +25,8 @@ function getTable($tableName) {
         "labels.name" => "s",
         "labels.country" => "s",
         "labels.foundationYear" => "s",
-        "labels.logo" => "s"
+        "labels.logo" => "s",
+        "labels.deleted" => "i"
     ];
 
     $columns["records"] = [
@@ -32,7 +35,8 @@ function getTable($tableName) {
         "records.title" => "s",
         "records.releaseDate" => "s",
         "records.cover" => "s",
-        "records.price" => "d"
+        "records.price" => "d",
+        "records.deleted" => "i"
     ];
 
     $columns["tracks"] = [
@@ -41,7 +45,8 @@ function getTable($tableName) {
         "tracks.recordId" => "i",
         "tracks.genreId" => "i",
         "tracks.title" => "s",
-        "tracks.duration" => "i"
+        "tracks.duration" => "i",
+        "tracks.deleted" => "i"
     ];
 
     $columns["users"] = [
@@ -50,7 +55,8 @@ function getTable($tableName) {
         "users.lastName" => "s",
         "users.email" => "s",
         "users.password" => "s",
-        "users.admin" => "i"
+        "users.admin" => "i",
+        "users.deleted" => "i"
     ];
 
     return array_key_exists($tableName, $columns) ? $columns[$tableName] : [];

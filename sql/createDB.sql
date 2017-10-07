@@ -10,6 +10,7 @@ CREATE TABLE users(
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(64) NOT NULL,
     admin BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY(userId)
 );
 
@@ -22,6 +23,7 @@ CREATE TABLE artists(
     logo VARCHAR(255),
     photo VARCHAR(255),
     bio MEDIUMTEXT,
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY(artistId)
 );
 
@@ -32,6 +34,7 @@ CREATE TABLE labels(
     country VARCHAR(2),
     foundationYear YEAR,
     logo VARCHAR(255),
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,    
     PRIMARY KEY(labelId)
 );
 
@@ -39,6 +42,7 @@ DROP TABLE IF EXISTS genres;
 CREATE TABLE genres(
     genreId SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL UNIQUE,
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,    
     PRIMARY KEY(genreId)
 );
 
@@ -50,6 +54,7 @@ CREATE TABLE records(
     releaseDate DATE,
     cover VARCHAR(255),
     price FLOAT(5,2),
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,    
     PRIMARY KEY(recordId),
     FOREIGN KEY(labelId) REFERENCES labels(labelId)
 );
@@ -62,6 +67,7 @@ CREATE TABLE tracks(
     title VARCHAR(255) NOT NULL,
     genreId SMALLINT UNSIGNED,
     duration SMALLINT UNSIGNED,
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,    
     PRIMARY KEY(trackId),
     FOREIGN KEY (artistId) REFERENCES artists(artistId),
     FOREIGN KEY (recordId) REFERENCES records(recordId),

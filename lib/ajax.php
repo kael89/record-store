@@ -23,6 +23,19 @@ switch (getGet("action")) {
 
         echo json_encode(loginUser($email, $password));
         break;
+    case "insert_artist":
+        extract($_POST);
+        extract($_FILES);
+
+        $id = insertArtist($name, $country, $foundationYear, "", "", $bio);
+        $artist = getArtistById($id);
+        if ($artist) {
+            $artist->uploadLogo($logoFile);
+            $artist->uploadPhoto($photoFile);
+        }
+
+        echo $id;
+        break;
     case "edit_artist":
         extract($_POST);
         extract($_FILES);
@@ -39,18 +52,9 @@ switch (getGet("action")) {
             $artist->setBio($bio);
         }
         break;
-    case "insert_artist":
-        extract($_POST);
-        extract($_FILES);
-
-        $id = insertArtist($name, $country, $foundationYear, "", "", $bio);
-        $artist = getArtistById($id);
-        if ($artist) {
-            $artist->uploadLogo($logoFile);
-            $artist->uploadPhoto($photoFile);
-        }
-
-        echo $id;
+    case "delete_artist":
+        $id = getGet("id");
+        echo deleteArtist($id);
         break;
     case "insert_record":
         extract($_POST);

@@ -298,11 +298,11 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
     //JOIN
     $join = "";
     foreach($joins as $joinTable => $condition) {
-        $join .= " JOIN $joinTable ON $condition";
+        $join .= " JOIN $joinTable ON $condition AND $joinTable.deleted=FALSE";
     }
 
     //WHERE
-    $where = "WHERE (TRUE)";
+    $where = " WHERE $table.deleted=FALSE";
     foreach($columns as $column => $condition) {
         $select .= "$column,";
         if ($condition !== "") {
@@ -310,7 +310,7 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
         }
     }
 
-    $query = rtrim($select, ",") . " FROM $table $join $where $append"; 
+    $query = rtrim($select, ",") . " FROM $table $join $where $append";
     // Debug DB query
     // consoleLog($query);
     $result = $mysqli->query($query);

@@ -48,9 +48,9 @@ function printRecordList($recordList, $sortBy = "") {
     <tbody>
         <tr>
             <th></th>
-            <th class="non-sortable">#</th>
-            <th data-sort="title">Title</th>
-            <th data-sort="artist">Artist</th>
+            <th>#</th>
+            <th data-sort="recordLink">Title</th>
+            <th data-sort="artistLink">Artist</th>
             <th data-sort="date">Release Date</th>
             <th data-sort="genre">Genre</th>
             <th data-sort="price">Price</th>
@@ -61,7 +61,7 @@ _END;
     foreach ($recordList as $record) {
         echo <<<_END
         <tr>
-            <td><a class="delete" href="#" title="Delete record" data-id="{$record["id"]}" data-item="{$record["title"]}"><span class="glyphicon glyphicon-remove"></a></td>
+            <td><a class="delete" href="#" title="Delete record" data-id="{$record["id"]}" data-item="{$record["title"]}" data-action="delete_record"><span class="glyphicon glyphicon-remove"></a></td>
             <td>$i</td>
             <td>{$record["recordLink"]}</td>
             <td>{$record["artistLink"]}</td>

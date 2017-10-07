@@ -8,9 +8,9 @@
     requirePhp("class", "user");
 
     requirePhp("api", "record");
-    // $a = getArtistsByName('Iron Maiden')[0];
-    // $a->setName('Test');
-    // echo $a->getName();
+    // $record = getRecordsByTitle("The Number of the Beast")[0];
+    // echo '<pre>';
+    // print_r($record->getTracks());
     // $records = getRecordsAll();
     // consoleLog($records);
 ?>

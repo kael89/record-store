@@ -26,15 +26,43 @@ function updateRecord($id, $row) {
 
 function deleteRecord($id) {
     $tracksBackup = getTracksByRecordId($id);
-    if ($tracksBackup && !deleteTracks(["recordId" => $id])) {
+    if ($tracksBackup && !deleteTracksByRecord($id)) {
         return 0;
     }
 
     if (!deleteRows("records", ["recordId" => $id])) {
         restoreTracks($tracksBackup);
         return 0;
-    } else {
-        return 1;
+    }
+    return 1;
+}
+
+function deleteRecordsByArtist($artistId) {
+    $records = getRecordsByArtistId($artistId);
+
+    foreach ($records as $i => $record) {
+        if (!deleteRecord($record->getId())) {
+            restoreRecords(array_slice($records, 0, $i + 1));
+            return 0;
+        }
+    }
+    return count($records);
+}
+
+function restoreRecords($records) {
+    foreach ($records as $record) {
+        print_r($record->getTracks());
+        restoreTracks($record->getTracks());
+
+        $oldId = $record->getId();
+        $newId = insertRecord(
+            $record->getTitle(),
+            $record->getLabelId(),
+            $record->getReleaseDate(),
+            $record->getCover(),
+            $record->getPrice()
+        );
+        updateRecord($newId, ["recordId" => $oldId]);
     }
 }
 

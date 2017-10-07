@@ -42,7 +42,7 @@ function listControl() {
     }
     var cat = $sortList.data('content');
 
-    $sortList.find('th').on('click', function() {
+    $sortList.find('th[data-sort]').on('click', function() {
         sortList(cat, $(this).data('sort'));
     });
 }
@@ -57,19 +57,19 @@ function btnControls() {
 function deleteBtnControl() {
     $('.delete').on('click', function() {
         var item = $(this).data('item');
-        var action;
-        switch (getPageCat()) {
-            case 'artists':
-                action = 'delete_artist';
+        var action = $(this).data('action');
+        var desturl;
+        switch (action) {
+            case 'delete_artist':
+                destUrl = getFilePath('pages/artists/list.php');
                 break;
-            case 'records':
-                action = 'delete_record';
+            case 'delete_record':
+                destUrl = getFilePath('pages/records/list.php');
                 break;
             default:
                 return;
         }
         var id = $(this).data('id');
-        destUrl = getFilePath('pages/records/list.php');
 
         if (window.confirm('Are you sure you want to delete ' + item + '?')) {
             deleteItem(action, id, destUrl);

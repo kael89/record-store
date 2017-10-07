@@ -19,7 +19,9 @@ function getArtistList() {
     $list = [];
     foreach ($artists as $artist) {
         $list[] = [
-            "name" => viewArtistLink([$artist]),
+            "id" => $artist->getId(),
+            "name" => $artist->getName(),
+            "artistLink" => viewArtistLink([$artist]),
             "country" => $artist->getCountry(),
             "year" => $artist->getFoundationYear(),
             "records" => count(getRecordsByArtistId($artist->getId()))
@@ -44,8 +46,9 @@ function printArtistList($artistList, $sortBy = "") {
 <table class="table sortlist" data-content="artists">
     <tbody>
         <tr>
-            <th class="non-sortable">#</th>
-            <th data-sort="name">Name</th>
+            <th></th>
+            <th>#</th>
+            <th data-sort="artistLink">Name</th>
             <th data-sort="country">Country</th>
             <th data-sort="year">Foundation Year</th>
             <th data-sort="records">Number of Records</th>
@@ -56,8 +59,9 @@ _END;
     foreach ($artistList as $artist) {
         echo <<<_END
         <tr>
+            <td><a class="delete" href="#" title="Delete record" data-id="{$artist["id"]}" data-item="{$artist["name"]}" data-action="delete_artist"><span class="glyphicon glyphicon-remove"></a></td>
             <td>$i</td>
-            <td>{$artist["name"]}</td>
+            <td>{$artist["artistLink"]}</td>
             <td>{$artist["country"]}</td>
             <td>{$artist["year"]}</td>
             <td>{$artist["records"]}</td>

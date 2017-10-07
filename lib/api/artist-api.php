@@ -28,6 +28,19 @@ function updateArtist($id, $row) {
     return updateRow("artists", $row, ["artistId" => $id]);
 }
 
+function deleteArtist($id) {
+    $recordsBackup = getRecordsbyArtistid($id);
+    if ($recordsBackup && !deleteRecordsByArtist($id)) {
+        return 0;
+    }
+
+    if (!deleteRows("arists", ["artistId" => $id])) {
+        return restoreRecords($recordsBackup);
+        return 0;
+    }
+    return 1;
+}
+
 function isArtist($id) {
     return isRow("artists", "artistId", $id);
 }

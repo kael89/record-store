@@ -108,7 +108,7 @@ legend span {
     bottom: 0px;
 }
 
-.sortlist th:not(.non-sortable):hover {
+.sortlist th[data-sort]:hover {
     text-decoration: underline;
     cursor: pointer;
 }

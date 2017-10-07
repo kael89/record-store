@@ -28,13 +28,19 @@ function deleteTrack($id) {
     return deleteRows("tracks", ["trackId" => $id]);
 }
 
-function deleteTracks($columns) {
-    return deleteRows("tracks", $columns);
+function deleteTracksByRecord($recordId) {
+    return deleteRows("tracks", ["recordId" => $recordId]);
 }
 
 function restoreTracks($tracks) {
     foreach ($tracks as $tracks) {
-        insertTrack($track->getTitle(), $track->getArtistId(), $track->getRecordId(), $track->getGenreId(), $track->getDuration());
+        insertTrack(
+            $track->getTitle(),
+            $track->getArtistId(),
+            $track->getRecordId(),
+            $track->getGenreId(),
+            $track->getDuration()
+        );
     }
 }
 
