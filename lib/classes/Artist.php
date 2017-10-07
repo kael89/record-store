@@ -32,7 +32,13 @@ class Artist {
     }
 
     public function deleteImages() {
-        ;
+        unlink($this->getLogoPath("sm"));
+        unlink($this->getLogoPath("md"));
+        unlink($this->getLogoPath("lg"));
+
+        unlink($this->getPhotoPath("sm"));
+        unlink($this->getPhotoPath("md"));
+        unlink($this->getPhotoPath("lg"));
     }
 
     public function getId() {
@@ -91,6 +97,14 @@ class Artist {
         return true;
     }
 
+    public function getLogoImage($size = "sm") {
+        return getImageSrc("artists", "logos", $size, $this->logo);
+    }
+
+    public function getLogoPath($size = "sm") {
+        return getImageDir("artists", "logos", $size) . "/" . $this->getLogo();
+    }
+
     public function uploadLogo($logoFile) {
         $logo = uploadImage($logoFile, "artists", "logos", "md", $this->id);
         if (!$logo) {
@@ -98,10 +112,6 @@ class Artist {
         }
 
         return $this->setLogo($logo);
-    }
-
-    public function getLogoImage($size = "sm") {
-        return getImageSrc("artists", "logos", $size, $this->logo);
     }
 
     public function getPhoto() {
@@ -117,6 +127,14 @@ class Artist {
         return true;
     }
 
+    public function getPhotoImage($size = "sm") {
+        return getImageSrc("artists", "photos", $size, $this->photo);
+    }
+
+    public function getPhotoPath($size = "sm") {
+        return getImageDir("artists", "photos", $size) . "/" . $this->getPhoto();
+    }
+
     public function uploadPhoto($photoFile) {
         $photo = uploadImage($photoFile, "artists", "photos", "md", $this->id);
         if (!$photo) {
@@ -124,10 +142,6 @@ class Artist {
         }
 
         return $this->setPhoto($photo);
-    }
-
-    public function getPhotoImage($size = "sm") {
-        return getImageSrc("artists", "photos", $size, $this->photo);
     }
 
     public function getBio() {

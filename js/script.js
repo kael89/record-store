@@ -139,7 +139,7 @@ function discardAlert() {
 function bindSuccessMsg() {
     var actions = ['add', 'delete'];
 
-    if (actions.indexOf(getGet('action')) != -1) {
+    if (performance.navigation.type != 1 && actions.indexOf(getGet('action')) != -1) {
         $('#successMsg').show();
     }
 }

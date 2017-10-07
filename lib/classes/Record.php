@@ -32,11 +32,14 @@ class Record {
         foreach ($this->getTracks() as $track) {
             $track->delete();
         }
+        $this->deleteImages();
         deleteRecord($this->id);
     }
 
     public function deleteImages() {
-        ;
+        unlink($this->getCoverPath("sm"));
+        unlink($this->getCoverPath("md"));
+        unlink($this->getCoverPath("lg"));
     }
 
     public function getId() {
@@ -100,10 +103,6 @@ class Record {
         };
     }
 
-    public function getCoverImage($size = "sm") {
-        return getImageSrc("records", "covers", $size, $this->cover);
-    }
-
     public function uploadCover($coverFile) {
         $cover = uploadImage($coverFile, "records", "covers", "md", $this->id);
         if (!$cover) {
@@ -111,6 +110,14 @@ class Record {
         }
 
         return $this->setCover($cover);
+    }
+
+    public function getCoverImage($size = "sm") {
+        return getImageSrc("records", "covers", $size, $this->cover);
+    }
+
+    public function getCoverPath($size = "sm") {
+        return getImageDir("records", "covers", $size) . "/" . $this->getCover();
     }
 
     public function getPrice() {
