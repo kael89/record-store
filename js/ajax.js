@@ -46,21 +46,25 @@ function insertData(action) {
         contentType: false
     }).done(function(insertId) {
         if (insertId) {
-            window.location.search = 'page=details&id=' + insertId + '&add=1';
+            window.location.search = 'page=details&id=' + insertId + '&action=add';
         } else {
             toggleDetailsPage('update');
         }
     });
 }
 
-function deleteItem(action, id, destUrl) {
+function deleteItem(action, id, destUrl, redirect = false) {
     var url = getFilePath('lib/ajax.php?action=' + action + '&id=' + id);
 
     $.get(url).done(function() {
-        $.get(destUrl, function(data) {
-            $('#main').html(data);
-            $('#successMsg').show();
-            btnControls();
-        });
+        if (redirect) {
+            window.location = destUrl;
+        } else {
+            $.get(destUrl, function(data) {
+                $('#main').html(data);
+                $('#successMsg').show();
+                btnControls();
+            });
+        }
     });
 }

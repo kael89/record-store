@@ -95,9 +95,3 @@ if ($id) {
     <?php } ?>
     <button class="btn btn-primary btn-save" type="button" data-action="<?= $action ?>"><?= $saveBtnText ?></button>
 </div>
-<!-- <div class="row">
-
-    <div class="col-xs-3 text-center">
-            <button class="btn btn-success">Add records</button>
-        </div>
-</div> -->

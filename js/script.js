@@ -58,21 +58,30 @@ function deleteBtnControl() {
     $('.btn-delete').on('click', function() {
         var item = $(this).data('item');
         var action = $(this).data('action');
-        var desturl;
+        var id = $(this).data('id');
+        var redirect = (getGet('page') != 'list');
+        var destUrl;
         switch (action) {
             case 'delete_artist':
-                destUrl = getFilePath('pages/artists/list.php');
+                if (redirect) {
+                    destUrl = 'artists.php?page=list&action=delete'
+                } else {
+                    destUrl = getFilePath('pages/artists/list.php');
+                }
                 break;
             case 'delete_record':
-                destUrl = getFilePath('pages/records/list.php');
+                if (redirect) {
+                    destUrl = 'records.php?page=list&action=delete'
+                } else {
+                    destUrl = getFilePath('pages/records/list.php');
+                }
                 break;
             default:
                 return;
         }
-        var id = $(this).data('id');
 
         if (window.confirm('Are you sure you want to delete ' + item + '?')) {
-            deleteItem(action, id, destUrl);
+            deleteItem(action, id, destUrl, redirect);
         }
     });
 }
@@ -128,7 +137,9 @@ function discardAlert() {
 }
 
 function bindSuccessMsg() {
-    if (getGet('add')) {
+    var actions = ['add', 'delete'];
+
+    if (actions.indexOf(getGet('action')) != -1) {
         $('#successMsg').show();
     }
 }
