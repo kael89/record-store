@@ -25,20 +25,12 @@ function updateArtist($id, $row) {
         return false;
     }
 
-    return updateRow("artists", $row, ["artistId" => $id]);
+    return updateRows("artists", $row, ["artistId" => $id]);
 }
 
 function deleteArtist($id) {
-    $recordsBackup = getRecordsbyArtistid($id);
-    if ($recordsBackup && !deleteRecordsByArtist($id)) {
-        return 0;
-    }
-
-    if (!deleteRows("arists", ["artistId" => $id])) {
-        return restoreRecords($recordsBackup);
-        return 0;
-    }
-    return 1;
+    deleteRecordsByArtistId($id);
+    deleteRows("artists", ["artistId" => $id]);
 }
 
 function isArtist($id) {

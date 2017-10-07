@@ -24,7 +24,7 @@ function createUser($firstName = "", $lastName = "", $email = "", $password = ""
 }
 
 function updateUser($id, $row) {
-    return updateRow("users", $row, ["userId" => $id]);
+    return updateRows("users", $row, ["userId" => $id]);
 }
 
 function loginUser($email, $password) {

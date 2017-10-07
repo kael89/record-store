@@ -216,7 +216,7 @@ function insertRow($table, $row) {
     return $mysqli->insert_id;
 }
 
-function updateRow($table, $row, $where) {
+function updateRows($table, $row, $where) {
     $mysqli = getSession("mysqli");
     $columns = array_keys($row);
     $values = array_values($row);
@@ -258,34 +258,9 @@ function updateRow($table, $row, $where) {
 }
 
 function deleteRows($table, $where) {
-    $mysqli = getSession("mysqli");
-    $columns = array_keys($where);
-    $values = array_values($where);
-    $params = getParams($table, $columns);
-
-    $query = "DELETE FROM $table WHERE (TRUE)";
-    foreach ($columns as $column) {
-        $query .= " AND ($column = ?)";
-    }
-
-    $stmt = $mysqli->prepare($query);
-    if (!$stmt) {
-        return false;
-    }
-
-    $args = array_merge(array($params), $values);
-    foreach (array_keys($args) as $i) {
-        $args[$i] =& $args[$i];
-    }
-
-    $ref = new ReflectionClass("mysqli_stmt");
-    $method = $ref->getMethod("bind_param");
-    $method->invokeArgs($stmt, $args);
-
-    $stmt->execute();
-    $deletedCount = $mysqli->affected_rows;
-    $stmt->close();
-    return $deletedCount;
+    // Soft delete
+    $row = ["deleted" => TRUE];
+    return updateRows($table, $row, $where);
 }
 
 function getRows($table, $columns, $joins = [], $distinct = false, $append = "") {

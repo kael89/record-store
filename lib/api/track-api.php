@@ -21,27 +21,15 @@ function insertTrack($title = "", $artistId, $recordId, $genreId = null, $durati
 }
 
 function updateTrack($id, $row) {
-    return updateRow("tracks", $row, ["trackId" => $id]);
+    return updateRows("tracks", $row, ["trackId" => $id]);
 }
 
 function deleteTrack($id) {
     return deleteRows("tracks", ["trackId" => $id]);
 }
 
-function deleteTracksByRecord($recordId) {
+function deleteTracksByRecordId($recordId) {
     return deleteRows("tracks", ["recordId" => $recordId]);
-}
-
-function restoreTracks($tracks) {
-    foreach ($tracks as $tracks) {
-        insertTrack(
-            $track->getTitle(),
-            $track->getArtistId(),
-            $track->getRecordId(),
-            $track->getGenreId(),
-            $track->getDuration()
-        );
-    }
 }
 
 function isTrack($id) {

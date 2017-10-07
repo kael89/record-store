@@ -21,32 +21,19 @@ function insertRecord($title = "", $labelId = null, $releaseDate = "", $cover = 
 }
 
 function updateRecord($id, $row) {
-    return updateRow("records", $row, ["recordId" => $id]);
+    return updateRows("records", $row, ["recordId" => $id]);
 }
 
 function deleteRecord($id) {
-    $tracksBackup = getTracksByRecordId($id);
-    if ($tracksBackup && !deleteTracksByRecord($id)) {
-        return 0;
-    }
-
-    if (!deleteRows("records", ["recordId" => $id])) {
-        restoreTracks($tracksBackup);
-        return 0;
-    }
-    return 1;
+    deleteTracksByRecordId($id);
+    deleteRows("records", ["recordId" => $id]);
 }
 
-function deleteRecordsByArtist($artistId) {
+function deleteRecordsByArtistId($artistId) {
     $records = getRecordsByArtistId($artistId);
-
-    foreach ($records as $i => $record) {
-        if (!deleteRecord($record->getId())) {
-            restoreRecords(array_slice($records, 0, $i + 1));
-            return 0;
-        }
+    foreach ($records as $record) {
+        deleteRecord($record->getId());
     }
-    return count($records);
 }
 
 function restoreRecords($records) {
