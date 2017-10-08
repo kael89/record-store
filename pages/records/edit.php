@@ -26,7 +26,7 @@ if ($id) {
     
     $coverAlt = "alt=\"$title cover\"";
     $saveBtnText = "Save";
-    $action = "edit_record";
+    $action = "update_record";
 } else {
     $record = "";
     $artistId = 0;
@@ -40,7 +40,7 @@ if ($id) {
 
     $coverAlt = "";
     $saveBtnText = "Add record";
-    $action = "insert_record";
+    $action = "add_record";
 }
 
 /*** View ***/

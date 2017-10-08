@@ -213,7 +213,7 @@ function insertRow($table, $row) {
 
     $stmt->execute();
     $stmt->close();
-    return $mysqli->insert_id;
+    return $mysqli->add_id;
 }
 
 function updateRows($table, $row, $where) {

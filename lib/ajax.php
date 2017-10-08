@@ -23,7 +23,7 @@ switch (getGet("action")) {
 
         echo json_encode(loginUser($email, $password));
         break;
-    case "insert_artist":
+    case "add_artist":
         extract($_POST);
         extract($_FILES);
 
@@ -36,7 +36,7 @@ switch (getGet("action")) {
 
         echo $id;
         break;
-    case "edit_artist":
+    case "update_artist":
         extract($_POST);
         extract($_FILES);
 
@@ -56,7 +56,7 @@ switch (getGet("action")) {
         $artist = getArtistById(getGet("id"));
         $artist->delete();
         break;
-    case "insert_record":
+    case "add_record":
         extract($_POST);
         extract($_FILES);
 
@@ -68,25 +68,27 @@ switch (getGet("action")) {
 
         echo $id;
         break;
-    case "edit_record":
+    case "update_record":
         extract($_POST);
         extract($_FILES);
+        // $dataItems = json_decode(, true);
 
         // Update database through object methods
         $id = getGet("id");
         if ($id) {
             $record = getRecordById($id);
             $record->setTitle($title);
-            // set tracks
             $record->uploadCover($coverFile);
             $record->setReleaseDate($releaseDate);
             $record->setLabel($labelId);
             $record->setPrice($price);
+
+            // $record->
         }
         break;
     case "delete_record":
         $record = getRecordById(getGet("id"));
-        $record->delete();
+        echo $record->delete();
     case "delete_track":
         $track = getTrackById(getGet("id"));
         $track->delete();

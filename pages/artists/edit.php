@@ -21,7 +21,7 @@ if ($id) {
     $logoAlt = "alt=\"$name logo\"";
     $photoAlt = "alt=\"$name photo\"";
     $saveBtnText = "Save";
-    $action = "edit_artist";
+    $action = "update_artist";
 } else {
     $artist = "";
     $name = "";
@@ -35,7 +35,7 @@ if ($id) {
     $logoAlt = "";
     $photoAlt = "";
     $saveBtnText = "Add artist";
-    $action = "insert_artist";
+    $action = "add_artist";
 }
 
 /*** View ***/

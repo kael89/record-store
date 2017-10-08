@@ -46,7 +46,7 @@ function insertData(action) {
         contentType: false
     }).done(function(insertId) {
         if (insertId) {
-            window.location.search = 'page=details&id=' + insertId + '&action=add';
+            window.location.search = 'page=details&id=' + insertId + '&action=insert';
         } else {
             toggleDetailsPage('update');
         }

@@ -29,7 +29,8 @@ class Record {
     }
 
     public function delete() {
-        foreach ($this->getTracks() as $track) {
+        $this->initTracks();
+        foreach ($this->tracks as $track) {
             $track->delete();
         }
         $this->deleteImages();
@@ -144,21 +145,19 @@ class Record {
         return $this->artists;
     }
 
-    public function getTracks() {
+    private function initTracks() {
         if (!isset($this->tracks)) {
             $this->tracks = getTracksByRecordId($this->id);
         }
+    }
 
+    public function getTracks() {
+        $this->initTracks();
         return $this->tracks;
     }
 
-    public function setTracks($tracks) {
-        foreach ($tracks as $track) {
-            $this->tracks[] = [
-                "title" => $track->getTitle(),
-                "duration" => $track->getDuration()
-            ];
-        }
+    public function addTrack() {
+        // to be implemeted
     }
 
     public function updateTrack($track, $number) {
@@ -168,6 +167,14 @@ class Record {
             "genre" => $track->getGenre(),
             "duration" => $track->getDuration()
         ];
+    }
+
+    public function deleteTracks($trackIds) {
+        $this->initTracks();
+        foreach ($this->tracks as $track) {
+            ;
+            // if ($track->getId() === $trackI)
+        }
     }
 
     public function getGenres() {

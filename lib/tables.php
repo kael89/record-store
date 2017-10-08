@@ -45,6 +45,7 @@ function getTable($tableName) {
         "tracks.recordId" => "i",
         "tracks.genreId" => "i",
         "tracks.title" => "s",
+        "tracks.position" => "i",
         "tracks.duration" => "i",
         "tracks.deleted" => "i"
     ];

@@ -1,4 +1,8 @@
-var removedItems = [];
+var dataItems = {
+    added: [],
+    updated: [],
+    deleted: []
+};
 
 $(function() {
     bindLoadingImage();
@@ -105,10 +109,10 @@ function removeBtnControl() {
         var cat = targetParts[1];
 
 
-        if (!(cat in removedItems)) {
-            removedItems[cat] = [];
+        if (!(cat in dataItems.deleted)) {
+            dataItems.deleted[cat] = [];
         }
-        removedItems[cat].push(id);
+        dataItems.deleted[cat].push(id);
         $target.hide();
 
         if($(this)[0].hasAttribute('data-enum')) {
