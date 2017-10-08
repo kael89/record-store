@@ -120,15 +120,17 @@ function printLabelOptions($labels, $selectedId) {
 }
 
 function printTracks($tracks) {
-    echo "<table class=\"table\"><caption>Tracklist</caption><tbody>";
+    echo "<table class=\"table list-enum\"><caption>Tracklist</caption><tbody>";
     foreach ($tracks as $i => $track) {
+        $id = $track->getId();
         $no = $i + 1;
         $title = $track->getTitle();
         $duration = viewDuration($track->getDuration());
 
         echo <<<_END
-<tr>
-    <td>$no.</td>
+<tr id="track-$id">
+    <td><a class="btn-remove" href="#" title="Delete track" data-target="track-$id" data-enum><span class="glyphicon glyphicon-remove"></a></td>
+    <td class="list-index">$no.</td>
     <td>$title</td>
     <td>$duration</td>
 </tr>

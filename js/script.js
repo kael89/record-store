@@ -1,3 +1,5 @@
+var removedItems = [];
+
 $(function() {
     bindLoadingImage();
     navbarControl();
@@ -48,21 +50,26 @@ function listControl() {
 }
 
 function btnControls() {
-    deleteBtnControl();
     editBtnControl();
     cancelBtnControl();
+    deleteBtnControl();
+    removeBtnControl();
     saveBtnControl();
 }
 
+// Delete buttons controls instant database deletion
 function deleteBtnControl() {
     $('.btn-delete').on('click', function() {
         var item = $(this).data('item');
         var action = $(this).data('action');
         var id = $(this).data('id');
-        var redirect = (getGet('page') != 'list');
-        var destUrl;
+        var destUrl,
+            redirect,
+            recordId;
+
         switch (action) {
             case 'delete_artist':
+                redirect = (getGet('page') != 'list');
                 if (redirect) {
                     destUrl = 'artists.php?page=list&action=delete'
                 } else {
@@ -70,6 +77,7 @@ function deleteBtnControl() {
                 }
                 break;
             case 'delete_record':
+                redirect = (getGet('page') != 'list');
                 if (redirect) {
                     destUrl = 'records.php?page=list&action=delete'
                 } else {
@@ -82,6 +90,29 @@ function deleteBtnControl() {
 
         if (window.confirm('Are you sure you want to delete ' + item + '?')) {
             deleteItem(action, id, destUrl, redirect);
+        }
+    });
+}
+
+// Remove buttons control temporary removal from display
+// that leads to permanent deletion after final user confirmation
+function removeBtnControl() {
+    $('.btn-remove').on('click', function() {
+        var target = $(this).data('target');
+        var $target = $('#' + target);
+        var targetParts = target.split('-');
+        var id = targetParts[0];
+        var cat = targetParts[1];
+
+
+        if (!(cat in removedItems)) {
+            removedItems[cat] = [];
+        }
+        removedItems[cat].push(id);
+        $target.hide();
+
+        if($(this)[0].hasAttribute('data-enum')) {
+            enumerateList($target.parents('.list-enum'));
         }
     });
 }
@@ -142,4 +173,12 @@ function bindSuccessMsg() {
     if (performance.navigation.type != 1 && actions.indexOf(getGet('action')) != -1) {
         $('#successMsg').show();
     }
+}
+
+function enumerateList($list) {
+    $i = 1;
+    $list.find('.list-index:visible').each(function() {
+        $(this).text($i + '.');
+        $i++;
+    });
 }

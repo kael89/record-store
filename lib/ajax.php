@@ -87,6 +87,9 @@ switch (getGet("action")) {
     case "delete_record":
         $record = getRecordById(getGet("id"));
         $record->delete();
+    case "delete_track":
+        $track = getTrackById(getGet("id"));
+        $track->delete();
     default:
         break;
 }
