@@ -21,7 +21,7 @@ if ($id) {
     $logoAlt = "alt=\"$name logo\"";
     $photoAlt = "alt=\"$name photo\"";
     $saveBtnText = "Save";
-    $action = "update_artist";
+    $action = "edit_artist";
 } else {
     $artist = "";
     $name = "";

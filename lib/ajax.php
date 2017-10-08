@@ -36,7 +36,7 @@ switch (getGet("action")) {
 
         echo $id;
         break;
-    case "update_artist":
+    case "edit_artist":
         extract($_POST);
         extract($_FILES);
 
@@ -68,7 +68,7 @@ switch (getGet("action")) {
 
         echo $id;
         break;
-    case "update_record":
+    case "edit_record":
         extract($_POST);
         extract($_FILES);
         $dataItems = json_decode($dataItems, true);

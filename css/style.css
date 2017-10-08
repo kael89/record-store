@@ -117,6 +117,24 @@ legend span {
     display: none;
 }
 
+.glyphicon-lg {
+    font-size: 2em;
+}
+
 .glyphicon-remove {
-    color: red;
+    color: #d9534f;
+}
+
+.glyphicon-pencil {
+    color: #5cb85c;
+}
+
+.glyphicon-plus-sign {
+    color: #337ab7;
+}
+
+.form-update input,
+.form-update select,
+.form-update textarea {
+    display: none;
 }

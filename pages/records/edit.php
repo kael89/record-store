@@ -26,7 +26,7 @@ if ($id) {
     
     $coverAlt = "alt=\"$title cover\"";
     $saveBtnText = "Save";
-    $action = "update_record";
+    $action = "edit_record";
 } else {
     $record = "";
     $artistId = 0;
@@ -128,13 +128,25 @@ function printTracks($tracks) {
         $duration = viewDuration($track->getDuration());
 
         echo <<<_END
-<tr id="tracks-$id">
+<tr id="tracks-$id" class="form-update">
     <td><a class="btn-remove" href="#" title="Delete track" data-target="tracks-$id" data-enum><span class="glyphicon glyphicon-remove"></a></td>
+    <td><a class="btn-update" href="#" title="Edit track" data-target="tracks-$id"><span class="glyphicon glyphicon-pencil"></a></td>
     <td class="list-index">$position.</td>
-    <td>$title</td>
-    <td>$duration</td>
+    <td><input class="form-control" type="text" value="$title"><span class="update-val">$title</span></td>
+    <td><input class="form-control" type="text" value="$duration"><span class="update-val">$duration</span></td>
 </tr>
 _END;
     }
+
+    echo <<<_END
+<tr class="no-border">
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td colspan="4"><a href="" title="Add track"><span class="glyphicon glyphicon-lg glyphicon-plus-sign"></span></a></td>
+</tr>
+_END;
+
     echo "</tbody></table>";
 }

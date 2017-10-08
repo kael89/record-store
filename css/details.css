@@ -16,7 +16,8 @@
 }
 
 .form-edit input,
-.form-edit textarea {
+.form-edit textarea,
+.form-edit select {
     background: #3f2e2e;
     color: #ffffff;
 }
@@ -71,4 +72,9 @@
     position: absolute;
     right: 50px;
     bottom: 80px;
+}
+
+table tr.no-border > th,
+table tr.no-border > td {
+    border: none;
 }

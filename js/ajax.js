@@ -47,7 +47,6 @@ function insertData(action) {
         processData: false,
         contentType: false
     }).done(function(insertId) {
-        alert(insertId);
         if (insertId) {
             window.location.search = 'page=details&id=' + insertId + '&action=insert';
         } else {

@@ -57,8 +57,35 @@ function btnControls() {
     editBtnControl();
     cancelBtnControl();
     deleteBtnControl();
+    updateBtnControl();
     removeBtnControl();
     saveBtnControl();
+}
+
+function editBtnControl() {
+    var $editBtn = $('.btn-edit');
+    if (!$editBtn.length) {
+        return;
+    }
+
+    $editBtn.on('click', function() {
+        toggleDetailsPage('edit');
+    });
+}
+
+function cancelBtnControl() {
+    var $cancelBtn = $('.btn-cancel');
+    if (!$cancelBtn.length) {
+        return;
+    }
+
+    $cancelBtn.on('click', function() {
+        if (discardAlert()) {
+            toggleDetailsPage('details');
+        }
+    });
+
+    alertOnUnload();
 }
 
 // Delete buttons controls instant database deletion
@@ -98,7 +125,30 @@ function deleteBtnControl() {
     });
 }
 
-// Remove buttons control temporary removal from display
+// .update-btn elements control temporary content update
+// that leads to permanent update after final user confirmation
+function updateBtnControl() {
+    $('.btn-update').on('click', function() {
+        var updateTarget = $(this).data('target');
+        var $updateTarget = $('#' + updateTarget);
+
+        toggleUpdateForm($updateTarget);
+        $(document).on('click', function(e) {
+            // check if user has clicked outside $updateTarget element
+            if (!$(e.target).closest($updateTarget).length) {
+                // update text of .update-val elements  with the inserted values
+                $updateTarget.find(':input').each(function() {
+                    var val = $(this).val();
+                    $(this).siblings('.update-val').html(val);
+                })
+                toggleUpdateForm($updateTarget);
+                $(document).off('click');
+            }
+        })
+    });
+}
+
+// .remove-btn elements control temporary removal from display
 // that leads to permanent deletion after final user confirmation
 function removeBtnControl() {
     $('.btn-remove').on('click', function() {
@@ -120,32 +170,6 @@ function removeBtnControl() {
     });
 }
 
-function editBtnControl() {
-    var $editBtn = $('.btn-edit');
-    if (!$editBtn.length) {
-        return;
-    }
-
-    $editBtn.on('click', function() {
-        toggleDetailsPage('edit');
-    });
-}
-
-function cancelBtnControl() {
-    var $cancelBtn = $('.btn-cancel');
-    if (!$cancelBtn.length) {
-        return;
-    }
-
-    $cancelBtn.on('click', function() {
-        if (discardAlert()) {
-            toggleDetailsPage('details');
-        }
-    });
-
-    alertOnUnload();
-}
-
 function saveBtnControl() {
     var $saveBtn = $('.btn-save');
     if (!$saveBtn.length) {
@@ -158,6 +182,13 @@ function saveBtnControl() {
         var action = $(this).data('action');
         insertData(action);
     })
+}
+
+function toggleUpdateForm($form) {
+    $form.find('.update-val').toggle();
+    $form.find(':input').each(function() {
+        $(this).toggle();
+    });
 }
 
 function alertOnUnload() {
