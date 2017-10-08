@@ -14,7 +14,7 @@ class Record {
     private $artists;
     // String
     private $label;
-    // Array of Track objects
+    // Associative array of [$trackld => $trackObject] elements
     private $tracks;
     // Array of Genre objects
     private $genres;
@@ -147,7 +147,11 @@ class Record {
 
     private function initTracks() {
         if (!isset($this->tracks)) {
-            $this->tracks = getTracksByRecordId($this->id);
+            $this->tracks = [];
+            $tracks = getTracksByRecordId($this->id);
+            foreach ($tracks as $track) {
+                $this->tracks[$track->getId()] = $track;
+            }
         }
     }
 
@@ -171,9 +175,9 @@ class Record {
 
     public function deleteTracks($trackIds) {
         $this->initTracks();
-        foreach ($this->tracks as $track) {
-            ;
-            // if ($track->getId() === $trackI)
+        foreach ($trackIds as $id) {
+            $this->tracks[$id]->delete();
+            unset($this->tracks[$id]);
         }
     }
 

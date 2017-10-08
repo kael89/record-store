@@ -53,8 +53,8 @@ INSERT INTO records VALUES(10, 'Chaos A.D.', 5, '1993-10-19', '10.jpg', 11.30, F
 ##tracks(trackId, artistId, recordId, title, position, genreId, duration)
 DELETE FROM tracks;
 #Metallica - Kill 'em All (10 tracks)
-INSERT INTO tracks VALUES(2, 1, 1, 'The Four Horsemen', 1, 2, 433, FALSE);
-INSERT INTO tracks VALUES(1, 1, 1, 'Hit the Lights', 2, 2, 256, FALSE);
+INSERT INTO tracks VALUES(1, 1, 1, 'Hit the Lights', 1, 2, 433, FALSE);
+INSERT INTO tracks VALUES(2, 1, 1, 'The Four Horsemen', 2, 2, 256, FALSE);
 INSERT INTO tracks VALUES(3, 1, 1, 'Motorbreath', 3, 2, 188, FALSE);
 INSERT INTO tracks VALUES(4, 1, 1, 'Jump in the Fire', 4, 2, 281, FALSE);
 INSERT INTO tracks VALUES(5, 1, 1, '(Anesthesia) - Pulling Teeth', 5, 2, 255, FALSE);
@@ -68,10 +68,10 @@ INSERT INTO tracks VALUES(11, 1, 2, 'Fight Fire with Fire', 1, 2, 285, FALSE);
 INSERT INTO tracks VALUES(12, 1, 2, 'Ride the Lightning', 2, 2, 396, FALSE);
 INSERT INTO tracks VALUES(13, 1, 2, 'For Whom the Bell Tolls', 3, 2, 309, FALSE);
 INSERT INTO tracks VALUES(14, 1, 2, 'Fade to Black', 4, 2, 417, FALSE);
-INSERT INTO tracks VALUES(15, 1, 2, 'Trapped Under Ice', 5, 244, FALSE);
-INSERT INTO tracks VALUES(16, 1, 2, 'Escape', 6, 263, FALSE);
-INSERT INTO tracks VALUES(17, 1, 2, 'Creeping Death', 7, 396, FALSE);
-INSERT INTO tracks VALUES(18, 1, 2, 'The Call of Ktulu', 8, 523, FALSE);
+INSERT INTO tracks VALUES(15, 1, 2, 'Trapped Under Ice', 5, 2, 244, FALSE);
+INSERT INTO tracks VALUES(16, 1, 2, 'Escape', 6, 2, 263, FALSE);
+INSERT INTO tracks VALUES(17, 1, 2, 'Creeping Death', 7, 2, 396, FALSE);
+INSERT INTO tracks VALUES(18, 1, 2, 'The Call of Ktulu', 8, 2, 523, FALSE);
 #Iron MaIden - The Number of the Beast (9 tracks)
 INSERT INTO tracks VALUES(19, 2, 3, 'Invaders', 1, 1, NULL, FALSE);
 INSERT INTO tracks VALUES(20, 2, 3, 'Children of the Damned', 2, 1, NULL, FALSE);
@@ -79,5 +79,5 @@ INSERT INTO tracks VALUES(21, 2, 3, 'The Prisoner', 3, 1, NULL, FALSE);
 INSERT INTO tracks VALUES(22, 2, 3, '22 Acacia Avenue', 4, 1, NULL, FALSE);
 INSERT INTO tracks VALUES(23, 2, 3, 'The Number of the Beast', 5, 1, NULL, FALSE);
 INSERT INTO tracks VALUES(24, 2, 3, 'Run to the Hills', 6, 1, NULL, FALSE);
-INSERT INTO tracks VALUES(25, 2, 3, 'Gangland', 7. 1, NULL, FALSE);
+INSERT INTO tracks VALUES(25, 2, 3, 'Gangland', 7, 1, NULL, FALSE);
 INSERT INTO tracks VALUES(26, 2, 3, 'Hallowed Be Thy Name', 8, 1, NULL, FALSE);

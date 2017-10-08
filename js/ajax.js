@@ -37,14 +37,17 @@ function toggleDetailsPage(action = 'details') {
 
 function insertData(action) {
     var id = getGet('id');
+    var data = new FormData($('.form-edit')[0]);
+    data.append('dataItems', JSON.stringify(dataItems));
 
     $.ajax({
         url: getFilePath('lib/ajax.php?action=' + action + '&id=' + id),
         type: 'POST',
-        data: new FormData($('.form-edit')[0]),
+        data: data,
         processData: false,
         contentType: false
     }).done(function(insertId) {
+        alert(insertId);
         if (insertId) {
             window.location.search = 'page=details&id=' + insertId + '&action=insert';
         } else {

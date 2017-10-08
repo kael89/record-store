@@ -66,14 +66,14 @@ $successMsg = getGet("add") ? "Record added!" : "Record details updated!";
 /*** Functions ***/
 function printTracks($tracks) {
     echo "<table class=\"table\"><caption>Tracklist</caption><tbody>";
-    foreach ($tracks as $i => $track) {
-        $no = $i + 1;
+    foreach ($tracks as $track) {
+        $position = $track->getPosition();
         $title = $track->getTitle();
         $duration = viewDuration($track->getDuration());
 
         echo <<<_END
 <tr>
-    <td>$no.</td>
+    <td>$position.</td>
     <td>$title</td>
     <td>$duration</td>
 </tr>

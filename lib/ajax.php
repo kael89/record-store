@@ -71,7 +71,7 @@ switch (getGet("action")) {
     case "update_record":
         extract($_POST);
         extract($_FILES);
-        // $dataItems = json_decode(, true);
+        $dataItems = json_decode($dataItems, true);
 
         // Update database through object methods
         $id = getGet("id");
@@ -83,7 +83,7 @@ switch (getGet("action")) {
             $record->setLabel($labelId);
             $record->setPrice($price);
 
-            // $record->
+            $record->deleteTracks($dataItems["deleted"]["tracks"]);
         }
         break;
     case "delete_record":

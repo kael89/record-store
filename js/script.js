@@ -1,7 +1,7 @@
 var dataItems = {
-    added: [],
-    updated: [],
-    deleted: []
+    added: {},
+    updated: {},
+    deleted: {}
 };
 
 $(function() {
@@ -105,9 +105,8 @@ function removeBtnControl() {
         var target = $(this).data('target');
         var $target = $('#' + target);
         var targetParts = target.split('-');
-        var id = targetParts[0];
-        var cat = targetParts[1];
-
+        var cat = targetParts[0];
+        var id = targetParts[1];
 
         if (!(cat in dataItems.deleted)) {
             dataItems.deleted[cat] = [];

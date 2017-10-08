@@ -7,15 +7,17 @@ class Track {
     private $artistId;
     private $recordId;
     private $title;
+    private $position;
     private $genreId;
     private $duration;
 
-    public function __construct($id, $artistId, $recordId, $title = "", $genreId = null, $duration = 0) {
+    public function __construct($id, $artistId, $recordId, $title, $position, $genreId = null, $duration = 0) {
         $this->id = $id;
         $this->artistId = $artistId;
         $this->recordId = $recordId;
-        $this->genreId = isGenre($genreId) ? $genreId : null;
         $this->title = $title;
+        $this->position = $position;
+        $this->genreId = isGenre($genreId) ? $genreId : null;
         $this->duration = ($duration > 0) ? $duration : 0;
     }
 
@@ -67,6 +69,16 @@ class Track {
         } else {
             return false;
         };
+    }
+
+    public function getPosition() {
+        return $this->position;
+    }
+
+    public function setPosition($position) {
+        if (updateTrack($this->id, ["position" => $position])) {
+            $this->position = $position;
+        }
     }
 
     public function getGenreId() {

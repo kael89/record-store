@@ -123,6 +123,7 @@ function getRecordsByLabelName($name, $search = false) {
     return $records;
 }
 
+// Sort results by title
 function getRecordsByTitle($title, $search = false) {
     $columns = getColumns("records");
     $columns["records.title"] = ($search) ? " LIKE '$title'" : "='$title'";

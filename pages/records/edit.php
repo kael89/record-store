@@ -121,16 +121,16 @@ function printLabelOptions($labels, $selectedId) {
 
 function printTracks($tracks) {
     echo "<table class=\"table list-enum\"><caption>Tracklist</caption><tbody>";
-    foreach ($tracks as $i => $track) {
+    foreach ($tracks as $track) {
         $id = $track->getId();
-        $no = $i + 1;
+        $position = $track->getPosition();
         $title = $track->getTitle();
         $duration = viewDuration($track->getDuration());
 
         echo <<<_END
-<tr id="track-$id">
-    <td><a class="btn-remove" href="#" title="Delete track" data-target="track-$id" data-enum><span class="glyphicon glyphicon-remove"></a></td>
-    <td class="list-index">$no.</td>
+<tr id="tracks-$id">
+    <td><a class="btn-remove" href="#" title="Delete track" data-target="tracks-$id" data-enum><span class="glyphicon glyphicon-remove"></a></td>
+    <td class="list-index">$position.</td>
     <td>$title</td>
     <td>$duration</td>
 </tr>
