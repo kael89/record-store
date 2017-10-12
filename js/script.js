@@ -54,23 +54,18 @@ function listControl() {
 }
 
 function btnControls() {
-    editBtnControl();
+    // btn-save, btn-edit, btn-delete: final database changes
+    // btn-insert, btn-update, btn-remove: temporary display changes
+
     cancelBtnControl();
-    deleteBtnControl();
+
+    insertBtnControl();
     updateBtnControl();
     removeBtnControl();
+
+    editBtnControl();
+    deleteBtnControl();
     saveBtnControl();
-}
-
-function editBtnControl() {
-    var $editBtn = $('.btn-edit');
-    if (!$editBtn.length) {
-        return;
-    }
-
-    $editBtn.on('click', function() {
-        toggleDetailsPage('edit');
-    });
 }
 
 function cancelBtnControl() {
@@ -88,7 +83,72 @@ function cancelBtnControl() {
     alertOnUnload();
 }
 
-// Delete buttons controls instant database deletion
+function insertBtnControl() {
+    $('.btn-insert').on('click', function(e) {
+        e.stopPropagation();
+
+        var target = $(this).data('target');
+        var $target = $('#' + target);
+        var cat = target.split('-')[0];
+        var $list = $('.' + cat + '-list');
+
+        addFormUpdateNew(cat);
+        toggleUpdateForm($target);
+        $target.show();
+        if($list.hasClass('list-enum')) {
+            enumerateList($list);
+        }
+        bindOnClickOutside($target, function() {
+            updateForm($target);
+        });
+    });
+}
+
+function updateBtnControl($btnUpdate = $('.btn-update')) {
+    $btnUpdate.on('click', function() {
+        var target = $(this).data('target');
+        var $target = $('#' + target);
+
+        toggleUpdateForm($target);
+        bindOnClickOutside($target, function() {
+            updateForm($target);
+        });
+    });
+}
+
+function removeBtnControl($btnRemove = $('.btn-remove')) {
+    $btnRemove.on('click', function() {
+        var target = $(this).data('target');
+        var $target = $('#' + target);
+
+        target = target.split('-');
+        var cat = target[0];
+        var id = target[1];
+
+        if (!(cat in dataItems.deleted)) {
+            dataItems.deleted[cat] = [];
+        }
+        dataItems.deleted[cat].push(id);
+        $target.hide();
+
+        $list = $('.' + cat + '-list');
+        if($list.hasClass('list-enum')) {
+            enumerateList($list);
+        }
+    });
+}
+
+function editBtnControl() {
+    var $editBtn = $('.btn-edit');
+    if (!$editBtn.length) {
+        return;
+    }
+
+    $editBtn.on('click', function() {
+        toggleDetailsPage('edit');
+    });
+}
+
 function deleteBtnControl() {
     $('.btn-delete').on('click', function() {
         var item = $(this).data('item');
@@ -125,51 +185,6 @@ function deleteBtnControl() {
     });
 }
 
-// .update-btn elements control temporary content update
-// that leads to permanent update after final user confirmation
-function updateBtnControl() {
-    $('.btn-update').on('click', function() {
-        var updateTarget = $(this).data('target');
-        var $updateTarget = $('#' + updateTarget);
-
-        toggleUpdateForm($updateTarget);
-        $(document).on('click', function(e) {
-            // check if user has clicked outside $updateTarget element
-            if (!$(e.target).closest($updateTarget).length) {
-                // update text of .update-val elements  with the inserted values
-                $updateTarget.find(':input').each(function() {
-                    var val = $(this).val();
-                    $(this).siblings('.update-val').html(val);
-                })
-                toggleUpdateForm($updateTarget);
-                $(document).off('click');
-            }
-        })
-    });
-}
-
-// .remove-btn elements control temporary removal from display
-// that leads to permanent deletion after final user confirmation
-function removeBtnControl() {
-    $('.btn-remove').on('click', function() {
-        var target = $(this).data('target');
-        var $target = $('#' + target);
-        var targetParts = target.split('-');
-        var cat = targetParts[0];
-        var id = targetParts[1];
-
-        if (!(cat in dataItems.deleted)) {
-            dataItems.deleted[cat] = [];
-        }
-        dataItems.deleted[cat].push(id);
-        $target.hide();
-
-        if($(this)[0].hasAttribute('data-enum')) {
-            enumerateList($target.parents('.list-enum'));
-        }
-    });
-}
-
 function saveBtnControl() {
     var $saveBtn = $('.btn-save');
     if (!$saveBtn.length) {
@@ -182,6 +197,36 @@ function saveBtnControl() {
         var action = $(this).data('action');
         insertData(action);
     })
+}
+
+function updateForm($form) {
+    $form.find(':input').each(function() {
+        var val = $(this).val();
+        $(this).siblings('.update-val').html(val);
+    })
+    toggleUpdateForm($form);
+}
+
+function addFormUpdateNew(cat) {
+    var ids = [];
+    $('[id^="' + cat + '-new-"]').each(function() {
+        var id = $(this).attr('id').split('-')[2];
+        ids.push(parseInt(id) + 1);
+    });
+
+    var id = (ids.length > 0) ? Math.max(ids) : 1;
+    var newId = cat + '-new-' + id;
+    var oldId = new RegExp(cat + '-new', 'g');
+    var $insertedEl = $('#' + cat + '-new');
+    var $formUpdateNew = $insertedEl.clone().hide();
+
+    $insertedEl.html($insertedEl.html().replace(oldId, newId))
+               .attr('id', newId)
+               .removeClass('form-update-new')
+               .after($formUpdateNew);
+
+    updateBtnControl($insertedEl.find('.btn-update'));
+    removeBtnControl($insertedEl.find('.btn-remove'));
 }
 
 function toggleUpdateForm($form) {

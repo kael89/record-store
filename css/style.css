@@ -1,12 +1,13 @@
 /*
 Colors
 
-**color 1: #958888
-  (side background)
-**color 2: #3f2e2e
-  (container background)
-**color 3: #ffffff
-  (text)
+**Background**
+* color 1: #958888 (side background)
+* color 2: #3f2e2e (container background)
+
+**Text**
+* color 1: #ffffff (main)
+* color 2: #ad00ff (btn-info)
 
 */
 
@@ -129,12 +130,13 @@ legend span {
     color: #5cb85c;
 }
 
-.glyphicon-plus-sign {
-    color: #337ab7;
+.btn-info {
+    color: #ad00ff;
 }
 
 .form-update input,
 .form-update select,
-.form-update textarea {
+.form-update textarea,
+.form-update-new {
     display: none;
 }

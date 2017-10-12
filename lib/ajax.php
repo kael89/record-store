@@ -83,7 +83,7 @@ switch (getGet("action")) {
             $record->setLabel($labelId);
             $record->setPrice($price);
 
-            $record->deleteTracks($dataItems["deleted"]["tracks"]);
+            $record->deleteTracks($dataItems["deleted"]["track"]);
         }
         break;
     case "delete_record":

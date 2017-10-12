@@ -55,3 +55,30 @@ function getGet(name) {
 
     return (match) ? match[1] : '';
 }
+
+function bindOnClickOutside($el, callback) {
+    var clickOutside = 'click.outside' + $el.attr('id');
+
+    $(document).on(clickOutside, function(e) {
+        // check if user has clicked outside $updateTarget element
+        if (!$(e.target).closest($el).length) {
+            callback();
+            $(document).off(clickOutside);
+        }
+    });
+}
+
+/*
+Unused helper functions
+// parentHtml() returns the html of a jQuery object, including itself.
+// jQuery object method
+$.prototype.parentHtml = function() {
+    $html = $(this).wrap('<div></div>').parent().html();
+    $(this).unwrap();
+    return $html;
+}
+
+function last($arr) {
+    return $arr[$arr.length - 1];
+}
+*/

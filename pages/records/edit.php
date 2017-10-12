@@ -120,7 +120,7 @@ function printLabelOptions($labels, $selectedId) {
 }
 
 function printTracks($tracks) {
-    echo "<table class=\"table list-enum\"><caption>Tracklist</caption><tbody>";
+    echo "<table class=\"table tracks-list list-enum\"><caption>Tracklist</caption><tbody>";
     foreach ($tracks as $track) {
         $id = $track->getId();
         $position = $track->getPosition();
@@ -129,7 +129,7 @@ function printTracks($tracks) {
 
         echo <<<_END
 <tr id="tracks-$id" class="form-update">
-    <td><a class="btn-remove" href="#" title="Delete track" data-target="tracks-$id" data-enum><span class="glyphicon glyphicon-remove"></a></td>
+    <td><a class="btn-remove" href="#" title="Delete track" data-target="tracks-$id"><span class="glyphicon glyphicon-remove"></a></td>
     <td><a class="btn-update" href="#" title="Edit track" data-target="tracks-$id"><span class="glyphicon glyphicon-pencil"></a></td>
     <td class="list-index">$position.</td>
     <td><input class="form-control" type="text" value="$title"><span class="update-val">$title</span></td>
@@ -139,12 +139,18 @@ _END;
     }
 
     echo <<<_END
+<!-- New track row -->
+<tr id="tracks-new" class="form-update form-update-new">
+    <td><a class="btn-remove" href="#" title="Delete track" data-target="tracks-new"><span class="glyphicon glyphicon-remove"></a></td>
+    <td><a class="btn-update" href="#" title="Edit track" data-target="tracks-new"><span class="glyphicon glyphicon-pencil"></a></td>
+    <td class="list-index"></td>
+    <td><input class="form-control" type="text" placeholder="Insert track title"><span class="update-val"></span></td>
+    <td><input class="form-control" type="text" placeholder="0:00"><span class="update-val"></span></td>
+</tr>
 <tr class="no-border">
+    <td colspan="3" class="text-left"><button class="btn btn-sm btn-info btn-insert" type="button" data-target="tracks-new"><span class="glyphicon glyphicon-plus-sign"></span> Add track</button></td>
     <td></td>
     <td></td>
-    <td></td>
-    <td></td>
-    <td colspan="4"><a href="" title="Add track"><span class="glyphicon glyphicon-lg glyphicon-plus-sign"></span></a></td>
 </tr>
 _END;
 
