@@ -1,15 +1,15 @@
-var dataItems = {
-    added: {},
-    updated: {},
-    deleted: {}
-};
+// var dataItems = {
+//     added: {},
+//     updated: {},
+//     deleted: {}
+// };
 
 $(function() {
     bindLoadingImage();
     navbarControl();
     letterNavbarControl();
     listControl();
-    btnControls();
+    dataEditControls();
     bindSuccessMsg();
 })
 
@@ -53,7 +53,7 @@ function listControl() {
     });
 }
 
-function btnControls() {
+function dataEditControls() {
     // btn-save, btn-edit, btn-delete: final database changes
     // btn-insert, btn-update, btn-remove: temporary display changes
 
@@ -66,6 +66,8 @@ function btnControls() {
     editBtnControl();
     deleteBtnControl();
     saveBtnControl();
+
+    draggableControl();
 }
 
 function cancelBtnControl() {
@@ -89,15 +91,12 @@ function insertBtnControl() {
 
         var target = $(this).data('target');
         var $target = $('#' + target);
-        var cat = target.split('-')[0];
-        var $list = $('.' + cat + '-list');
+        var cat = getListCat(target);
 
         addFormUpdateNew(cat);
         toggleUpdateForm($target);
         $target.show();
-        if($list.hasClass('list-enum')) {
-            enumerateList($list);
-        }
+        enumerateList(cat);
         bindOnClickOutside($target, function() {
             updateForm($target);
         });
@@ -121,20 +120,15 @@ function removeBtnControl($btnRemove = $('.btn-remove')) {
         var target = $(this).data('target');
         var $target = $('#' + target);
 
-        target = target.split('-');
-        var cat = target[0];
-        var id = target[1];
+        var listCat = getListCat(target);
+        // var id = target[1];
 
-        if (!(cat in dataItems.deleted)) {
-            dataItems.deleted[cat] = [];
-        }
-        dataItems.deleted[cat].push(id);
+        // if (!(cat in dataItems.deleted)) {
+        //     dataItems.deleted[cat] = [];
+        // }
+        // dataItems.deleted[cat].push(id);
         $target.hide();
-
-        $list = $('.' + cat + '-list');
-        if($list.hasClass('list-enum')) {
-            enumerateList($list);
-        }
+        enumerateList(listCat);
     });
 }
 
@@ -254,10 +248,37 @@ function bindSuccessMsg() {
     }
 }
 
-function enumerateList($list) {
+function getListCat(id) {
+    var parts = id.split('-');
+    return (parts) ? parts[0] : '';
+}
+
+function enumerateList(cat) {
     $i = 1;
-    $list.find('.list-index:visible').each(function() {
+    $('.' + cat + '-list.list-enum').find('.' + cat + '-index:visible').each(function() {
         $(this).text($i + '.');
         $i++;
+    });
+}
+
+function draggableControl() {
+    $('[draggable]').on('dragstart', function(e) {
+        e.originalEvent.dataTransfer.setData('text', e.target.id);
+
+        var dropId = $(this).data('drop');
+        var $dropTarget = $('#' + dropId);
+        // check if the draggable element belongs in an enumerated list
+        var listCat = getListCat(dropId);
+
+        $dropTarget.on('dragover', function(e) {
+            e.preventDefault();
+        });
+    
+        $dropTarget.on('drop', function(e) {
+            e.preventDefault();
+            var id = e.originalEvent.dataTransfer.getData('text');
+            $(e.target).closest('tr').after($('#' + id));
+            enumerateList(listCat);
+        });
     });
 }

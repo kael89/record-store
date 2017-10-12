@@ -20,7 +20,7 @@ function toggleDetailsPage(action = 'details') {
         $('#main').html(data);
         switch (action) {
             case 'edit':
-                btnControls();
+                dataEditControls();
                 $('.btn-edit').hide();
                 break;
             case 'update':
@@ -28,7 +28,7 @@ function toggleDetailsPage(action = 'details') {
                 // fallthrough
             case 'details':
             default:
-                btnControls();
+                dataEditControls();
                 $(window).off('beforeunload');
                 break;
         }
@@ -65,7 +65,7 @@ function deleteItem(action, id, destUrl, redirect = false) {
             $.get(destUrl, function(data) {
                 $('#main').html(data);
                 $('#successMsg').show();
-                btnControls();
+                dataEditControls();
             });
         }
     });
