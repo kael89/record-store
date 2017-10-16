@@ -1,9 +1,3 @@
-// var dataItems = {
-//     added: {},
-//     updated: {},
-//     deleted: {}
-// };
-
 $(function() {
     bindLoadingImage();
     navbarControl();
@@ -121,12 +115,6 @@ function removeBtnControl($btnRemove = $('.btn-remove')) {
         var $target = $('#' + target);
 
         var listCat = getListCat(target);
-        // var id = target[1];
-
-        // if (!(cat in dataItems.deleted)) {
-        //     dataItems.deleted[cat] = [];
-        // }
-        // dataItems.deleted[cat].push(id);
         $target.hide();
         enumerateList(listCat);
     });

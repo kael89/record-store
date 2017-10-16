@@ -97,6 +97,7 @@ if ($id) {
         </div>
     </div>
 </form>
+<script src="js/tracklist.js"></script>
 
 <?php
 /*** Functions ***/
@@ -121,10 +122,9 @@ function printLabelOptions($labels, $selectedId) {
 
 function printTracks($tracks) {
     echo <<<_END
-<table class="table list-enum tracks-list">
+<table id="tracklist" class="table list-enum tracks-list">
     <caption>Tracklist</caption>
-    <tbody id="tracks-dropzone">
-    <tr class="hidden"></tr>
+    <tbody id="tracksDropzone">
 _END;
 
     foreach ($tracks as $track) {
@@ -134,24 +134,24 @@ _END;
         $duration = viewDuration($track->getDuration());
 
         echo <<<_END
-    <tr id="tracks-$id" class="form-update" draggable="true" data-drop="tracks-dropzone">
+    <tr id="tracks-$id" class="form-update" draggable="true" data-drop="tracksDropzone">
         <td><a class="btn-remove" href="#" title="Delete track" data-target="tracks-$id"><span class="glyphicon glyphicon-remove"></a></td>
         <td><a class="btn-update" href="#" title="Edit track" data-target="tracks-$id"><span class="glyphicon glyphicon-pencil"></a></td>
-        <td class="tracks-index">$position.</td>
-        <td><input class="form-control" type="text" value="$title"><span class="update-val">$title</span></td>
-        <td><input class="form-control" type="text" value="$duration"><span class="update-val">$duration</span></td>
+        <td id="trackPosition" class="tracks-index">$position.</td>
+        <td id="trackTitle"><input class="form-control" type="text" value="$title"><span class="update-val">$title</span></td>
+        <td id="trackDuration"><input class="form-control" type="text" value="$duration"><span class="update-val">$duration</span></td>
     </tr>
 _END;
     }
 
     echo <<<_END
     <!-- New track row -->
-    <tr id="tracks-new" class="form-update form-update-new" draggable="true" data-drop="tracks-dropzone">
+    <tr id="tracks-new" class="form-update form-update-new" draggable="true" data-drop="tracksDropzone">
         <td><a class="btn-remove" href="#" title="Delete track" data-target="tracks-new"><span class="glyphicon glyphicon-remove"></a></td>
         <td><a class="btn-update" href="#" title="Edit track" data-target="tracks-new"><span class="glyphicon glyphicon-pencil"></a></td>
-        <td class="tracks-index"></td>
-        <td><input class="form-control" type="text" placeholder="Insert track title"><span class="update-val"></span></td>
-        <td><input class="form-control" type="text" placeholder="0:00"><span class="update-val"></span></td>
+        <td id="trackPosition" class="tracks-index"></td>
+        <td id="trackTitle"><input class="form-control" type="text" placeholder="Insert track title"><span class="update-val"></span></td>
+        <td id="trackDuration"><input class="form-control" type="text" placeholder="0:00"><span class="update-val"></span></td>
     </tr>
 </tbody>
 <tfoot>
