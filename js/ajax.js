@@ -38,7 +38,9 @@ function toggleDetailsPage(action = 'details') {
 function insertData(action) {
     var id = getGet('id');
     var data = new FormData($('.form-edit')[0]);
-    data.append('dataItems', JSON.stringify(dataItems));
+    if (tracklist) {
+        data.append('tracks', JSON.stringify(tracklist.getTrackData()));
+    }
 
     $.ajax({
         url: getFilePath('lib/ajax.php?action=' + action + '&id=' + id),

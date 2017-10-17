@@ -1,3 +1,5 @@
+var tracklist;
+
 $(function() {
     bindLoadingImage();
     navbarControl();
@@ -5,7 +7,7 @@ $(function() {
     listControl();
     dataEditControls();
     bindSuccessMsg();
-})
+});
 
 function bindLoadingImage() {
     $('#loading').ajaxStart(function() {
@@ -61,6 +63,7 @@ function dataEditControls() {
     deleteBtnControl();
     saveBtnControl();
 
+    tracklistControl();
     draggableControl();
 }
 
@@ -93,6 +96,7 @@ function insertBtnControl() {
         enumerateList(cat);
         bindOnClickOutside($target, function() {
             updateForm($target);
+            updateTracklist($target, 'insert');
         });
     });
 }
@@ -105,6 +109,7 @@ function updateBtnControl($btnUpdate = $('.btn-update')) {
         toggleUpdateForm($target);
         bindOnClickOutside($target, function() {
             updateForm($target);
+            updateTracklist($target, 'update');
         });
     });
 }
@@ -117,6 +122,7 @@ function removeBtnControl($btnRemove = $('.btn-remove')) {
         var listCat = getListCat(target);
         $target.hide();
         enumerateList(listCat);
+        updateTracklist($target, 'remove');
     });
 }
 
@@ -247,6 +253,7 @@ function enumerateList(cat) {
         $(this).text($i + '.');
         $i++;
     });
+    updateTracklist();
 }
 
 function draggableControl() {
@@ -269,4 +276,41 @@ function draggableControl() {
             enumerateList(listCat);
         });
     });
+}
+
+function tracklistControl() {
+    if (!$('#tracklist').length) {
+        return false;
+    }
+
+    tracklist = new Tracklist('tracklist');
+    return true;
+}
+
+function updateTracklist($track, action) {
+    if (!tracklist) {
+        return;
+    }
+    
+    if (!arguments.length) {
+        tracklist.update();
+    } else {
+        var trackId = $track.attr('id');
+        if (getListCat(trackId) != 'tracks') {
+            return;
+        }
+
+        switch (action) {
+            case 'insert':
+                tracklist.insertTrack(trackId);
+                break;
+            case 'update':
+            // fallthrough
+            case 'remove':
+                $track.trigger(action);
+                break;
+            default:
+                break;
+        }
+    }
 }

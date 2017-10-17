@@ -1,61 +1,95 @@
-$(function() {
-    var tracklist = new Tracklist('tracklist');
-    console.log(tracklist.tracks);
-});
-
-// Track object
 class Track {
     constructor(id) {
         this.$track = $('#' + id);
-        this.fetchInfo();
+        this.fetchData();
+        this.resetStatus();
+        this.updateControl();
+        this.removeControl();
     }
 
-    fetchInfo() {
-        this.fetchPosition();
-        this.fetchTitle();
-        this.fetchDuration();
-    }
-
-    fetchPosition() {
+    fetchData() {
         this.position = parseInt(this.$track.find('#trackPosition').text());
-    }
-
-    fetchTitle() {
         this.title = this.$track.find('#trackTitle').text();
+        this.duration = this.$track.find('#trackDuration').text();
     }
 
-    fetchDuration() {
-        this.druration = this.$track.find('#trackDuration').text();
+    getData() {
+        var data = {
+            id: this.$track.attr('id'),
+            position: this.position,
+            title: this.title,
+            duration: this.duration
+        }
+
+        return data;
+    }
+
+    resetStatus() {
+        this.status = '';
+    }
+
+    insert() {
+        this.status = 'added';
+    }
+
+    update() {
+        this.fetchData();
+        // Do not change status of newly added or removed tracks
+        if (this.status === '') {
+            this.status = 'updated';
+        }
+    }
+
+    remove() {
+        this.status = 'removed';
+    }
+
+    updateControl() {
+        var self = this;
+        this.$track.on('update', function() {
+            self.update();
+        });
+    }
+
+    removeControl() {
+        var self = this;
+        this.$track.on('remove', function() {
+            self.remove();
+        });
     }
 }
 
-// Tracklist object
 // tracks: array of Track objects
 class Tracklist {
     constructor(tracklistId) {
-        var tracks = {};
+        this.tracks = {};
+
+        var self = this;
         $('#' + tracklistId).find('[id^="tracks-"]').each(function() {
             var id = $(this).attr('id');
             var track = new Track(id);
-            track.status = '';
-            tracks[id] = track;
+            self.tracks[id] = track;
+        });
+    }
+
+    insertTrack(trackId) {
+        var track = new Track(trackId);
+        track.insert();
+        this.tracks[trackId] = track;
+    }
+
+    update() {
+        Object.values(this.tracks).forEach(function(track) {
+            track.update();
+        });
+    }
+
+    getTrackData() {
+        var trackData = [];
+        Object.values(this.tracks).forEach(function(track) {
+            trackData.push(track.getData());
         });
 
-        this.tracks = tracks;
-    }
-
-    add(trackId) {
-        var track = new Track(trackId);
-        track.status = 'added';
-        tracks[id] = track;
-    }
-
-    update(trackId) {
-        tracks[trackId].fetchInfo();
-        this.status = 'updated';
-    }
-
-    delete(trackId) {
-        this.status = 'deleted';
+        return trackData;
     }
 }

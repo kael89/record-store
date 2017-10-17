@@ -59,6 +59,7 @@ switch (getGet("action")) {
     case "add_record":
         extract($_POST);
         extract($_FILES);
+        $tracks = json_decode($tracks, true);
 
         $id = insertRecord($title, $labelId, $releaseDate, "", $price);
         $record = getRecordById($id);
@@ -71,7 +72,7 @@ switch (getGet("action")) {
     case "edit_record":
         extract($_POST);
         extract($_FILES);
-        $dataItems = json_decode($dataItems, true);
+        $tracks = json_decode($tracks, true);
 
         // Update database through object methods
         $id = getGet("id");
@@ -82,8 +83,6 @@ switch (getGet("action")) {
             $record->setReleaseDate($releaseDate);
             $record->setLabel($labelId);
             $record->setPrice($price);
-
-            $record->deleteTracks($dataItems["deleted"]["track"]);
         }
         break;
     case "delete_record":
