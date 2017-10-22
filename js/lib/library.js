@@ -56,6 +56,11 @@ function getGet(name) {
     return (match) ? match[1] : '';
 }
 
+function getSelected(selector) {
+    $el = $(selector);
+    return ($el.length) ? $el.find(':selected').val() : '';
+}
+
 function bindOnClickOutside($el, callback) {
     var clickOutside = 'click.outside' + $el.attr('id');
 

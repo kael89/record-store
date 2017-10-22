@@ -14,7 +14,7 @@ class Artist {
     // Array of Record objects
     private $records;
 
-    public function __construct($id, $name = "", $country = "", $foundationYear = 0, $logo = "", $photo = "", $bio = "") {
+    public function __construct($id, $name, $country = "", $foundationYear = 0, $logo = "", $photo = "", $bio = "") {
         $this->id = $id;
         $this->name = $name;
         $this->country = $country;
@@ -22,6 +22,11 @@ class Artist {
         $this->logo = $logo;
         $this->photo = $photo;
         $this->bio = $bio;
+    }
+
+    public function create($name, $country, $foundationYear, $logo = "", $photo = "", $bio = "") {
+        $id = insertArtist($name, $country, $foundationYear, $logo, $photo, $bio);
+        return new Artist($id, $name, $country, $foundationYear, $logo, $photo, $bio);
     }
 
     public function delete() {

@@ -34,7 +34,7 @@ CREATE TABLE labels(
     country VARCHAR(2),
     foundationYear YEAR,
     logo VARCHAR(255),
-    deleted BOOLEAN NOT NULL DEFAULT FALSE,    
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY(labelId)
 );
 
@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS genres;
 CREATE TABLE genres(
     genreId SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL UNIQUE,
-    deleted BOOLEAN NOT NULL DEFAULT FALSE,    
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY(genreId)
 );
 
@@ -54,9 +54,8 @@ CREATE TABLE records(
     releaseDate DATE,
     cover VARCHAR(255),
     price FLOAT(5,2),
-    deleted BOOLEAN NOT NULL DEFAULT FALSE,    
-    PRIMARY KEY(recordId),
-    FOREIGN KEY(labelId) REFERENCES labels(labelId)
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY(recordId)
 );
 
 DROP TABLE IF EXISTS tracks;

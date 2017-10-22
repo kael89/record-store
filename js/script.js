@@ -263,7 +263,7 @@ function draggableControl() {
         var dropId = $(this).data('drop');
         var $dropTarget = $('#' + dropId);
         // check if the draggable element belongs in an enumerated list
-        var listCat = getListCat(dropId);
+        var listCat = getListCat($(this).attr('id'));
 
         $dropTarget.on('dragover', function(e) {
             e.preventDefault();

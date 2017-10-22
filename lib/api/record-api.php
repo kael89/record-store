@@ -4,7 +4,7 @@ requirePhp("tables");
 requirePhp("api");
 requirePhp("class", "record");
 
-function insertRecord($title = "", $labelId = null, $releaseDate = "", $cover = "", $price = 0) {
+function insertRecord($title, $labelId = null, $releaseDate = "", $cover = "", $price = 0) {
     $row = [];
 
     if ($title === "") {
@@ -26,23 +26,6 @@ function updateRecord($id, $row) {
 
 function deleteRecord($id) {
     deleteRows("records", ["recordId" => $id]);
-}
-
-function restoreRecords($records) {
-    foreach ($records as $record) {
-        print_r($record->getTracks());
-        restoreTracks($record->getTracks());
-
-        $oldId = $record->getId();
-        $newId = insertRecord(
-            $record->getTitle(),
-            $record->getLabelId(),
-            $record->getReleaseDate(),
-            $record->getCover(),
-            $record->getPrice()
-        );
-        updateRecord($newId, ["recordId" => $oldId]);
-    }
 }
 
 function isRecord($id) {

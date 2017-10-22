@@ -19,15 +19,19 @@ class Record {
     // Array of Genre objects
     private $genres;
 
-    public function __construct($id, $title = "", $labelId = null, $releaseDate = "", $cover = "", $price = 0) {
+    public function __construct($id, $title, $labelId, $releaseDate = "", $cover = "", $price = 0) {
         $this->id = $id;
-        $this->labelId = $labelId;
         $this->title = $title;
+        $this->labelId = $labelId;
         $this->releaseDate = $releaseDate;
         $this->cover = $cover;
         $this->price = $price;
     }
 
+    public static function create($title, $labelId, $releaseDate = "", $cover = "", $price = 0) {
+        $id = insertRecord($title, $labelId, $releaseDate, $cover, $price);
+        return new Record($id, $title, $labelId, $releaseDate, $cover, $price);
+    }
     public function delete() {
         $this->initTracks();
         foreach ($this->tracks as $track) {
@@ -160,25 +164,54 @@ class Record {
         return $this->tracks;
     }
 
-    public function addTrack() {
-        // to be implemeted
-    }
-
-    public function updateTrack($track, $number) {
-        $this->tracks[$number] = [
-            "title" => $track->getTitle(),
-            "artist" => $track->getArtist(),
-            "genre" => $track->getGenre(),
-            "duration" => $track->getDuration()
-        ];
-    }
-
-    public function deleteTracks($trackIds) {
+    // $tracks: array of ["id" => , "artistId" => , "position" => , "title" => , "duration" => , "status" => ]
+    public function setTracks($tracks) {
         $this->initTracks();
-        foreach ($trackIds as $id) {
-            $this->tracks[$id]->delete();
-            unset($this->tracks[$id]);
+
+        foreach ($tracks as $track) {
+            switch ($track["status"]) {
+                case "added":
+                    $this->addTrack($track);
+                    break;
+                case "updated":
+                    $id = explode("-", $track["id"])[1];
+                    $this->updateTrack($id, $track);
+                    break;
+                case "removed":
+                    $id = explode("-", $track["id"])[1]; 
+                    $this->deleteTrack($id);
+                    break;
+                default:
+                    break;
+            }
         }
+
+        return $this->tracks;
+    }
+
+    // $data = ["position" => , "title" => , "duration" => ]
+    private function addTrack($data) {
+        $artistId = $data["artistId"];
+        $recordId = $this->getId();
+        $title = $data["title"];
+        $position = $data["position"];
+        $duration = $data["duration"];
+
+        $track = Track::create($artistId, $recordId, $title, $position, $genreId = null, $duration);
+        $this->tracks[$track->getId()] = $track;
+    }
+
+    // $data = ["position" => , "title" => , "duration" => ]
+    private function updateTrack($id, $data) {
+        $track = $this->tracks[$id];
+        $track->setPosition($data["position"]);
+        $track->setTitle($data["title"]);
+        $track->setDuration($data["duration"]);
+    }
+
+    private function deleteTrack($id) {
+        $this->tracks[$id]->delete();
+        unset($this->tracks[$id]);
     }
 
     public function getGenres() {

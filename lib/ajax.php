@@ -24,22 +24,40 @@ switch (getGet("action")) {
         echo json_encode(loginUser($email, $password));
         break;
     case "add_artist":
-        extract($_POST);
-        extract($_FILES);
+        echo ajaxEditArtist(true);
+        break;
+    case "edit_artist":
+        ajaxEditArtist();
+        break;
+    case "delete_artist":
+        ajaxDeleteArtist();
+        break;
+    case "add_record":
+        echo ajaxEditRecord(true);
+        break;
+    case "edit_record":
+        ajaxEditRecord();
+        break;
+    case "delete_record":
+        echo ajaxDeleteRecord();
+        break;
+    default:
+        break;
+}
 
-        $id = insertArtist($name, $country, $foundationYear, "", "", $bio);
-        $artist = getArtistById($id);
+function ajaxEditArtist($insert = false) {
+    extract($_POST);
+    extract($_FILES);
+
+    $id = 0;
+    if ($insert) {
+        $artist = Artist::create($name, $country, $foundationYear, "", "", $bio);
         if ($artist) {
             $artist->uploadLogo($logoFile);
             $artist->uploadPhoto($photoFile);
+            $id = $artist->getId();
         }
-
-        echo $id;
-        break;
-    case "edit_artist":
-        extract($_POST);
-        extract($_FILES);
-
+    } else {
         // Update database through object methods
         $id = getGet("id");
         if ($id) {
@@ -51,46 +69,47 @@ switch (getGet("action")) {
             $artist->uploadPhoto($photoFile);
             $artist->setBio($bio);
         }
-        break;
-    case "delete_artist":
-        $artist = getArtistById(getGet("id"));
-        $artist->delete();
-        break;
-    case "add_record":
-        extract($_POST);
-        extract($_FILES);
-        $tracks = json_decode($tracks, true);
+    }
 
-        $id = insertRecord($title, $labelId, $releaseDate, "", $price);
-        $record = getRecordById($id);
+    return $id;
+}
+
+function ajaxDeleteArtist() {
+    $artist = getArtistById(getGet("id"));
+    $artist->delete();
+}
+
+function ajaxEditRecord($insert = false) {
+    extract($_POST);
+    extract($_FILES);
+    $tracks = json_decode($tracks, true);
+
+    $id = 0;
+    if ($insert) {
+        $record = Record::create($title, $labelId, $releaseDate, "", $price);
         if ($record) {
+            $record->setTracks($tracks);
             $record->uploadCover($coverFile);
+            $id = $record->getId();
         }
-
-        echo $id;
-        break;
-    case "edit_record":
-        extract($_POST);
-        extract($_FILES);
-        $tracks = json_decode($tracks, true);
-
+    } else {
         // Update database through object methods
         $id = getGet("id");
         if ($id) {
             $record = getRecordById($id);
             $record->setTitle($title);
+            $record->setTracks($tracks);
             $record->uploadCover($coverFile);
             $record->setReleaseDate($releaseDate);
             $record->setLabel($labelId);
             $record->setPrice($price);
         }
-        break;
-    case "delete_record":
-        $record = getRecordById(getGet("id"));
-        echo $record->delete();
-    case "delete_track":
-        $track = getTrackById(getGet("id"));
-        $track->delete();
-    default:
-        break;
+    }
+
+    return $id;
+}
+
+function ajaxDeleteRecord() {
+    $record = getRecordById(getGet("id"));
+    return $record->delete();
 }

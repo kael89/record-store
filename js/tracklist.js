@@ -9,6 +9,7 @@ class Track {
 
     fetchData() {
         this.position = parseInt(this.$track.find('#trackPosition').text());
+        this.artistId = parseInt(this.$track.find('#trackArtistId').text());
         this.title = this.$track.find('#trackTitle').text();
         this.duration = this.$track.find('#trackDuration').text();
     }
@@ -16,9 +17,11 @@ class Track {
     getData() {
         var data = {
             id: this.$track.attr('id'),
+            artistId: this.artistId,
             position: this.position,
             title: this.title,
-            duration: this.duration
+            duration: this.duration,
+            status: this.status
         }
 
         return data;
@@ -67,6 +70,10 @@ class Tracklist {
         var self = this;
         $('#' + tracklistId).find('[id^="tracks-"]').each(function() {
             var id = $(this).attr('id');
+            if (id.indexOf('new') != -1) {
+                // skip to the next iteration of $.each()
+                return true;
+            }
             var track = new Track(id);
             self.tracks[id] = track;
         });
@@ -81,6 +88,13 @@ class Tracklist {
     update() {
         Object.values(this.tracks).forEach(function(track) {
             track.update();
+        });
+    }
+
+    fetchArtist() {
+        var artistId = getSelected('#artistId');
+        Object.values(this.tracks).forEach(function(track) {
+            track.artistId = artistId;
         });
     }
 

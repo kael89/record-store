@@ -213,7 +213,7 @@ function insertRow($table, $row) {
 
     $stmt->execute();
     $stmt->close();
-    return $mysqli->add_id;
+    return $mysqli->insert_id;
 }
 
 function updateRows($table, $row, $where) {
@@ -306,11 +306,28 @@ function isRow($table, $column, $value) {
 
     $query = "SELECT $column FROM $table WHERE $column = $value";
     $result = $mysqli->query($query);
-
-    return $result->num_rows;
+    return ($result) ? $result->num_rows : 0;
 }
 
 /*** ENCRYPTION ***/
 function getSalted($str) {
     return hash("sha256", $str . "v$%2");
+}
+
+/*** PARSE DATA ***/
+function parseDuration($duration) {
+    // Convert mm:ss duration format to seconds
+    $parts = explode(":", $duration);
+    $parts = array_filter($parts, function($item) {
+        return (is_numeric($item) && $item > 0);
+    });
+
+    $result = 0;
+    if (count($parts) == 2) {
+        $result = $parts[0] * 60 + $parts[1];
+    } elseif (is_numeric($duration) && $duration > 0) {
+        $result = $duration;
+    }
+
+    return $duration;
 }

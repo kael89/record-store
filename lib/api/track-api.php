@@ -4,16 +4,17 @@ requirePhp("tables");
 requirePhp("api");
 requirePhp("class", "track");
 
-function insertTrack($title = "", $artistId, $recordId, $genreId = null, $duration = 0) {
+function insertTrack($artistId, $recordId, $title, $position, $genreId = null, $duration = 0) {
     $row = [];
 
-    if ($title === "" || !isArtist($artistId)) {
+    if (!isArtist($artistId) || !isRecord($recordId) || $title === "" || empty($position)) {
         return 0;
     }
 
-    $row["title"] = $title;
     $row["artistId"] = $artistId;
     $row["recordId"] = $recordId;
+    $row["title"] = $title;
+    $row["position"] = $position;
     $row["genreId"] = $genreId;
     $row["duration"] = $duration;
 

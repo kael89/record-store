@@ -39,6 +39,7 @@ function insertData(action) {
     var id = getGet('id');
     var data = new FormData($('.form-edit')[0]);
     if (tracklist) {
+        tracklist.fetchArtist();
         data.append('tracks', JSON.stringify(tracklist.getTrackData()));
     }
 

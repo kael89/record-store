@@ -29,6 +29,7 @@ if ($cat) {
     <script src="js/lib/jquery-3.2.1.js"></script>
     <script src="js/lib/bootstrap.js"></script>
     <script src="js/lib/library.js"></script>
+    <script src="js/tracklist.js"></script>
     <script src="js/script.js"></script>
     <script src="js/ajax.js"></script>
 </head>

@@ -18,7 +18,14 @@ class Track {
         $this->title = $title;
         $this->position = $position;
         $this->genreId = isGenre($genreId) ? $genreId : null;
-        $this->duration = ($duration > 0) ? $duration : 0;
+        $this->duration = parseDuration($duration);
+    }
+
+    public static function create($artistId, $recordId, $title, $position, $genreId = null, $duration = 0) {
+        $duration = parseDuration($duration);
+
+        $id = insertTrack($artistId, $recordId, $title, $position, $genreId, $duration);
+        return new Track($id, $artistId, $recordId, $title, $position, $genreId, $duration);
     }
 
     public function delete() {
@@ -100,14 +107,10 @@ class Track {
     }
 
     public function setDuration($duration) {
-        if ($duration < 0) {
-            return false;
-        }
+        $duration = parseDuration($duration);
 
         if (updateTrack($this->id, ["duration" => $duration])) {
             $this->duration = $duration;
-        } else {
-            return false;
-        };
+        }
     }
 }
