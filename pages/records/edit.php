@@ -74,7 +74,7 @@ if ($id) {
                     </tr>
                     <tr>
                         <th span="row"><label for="releaseDate">Release date:</label></th>
-                        <td><input id="releaseDate" class="form-control" type="text" name="releaseDate" placeholder="Insert release date" value="<?= $releaseDate ?>"></td>
+                        <td><input id="releaseDate" class="form-control" type="text" name="releaseDate" placeholder="yyyy-mm-dd" value="<?= $releaseDate ?>"></td>
                     </tr>
                     <tr>
                         <th span="row"><label for="price">Price:</label></th>

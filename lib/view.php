@@ -27,7 +27,7 @@ function viewRecordLink($record) {
 }
 
 function viewDate($date) {
-    return date("F j, Y", strtotime($date));
+    return date("Y-m-d", strtotime($date));
 }
 
 function viewDuration($secs) {

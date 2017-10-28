@@ -26,7 +26,7 @@ class Record {
 
     public static function create($title, $genreId, $releaseDate = "", $cover = "", $price = 0) {
         $id = insertRecord($title, $genreId, $releaseDate, $cover, $price);
-        return new Record($id, $title, $releaseDate, $cover, $price);
+        return new Record($id, $genreId, $title, $releaseDate, $cover, $price);
     }
     public function delete() {
         $this->initTracks();
