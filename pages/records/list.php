@@ -2,14 +2,15 @@
 /*** Program ***/
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/record-store/lib/library.php";
 requirePhp("view");
-$sortBy = getGet("sort");
 $recordList = getRecordList();
+$admin = getSession("admin");
+$sortBy = getGet("sort");
 $successMsg = "Record deleted";
 
 /*** View ***/
 ?>
 <div class="col-xs-12">
-    <?php printRecordList($recordList, $sortBy); ?>
+    <?php printRecordList($recordList, $admin, $sortBy); ?>
 </div>
 <div id="successMsg" class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
@@ -37,13 +38,13 @@ function getRecordList() {
     return $list;
 }
 
-function printRecordList($recordList, $sortBy = "") {
+function printRecordList($recordList, $deletable, $sortBy = "") {
     if ($sortBy) {
         usort($recordList, function($a, $b) use ($sortBy) {
             if ($sortBy != "price") {
                 return strcmp($a[$sortBy], $b[$sortBy]);
             } else {
-                return (int)$a[$sortBy] - (int)$b[$sortBy];
+                return parseDuration($a[$sortBy]) - parseDuration($b[$sortBy]);
             }
         });
     }
@@ -52,7 +53,12 @@ function printRecordList($recordList, $sortBy = "") {
 <table class="table sortlist" data-content="records">
     <tbody>
         <tr>
-            <th></th>
+_END;
+    if ($deletable) {
+        // Print delete button column
+        echo "<th></th>";
+    }
+    echo <<<_END
             <th>#</th>
             <th data-sort="recordLink">Title</th>
             <th data-sort="artistLink">Artist</th>
@@ -64,9 +70,13 @@ _END;
 
     $i = 1;
     foreach ($recordList as $record) {
-        echo <<<_END
-        <tr>
+        echo "<tr>";
+        if ($deletable) {
+            echo <<<_END
             <td><a class="btn-delete" href="#" title="Delete record" data-id="{$record["id"]}" data-item="{$record["title"]}" data-action="delete_record"><span class="glyphicon glyphicon-remove"></a></td>
+_END;
+        }
+            echo <<<_END
             <td>$i</td>
             <td>{$record["recordLink"]}</td>
             <td>{$record["artistLink"]}</td>
@@ -78,8 +88,5 @@ _END;
         $i++;  
     }
 
-    echo <<<_END
-    </tbody>
-</table>
-_END;
+    echo "</tbody></table>";
 }

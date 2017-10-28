@@ -2,14 +2,15 @@
 /*** Program ***/
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/record-store/lib/library.php";
 requirePhp("view");
-$sortBy = getGet("sort");
 $artistList = getArtistList();
+$admin = getSession("admin");
+$sortBy = getGet("sort");
 $successMsg = "Artist deleted";
 
 /*** View ***/
 ?>
 <div class="col-xs-12">
-    <?php printArtistList($artistList, $sortBy); ?>
+    <?php printArtistList($artistList, $admin, $sortBy); ?>
 </div>
 <div id="successMsg" class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
@@ -36,7 +37,7 @@ function getArtistList() {
     return $list;
 }
 
-function printArtistList($artistList, $sortBy = "") {
+function printArtistList($artistList, $deletable, $sortBy = "") {
     if ($sortBy) {
         usort($artistList, function($a, $b) use ($sortBy) {
             if (!in_array($sortBy, ["price", "records"])) {
@@ -51,7 +52,12 @@ function printArtistList($artistList, $sortBy = "") {
 <table class="table sortlist" data-content="artists">
     <tbody>
         <tr>
-            <th></th>
+_END;
+    if ($deletable) {
+        // Print delete button column
+        echo "<th></th>";
+    }
+    echo <<<_END
             <th>#</th>
             <th data-sort="artistLink">Name</th>
             <th data-sort="country">Country</th>
@@ -62,9 +68,13 @@ _END;
 
     $i = 1;
     foreach ($artistList as $artist) {
-        echo <<<_END
-        <tr>
+        echo "<tr>";
+        if ($deletable) {
+            echo <<<_END
             <td><a class="btn-delete" href="#" title="Delete record" data-id="{$artist["id"]}" data-item="{$artist["name"]}" data-action="delete_artist"><span class="glyphicon glyphicon-remove"></a></td>
+_END;
+        }
+        echo <<<_END
             <td>$i</td>
             <td>{$artist["artistLink"]}</td>
             <td>{$artist["country"]}</td>
@@ -75,8 +85,5 @@ _END;
         $i++;  
     }
 
-    echo <<<_END
-    </tbody>
-</table>
-_END;
+    echo "</tbody></table>";
 }
