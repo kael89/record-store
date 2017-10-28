@@ -38,12 +38,14 @@ CREATE TABLE genres(
 DROP TABLE IF EXISTS records;
 CREATE TABLE records(
     recordId SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    genreId SMALLINT UNSIGNED NOT NULL,
     title VARCHAR(255) NOT NULL,
     releaseDate DATE,
     cover VARCHAR(255),
     price FLOAT(5,2),
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
-    PRIMARY KEY(recordId)
+    PRIMARY KEY(recordId),
+    FOREIGN KEY (genreId) REFERENCES genres(genreId)
 );
 
 DROP TABLE IF EXISTS tracks;
@@ -53,11 +55,9 @@ CREATE TABLE tracks(
     recordId SMALLINT UNSIGNED NOT NULL,
     title VARCHAR(255) NOT NULL,
     position TINYINT UNSIGNED NOT NULL,
-    genreId SMALLINT UNSIGNED,
     duration SMALLINT UNSIGNED,
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY(trackId),
     FOREIGN KEY (artistId) REFERENCES artists(artistId),
-    FOREIGN KEY (recordId) REFERENCES records(recordId),
-    FOREIGN KEY (genreId) REFERENCES genres(genreId)
+    FOREIGN KEY (recordId) REFERENCES records(recordId)
 );
