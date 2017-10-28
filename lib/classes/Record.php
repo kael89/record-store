@@ -24,8 +24,8 @@ class Record {
         $this->price = $price;
     }
 
-    public static function create($title, $genreId, $releaseDate = "", $cover = "", $price = 0) {
-        $insertId = insertRecord($title, $genreId, $releaseDate, $cover, $price);
+    public static function create($genreId, $title, $releaseDate = "", $cover = "", $price = 0) {
+        $insertId = insertRecord($genreId, $title, $releaseDate, $cover, $price);
         if (!$insertId) {
             return null;
         }

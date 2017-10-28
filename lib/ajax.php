@@ -89,12 +89,10 @@ function ajaxEditRecord($insert = false) {
     $tracks = json_decode($tracks, true);
 
     if ($insert) {
-        $record = Record::create($title, $genreId, $releaseDate, "", $price);
+        $record = Record::create($genreId, $title, $releaseDate, "", $price);
         if (!$record) {
             return 0;
         }
-        print_r($record);
-        return 0;
 
         $record->setTracks($tracks);
         $record->uploadCover($coverFile);

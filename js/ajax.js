@@ -50,6 +50,8 @@ function insertData(action) {
         processData: false,
         contentType: false
     }).done(function(insertId) {
+        // debug AJAX result
+        // console.log(insertId); return;
         if (action.indexOf('add') == 0) {
             window.location.search = 'page=details&id=' + insertId + '&action=insert';
         } else {

@@ -107,8 +107,6 @@ function printArtistOptions($artists, $selectedId) {
 }
 
 function printGenreOptions($genres, $selectedId) {
-    echo "<option value=\"0\">Other</option>";
-
     foreach ($genres as $genre) {
         $select = ($genre->getId() == $selectedId) ? "selected" : "";
         echo "<option value=\"{$genre->getId()}\" $select>{$genre->getName()}</option>";
