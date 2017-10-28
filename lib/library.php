@@ -352,3 +352,8 @@ function parseDuration($duration) {
 
     return $duration;
 }
+
+function parsePrice($price) {
+    $price = preg_replace("/[^\d\.]/", "", $price);
+    return floatval($price);
+}

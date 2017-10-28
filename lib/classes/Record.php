@@ -126,11 +126,12 @@ class Record {
     }
 
     public function setPrice($price) {
+        $price = parsePrice($price);
         if ($price < 0) {
             return false;
         }
 
-        if (updateArtist($this->id, ["price" => $price])) {
+        if (updateRecord($this->id, ["price" => $price])) {
             $this->price = $price;
         } else {
             return false;
@@ -191,7 +192,7 @@ class Record {
         $recordId = $this->getId();
         $title = $data["title"];
         $position = $data["position"];
-        $duration = $data["duration"];
+        $duration = parseDuration($data["duration"]);
 
         $track = Track::create($artistId, $recordId, $title, $position, $genreId = null, $duration);
         $this->tracks[$track->getId()] = $track;
@@ -202,7 +203,7 @@ class Record {
         $track = $this->tracks[$id];
         $track->setPosition($data["position"]);
         $track->setTitle($data["title"]);
-        $track->setDuration($data["duration"]);
+        $track->setDuration(parseDuration($data["duration"]));
     }
 
     private function deleteTrack($id) {
