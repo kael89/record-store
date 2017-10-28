@@ -106,10 +106,12 @@ function getArtistsByGenreId($id) {
     }
 
     $columns = getColumns("artists");
-    $columns["genres.genreId"] = "=$id";
     $joins = [
-        "tracks" => "tracks.artistId=artists.artistId",
-        "genres" => "genres.genreId=tracks.genreId"
+        "tracks" => ["tracks.artistId=artists.artistId"],
+        "records" => [
+            "records.recordId=tracks.recordsId",
+            "records.genreId=$id",
+        ]
     ];
 
     $artists = [];
@@ -138,8 +140,12 @@ function getArtistsByRecordId($id) {
     }
 
     $columns = getColumns("artists");
-    $columns["tracks.recordId"] = "=$id";
-    $joins = ["tracks" => "tracks.artistId=artists.artistId"];
+    $joins = [
+        "tracks" => [
+            "tracks.artistId=artists.artistId",
+            "tracks.recordId=$id"
+        ]
+    ];
 
     $artists = [];
     $results = getRows("artists", $columns, $joins, true);
@@ -168,7 +174,12 @@ function getArtistByTrackId($id) {
 
     $columns = getColumns("artists");
     $columns["tracks.trackId"] = "=$id";
-    $joins = ["tracks" => "tracks.artistId=artists.artistId"];
+    $joins = [
+        "tracks" => [
+            "tracks.artistId=artists.artistId",
+            "tracks.trackId=$id"
+        ]
+    ];
 
     $result = getRows("artists", $columns, $joins);
     if (!$result) {

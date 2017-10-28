@@ -4,6 +4,7 @@ requirePhp("api");
 
 class Record {
     private $id;
+    private $genreId;
     private $title;
     private $releaseDate;
     private $cover;
@@ -13,19 +14,18 @@ class Record {
     private $artists;
     // Associative array of [$trackld => $trackObject] elements
     private $tracks;
-    // Array of Genre objects
-    private $genres;
 
-    public function __construct($id, $title, $releaseDate = "", $cover = "", $price = 0) {
+    public function __construct($id, $genreId, $title, $releaseDate = "", $cover = "", $price = 0) {
         $this->id = $id;
+        $this->genreId = $genreId;
         $this->title = $title;
         $this->releaseDate = $releaseDate;
         $this->cover = $cover;
         $this->price = $price;
     }
 
-    public static function create($title, $releaseDate = "", $cover = "", $price = 0) {
-        $id = insertRecord($title, $releaseDate, $cover, $price);
+    public static function create($title, $genreId, $releaseDate = "", $cover = "", $price = 0) {
+        $id = insertRecord($title, $genreId, $releaseDate, $cover, $price);
         return new Record($id, $title, $releaseDate, $cover, $price);
     }
     public function delete() {
@@ -43,6 +43,25 @@ class Record {
 
     public function getId() {
         return $this->id;
+    }
+
+    public function getGenreId() {
+        return $this->genreId;
+    }
+
+    public function setGenreId($id) {
+        if (!isGenre($id)) {
+            return false;
+        }
+
+        if (updateRecord($this->id, ["genreId" => $id])) {
+            $this->genreId = $id;
+        }
+    }
+
+    public function getGenre() {
+        $genre = getGenreById($this->genreId);
+        return $genre->getName();
     }
 
     public function getTitle() {
@@ -185,13 +204,5 @@ class Record {
     private function deleteTrack($id) {
         $this->tracks[$id]->delete();
         unset($this->tracks[$id]);
-    }
-
-    public function getGenres() {
-        if (!isset($this->genres)) {
-            $this->genres = getGenresByRecordId($this->getId());
-        }
-
-        return $this->genres;
     }
 }

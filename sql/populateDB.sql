@@ -20,25 +20,23 @@ INSERT INTO artists VALUES(5, 'Sepultura', 'BR', 1984, '5.png', '5.jpg', '<p>Aen
 
 ##genres(genreId, name, deleted)
 DELETE FROM genres;
-INSERT INTO genres VALUES(1, 'Various', FALSE);
-INSERT INTO genres VALUES(2, 'Other', FALSE);
-INSERT INTO genres VALUES(3, 'Heavy Metal', FALSE);
-INSERT INTO genres VALUES(4, 'Thrash Metal', FALSE);
-INSERT INTO genres VALUES(5, 'Nu Metal', FALSE);
+INSERT INTO genres VALUES(1, 'Heavy Metal', FALSE);
+INSERT INTO genres VALUES(2, 'Thrash Metal', FALSE);
+INSERT INTO genres VALUES(3, 'Nu Metal', FALSE);
 
 
 ##records(recordId, genreId, title, releaseDate, cover, price, deleted)
 DELETE FROM records;
-INSERT INTO records VALUES(1, 4, 'Kill ''em All', '1983-07-25', '1.jpg', 09.99, FALSE);
-INSERT INTO records VALUES(2, 4, 'Ride the Lightning', '1984-07-27', '2.jpg', 09.75, FALSE);
-INSERT INTO records VALUES(3, 3, 'The Number of the Beast', '1982-03-22', '3.jpg', 12.15, FALSE);
-INSERT INTO records VALUES(4, 3, 'Black Sabbath', '1970-02-13', '4.jpg', 08.99, FALSE);
-INSERT INTO records VALUES(5, 3, 'Paranoid', '1970-09-18', '5.jpg', 08.99, FALSE);
-INSERT INTO records VALUES(6, 3, 'Sad Wings of Destiny', '1976-03-23', '6.jpg', 07.50, FALSE);
-INSERT INTO records VALUES(7, 3, 'British Steel', '1980-04-14', '7.jpg', 08.99, FALSE);
-INSERT INTO records VALUES(8, 3, 'Painkiller', '1990-09-03', '8.jpg', 12.10, FALSE);
-INSERT INTO records VALUES(9, 5, 'Roots', '1996-02-20', '9.jpg', 11.70, FALSE);
-INSERT INTO records VALUES(10, 4, 'Chaos A.D.', '1993-10-19', '10.jpg', 11.30, FALSE);
+INSERT INTO records VALUES(1, 2, 'Kill ''em All', '1983-07-25', '1.jpg', 09.99, FALSE);
+INSERT INTO records VALUES(2, 2, 'Ride the Lightning', '1984-07-27', '2.jpg', 09.75, FALSE);
+INSERT INTO records VALUES(3, 1, 'The Number of the Beast', '1982-03-22', '3.jpg', 12.15, FALSE);
+INSERT INTO records VALUES(4, 1, 'Black Sabbath', '1970-02-13', '4.jpg', 08.99, FALSE);
+INSERT INTO records VALUES(5, 1, 'Paranoid', '1970-09-18', '5.jpg', 08.99, FALSE);
+INSERT INTO records VALUES(6, 1, 'Sad Wings of Destiny', '1976-03-23', '6.jpg', 07.50, FALSE);
+INSERT INTO records VALUES(7, 1, 'British Steel', '1980-04-14', '7.jpg', 08.99, FALSE);
+INSERT INTO records VALUES(8, 1, 'Painkiller', '1990-09-03', '8.jpg', 12.10, FALSE);
+INSERT INTO records VALUES(9, 3, 'Roots', '1996-02-20', '9.jpg', 11.70, FALSE);
+INSERT INTO records VALUES(10, 2, 'Chaos A.D.', '1993-10-19', '10.jpg', 11.30, FALSE);
 
 
 ##tracks(trackId, artistId, recordId, title, position, duration, deleted)

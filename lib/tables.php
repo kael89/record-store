@@ -22,6 +22,7 @@ function getTable($tableName) {
 
     $columns["records"] = [
         "records.recordId" => "i",
+        "records.genreId" => "i",
         "records.title" => "s",
         "records.releaseDate" => "s",
         "records.cover" => "s",
@@ -33,7 +34,6 @@ function getTable($tableName) {
         "tracks.trackId" => "i",
         "tracks.artistId" => "i",
         "tracks.recordId" => "i",
-        "tracks.genreId" => "i",
         "tracks.title" => "s",
         "tracks.position" => "i",
         "tracks.duration" => "i",

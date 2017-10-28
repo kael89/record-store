@@ -9,12 +9,14 @@ requirePhp("view");
 // Otherwise, we are adding a new artist
 $id = getGet("id");
 $artistOptions = getArtistsAll();
+$genreOptions = getGenresAll();
 
 if ($id) {
     $record = getRecordById($id);
+    $genreId = $record->getGenreId($id);
+    $title = $record->getTitle();
     $artists = $record->getArtists();
     $artistId = (count($artists) == 1) ? $artists[0]->getId() : 0;
-    $title = $record->getTitle();
     $tracks = $record->getTracks();
     $cover = $record->getCoverImage("m");
     $releaseDate = viewDate($record->getReleaseDate());
@@ -25,8 +27,9 @@ if ($id) {
     $action = "edit_record";
 } else {
     $record = "";
-    $artistId = 0;
+    $genreId = 0;
     $title = "";
+    $artistId = 0;
     $tracks = [];
     $cover = "";
     $releaseDate = "";
@@ -54,6 +57,14 @@ if ($id) {
                         <td>
                             <select id="artistId" class="form-control" name="artistId">
                                 <?php printArtistOptions($artistOptions, $artistId) ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th span="row"><label for="artist">Genre:</label></th>
+                        <td>
+                            <select id="genreId" class="form-control" name="genreId">
+                                <?php printGenreOptions($genreOptions, $genreId) ?>
                             </select>
                         </td>
                     </tr>
@@ -92,6 +103,15 @@ function printArtistOptions($artists, $selectedId) {
     foreach ($artists as $artist) {
         $select = ($artist->getId() == $selectedId) ? "selected" : "";
         echo "<option value=\"{$artist->getId()}\" $select>{$artist->getName()}</option>";
+    }
+}
+
+function printGenreOptions($genres, $selectedId) {
+    echo "<option value=\"0\">Other</option>";
+
+    foreach ($genres as $genre) {
+        $select = ($genre->getId() == $selectedId) ? "selected" : "";
+        echo "<option value=\"{$genre->getId()}\" $select>{$genre->getName()}</option>";
     }
 }
 

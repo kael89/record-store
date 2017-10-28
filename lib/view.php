@@ -26,17 +26,6 @@ function viewRecordLink($record) {
     return "<a title=\"$title details\" href=\"records.php?page=details&id=$id\">$title</a>";
 }
 
-function viewGenreName($genres) {
-    switch (count($genres)) {
-        case 0:
-            return "Other";
-        case 1:
-            return $genres[0]->getName();
-        default:
-            return "Various";
-    }
-}
-
 function viewDate($date) {
     return date("F j, Y", strtotime($date));
 }

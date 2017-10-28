@@ -8,24 +8,22 @@ class Track {
     private $recordId;
     private $title;
     private $position;
-    private $genreId;
     private $duration;
 
-    public function __construct($id, $artistId, $recordId, $title, $position, $genreId = null, $duration = 0) {
+    public function __construct($id, $artistId, $recordId, $title, $position, $duration = 0) {
         $this->id = $id;
         $this->artistId = $artistId;
         $this->recordId = $recordId;
         $this->title = $title;
         $this->position = $position;
-        $this->genreId = isGenre($genreId) ? $genreId : null;
         $this->duration = parseDuration($duration);
     }
 
-    public static function create($artistId, $recordId, $title, $position, $genreId = null, $duration = 0) {
+    public static function create($artistId, $recordId, $title, $position, $duration = 0) {
         $duration = parseDuration($duration);
 
-        $id = insertTrack($artistId, $recordId, $title, $position, $genreId, $duration);
-        return new Track($id, $artistId, $recordId, $title, $position, $genreId, $duration);
+        $id = insertTrack($artistId, $recordId, $title, $position, $duration);
+        return new Track($id, $artistId, $recordId, $title, $position, $duration);
     }
 
     public function delete() {
@@ -85,20 +83,6 @@ class Track {
     public function setPosition($position) {
         if (updateTrack($this->id, ["position" => $position])) {
             $this->position = $position;
-        }
-    }
-
-    public function getGenreId() {
-        return $this->genreId;
-    }
-
-    public function setGenre($id) {
-        if (!isGenre($id)) {
-            return false;
-        }
-
-        if (updateTrack($this->id, ["genreId" => $id])) {
-            $this->genreId = $id;
         }
     }
 

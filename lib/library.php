@@ -9,12 +9,25 @@ if (!isset($mysqli)) {
 }
 
 /*** DEBUG ***/
+// Accepts arbitrary number of arguments
 function consoleLog() {
     $args = func_get_args();
     
     foreach ($args as $arg) {
         echo "<script>console.log(" . json_encode($arg) . ")</script>";
     }
+}
+
+// Accepts arbitrary number of arguments
+function printVar() {
+    $args = func_get_args();
+
+    echo '<pre>';
+    foreach ($args as $arg) {
+        print_r($arg);
+    }
+    echo '</pre>';
+
 }
 
 /*** URL ***/
@@ -270,8 +283,9 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
     }
     //JOIN
     $join = "";
-    foreach($joins as $joinTable => $condition) {
-        $join .= " JOIN $joinTable ON $condition AND $joinTable.deleted=FALSE";
+    foreach($joins as $joinTable => $conditions) {
+        $join .= " JOIN $joinTable ON " . implode(" AND ", $conditions);
+        $join .= " AND $joinTable.deleted=FALSE";
     }
 
     //WHERE

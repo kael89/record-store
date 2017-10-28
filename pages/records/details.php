@@ -7,6 +7,7 @@ requirePhp("view");
 
 $id = getGet("id");
 $record = getRecordById($id);
+$genre = $record->getGenre();
 $title = $record->getTitle();
 $artist = viewArtistLink($record->getArtists());
 $tracks = $record->getTracks();
@@ -31,6 +32,10 @@ $successMsg = getGet("add") ? "Record added!" : "Record details updated!";
                 <tr>
                     <th span="row">Title:</th>
                     <td><?= $title ?></td>
+                </tr>
+                <tr>
+                    <th span="row">Genre:</th>
+                    <td><?= $genre ?></td>
                 </tr>
                 <tr>
                     <th span="row">Release date:</th>

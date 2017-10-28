@@ -4,7 +4,7 @@ requirePhp("tables");
 requirePhp("api");
 requirePhp("class", "track");
 
-function insertTrack($artistId, $recordId, $title, $position, $genreId = null, $duration = 0) {
+function insertTrack($artistId, $recordId, $title, $position, $duration = 0) {
     $row = [];
 
     if (!isArtist($artistId) || !isRecord($recordId) || $title === "" || empty($position)) {
@@ -15,7 +15,6 @@ function insertTrack($artistId, $recordId, $title, $position, $genreId = null, $
     $row["recordId"] = $recordId;
     $row["title"] = $title;
     $row["position"] = $position;
-    $row["genreId"] = $genreId;
     $row["duration"] = $duration;
 
     return insertRow("tracks", $row);
@@ -44,7 +43,7 @@ function getTracksAll() {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $genreId, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $duration);
     }
 
     return $tracks;
@@ -64,7 +63,7 @@ function getTrackById($id) {
     }
 
     extract($result[0]);
-    return new Track($trackId, $artistId, $recordId, $title, $position, $genreId, $duration);
+    return new Track($trackId, $artistId, $recordId, $title, $position, $duration);
 }
 
 function getTracksByArtistId($id) {
@@ -83,7 +82,7 @@ function getTracksByArtistId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $genreId, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $duration);
     }
 
     return $tracks;
@@ -103,37 +102,6 @@ function getTracksByArtistName($name, $search = false) {
     return $tracks;
 }
 
-function getTracksByGenreId($id) {
-    if ($id < 1) {
-        return [];
-    }
-
-    $columns = getColumns("tracks");
-    $columns["tracks.genreId"] = "=$id";
-
-    $results = getRows("tracks", $columns);
-    if (!$results) {
-        return [];
-    }
-
-    $tracks = [];
-    foreach ($results as $result) {
-        extract($result);
-        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $genreId, $duration);
-    }
-
-    return $tracks;
-}
-
-function getTracksByGenreName($name, $search = false) {
-    $genre = getGenreByName($name, $search);
-    if (!$genre) {
-        return [];
-    }
-
-    return getTracksByGenreId($genre->getId());
-}
-
 function getTracksByTitle($title, $search = false) {
     $columns = getColumns("tracks");
     $columns["tracks.title"] = ($search) ? " LIKE '$title'" : "='$title'";
@@ -146,7 +114,7 @@ function getTracksByTitle($title, $search = false) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $genreId, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $duration);
     }
 
     return $tracks;
@@ -165,10 +133,46 @@ function getTracksByDuration($duration) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $genreId, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $duration);
     }
 
     return $tracks;
+}
+
+function getTracksByGenreId($id) {
+    if ($id < 1) {
+        return [];
+    }
+
+    $columns = getColumns("tracks");
+    $joins = [
+        "records" => [
+            "records.recordId=tracks.recordId",
+            "records.genreId=$id"
+        ]
+    ];
+
+    $results = getRows("tracks", $columns, $joins, true);
+    if (!$results) {
+        return [];
+    }
+
+    $tracks = [];
+    foreach ($results as $result) {
+        extract($result);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $duration);
+    }
+
+    return $tracks;
+}
+
+function getTracksByGenreName($name, $search = false) {
+    $genre = getGenreByName($name, $search);
+    if (!$genre) {
+        return [];
+    }
+
+    return getTracksByGenreId($genre->getId());
 }
 
 // Sort results by position
@@ -189,7 +193,7 @@ function getTracksByRecordId($id) {
     $tracks = [];
     foreach ($results as $result) {
         extract($result);
-        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $genreId, $duration);
+        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $duration);
     }
 
     return $tracks;
