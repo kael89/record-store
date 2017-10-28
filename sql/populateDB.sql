@@ -35,8 +35,8 @@ INSERT INTO records VALUES(5, 1, 'Paranoid', '1970-09-18', '5.jpg', 08.99, FALSE
 INSERT INTO records VALUES(6, 1, 'Sad Wings of Destiny', '1976-03-23', '6.jpg', 07.50, FALSE);
 INSERT INTO records VALUES(7, 1, 'British Steel', '1980-04-14', '7.jpg', 08.99, FALSE);
 INSERT INTO records VALUES(8, 1, 'Painkiller', '1990-09-03', '8.jpg', 12.10, FALSE);
-INSERT INTO records VALUES(9, 3, 'Roots', '1996-02-20', '9.jpg', 11.70, FALSE);
-INSERT INTO records VALUES(10, 2, 'Chaos A.D.', '1993-10-19', '10.jpg', 11.30, FALSE);
+INSERT INTO records VALUES(9, 2, 'Chaos A.D.', '1993-10-19', '10.jpg', 11.30, FALSE);
+INSERT INTO records VALUES(10, 3, 'Roots', '1996-02-20', '9.jpg', 11.70, FALSE);
 
 
 ##tracks(trackId, artistId, recordId, title, position, duration, deleted)
@@ -70,3 +70,80 @@ INSERT INTO tracks VALUES(23, 2, 3, 'The Number of the Beast', 5, 265, FALSE);
 INSERT INTO tracks VALUES(24, 2, 3, 'Run to the Hills', 6, 230, FALSE);
 INSERT INTO tracks VALUES(25, 2, 3, 'Gangland', 7, 226, FALSE);
 INSERT INTO tracks VALUES(26, 2, 3, 'Hallowed Be Thy Name', 8, 428, FALSE);
+#Black Sabbath - Black Sabbath (7 tracks)
+INSERT INTO tracks VALUES(27, 3, 4, 'Black Sabbath', 1, 380, FALSE);
+INSERT INTO tracks VALUES(28, 3, 4, 'The Wizard', 2, 264, FALSE);
+INSERT INTO tracks VALUES(29, 3, 4, 'Behind the Wall of Sleep', 3, 217, FALSE);
+INSERT INTO tracks VALUES(30, 3, 4, 'N.I.B.', 4, 368, FALSE);
+INSERT INTO tracks VALUES(31, 3, 4, 'Evil Woman', 5, 205, FALSE);
+INSERT INTO tracks VALUES(32, 3, 4, 'Sleeping Village', 6, 226, FALSE);
+INSERT INTO tracks VALUES(33, 3, 4, 'Warning', 7, 628, FALSE);
+#Black Sabbath - Paranoid (8 tracks)
+INSERT INTO tracks VALUES(34, 3, 5, 'War Pigs', 1, 477, FALSE);
+INSERT INTO tracks VALUES(35, 3, 5, 'Paranoid', 2, 168, FALSE);
+INSERT INTO tracks VALUES(36, 3, 5, 'Planet Caravan', 3, 272, FALSE);
+INSERT INTO tracks VALUES(37, 3, 5, 'Iron Man', 4, 356, FALSE);
+INSERT INTO tracks VALUES(38, 3, 5, 'Electric Funeral', 5, 293, FALSE);
+INSERT INTO tracks VALUES(39, 3, 5, 'Hand of Doom', 6, 428, FALSE);
+INSERT INTO tracks VALUES(40, 3, 5, 'Rat Salad', 7, 150, FALSE);
+INSERT INTO tracks VALUES(41, 3, 5, 'Fairies Wear Boots', 8, 255, FALSE);
+#Judas Priest - Sad Wings of Destiny (8 tracks)
+INSERT INTO tracks VALUES(42, 4, 6, 'Victim of Changes', 1, 467, FALSE);
+INSERT INTO tracks VALUES(43, 4, 6, 'The Ripper', 2, 170, FALSE);
+INSERT INTO tracks VALUES(44, 4, 6, 'Dreamer Deceiver', 3, 351, FALSE);
+INSERT INTO tracks VALUES(45, 4, 6, 'Deceiver', 4, 160, FALSE);
+INSERT INTO tracks VALUES(46, 4, 6, 'Prelude', 5, 122, FALSE);
+INSERT INTO tracks VALUES(47, 4, 6, 'Tyrant', 6, 268, FALSE);
+INSERT INTO tracks VALUES(48, 4, 6, 'Genocide', 7, 351, FALSE);
+INSERT INTO tracks VALUES(49, 4, 6, 'Epitaph', 8, 188, FALSE);
+INSERT INTO tracks VALUES(50, 4, 6, 'Island of Domincation', 9, 272, FALSE);
+#Judas Priest - British Steel (9 tracks)
+INSERT INTO tracks VALUES(51, 4, 7, 'Rapid Fire', 1, 248, FALSE);
+INSERT INTO tracks VALUES(52, 4, 7, 'Metal Gods', 2, 240, FALSE);
+INSERT INTO tracks VALUES(53, 4, 7, 'Breaking the Law', 3, 155, FALSE);
+INSERT INTO tracks VALUES(54, 4, 7, 'Grinder', 4, 238, FALSE);
+INSERT INTO tracks VALUES(55, 4, 7, 'United', 5, 215, FALSE);
+INSERT INTO tracks VALUES(56, 4, 7, 'You Don''t Have to Be Old to Be Wise' , 6, 304, FALSE);
+INSERT INTO tracks VALUES(57, 4, 7, 'Living After Midnight', 7, 211, FALSE);
+INSERT INTO tracks VALUES(58, 4, 7, 'The Rage', 8, 284, FALSE);
+INSERT INTO tracks VALUES(59, 4, 7, 'Steeler', 9, 270, FALSE);
+#Judas Priest - Painkiller (10 tracks)
+INSERT INTO tracks VALUES(60, 4, 8, 'Painkiller', 1, 366, FALSE);
+INSERT INTO tracks VALUES(61, 4, 8, 'Hell Patrol', 2, 215, FALSE);
+INSERT INTO tracks VALUES(62, 4, 8, 'All Guns Blazing', 3, 236, FALSE);
+INSERT INTO tracks VALUES(63, 4, 8, 'Leather Rebel', 4, 214, FALSE);
+INSERT INTO tracks VALUES(64, 4, 8, 'Metal Meltdown', 5, 286, FALSE);
+INSERT INTO tracks VALUES(65, 4, 8, 'Night Crawler', 6, 344, FALSE);
+INSERT INTO tracks VALUES(66, 4, 8, 'Between the Hammer & The Anvil', 7, 287, FALSE);
+INSERT INTO tracks VALUES(67, 4, 8, 'A Touch of Evil', 8, 342, FALSE);
+INSERT INTO tracks VALUES(68, 4, 8, 'Battle Hymn', 9, 56, FALSE);
+INSERT INTO tracks VALUES(70, 4, 8, 'One Shot at Glory', 10, 406, FALSE);
+#Sepultura - Chaos A.D. (12 tracks)
+INSERT INTO tracks VALUES(71, 4, 9, 'Refuse/Resist', 1, 200, FALSE);
+INSERT INTO tracks VALUES(72, 4, 9, 'Territory', 2, 267, FALSE);
+INSERT INTO tracks VALUES(73, 4, 9, 'Slave New World', 3, 175, FALSE);
+INSERT INTO tracks VALUES(74, 4, 9, 'Amen', 4, 267, FALSE);
+INSERT INTO tracks VALUES(75, 4, 9, 'Kaiowas', 5, 223, FALSE);
+INSERT INTO tracks VALUES(76, 4, 9, 'Propaganda', 6, 213, FALSE);
+INSERT INTO tracks VALUES(77, 4, 9, 'Biotech is Godzilla', 7, 112, FALSE);
+INSERT INTO tracks VALUES(78, 4, 9, 'Nomad', 8, 299, FALSE);
+INSERT INTO tracks VALUES(79, 4, 9, 'We Who Are Not as Others', 9, 222, FALSE);
+INSERT INTO tracks VALUES(80, 4, 9, 'Manifest', 10, 289, FALSE);
+INSERT INTO tracks VALUES(81, 4, 9, 'The Hunt', 11, 239, FALSE);
+INSERT INTO tracks VALUES(82, 4, 9, 'Clenched Fist', 12, 298, FALSE);
+#Sepultura - Roots (15 tracks)
+INSERT INTO tracks VALUES(83, 4, 10, 'Roots Bloody Roots', 1, 212, FALSE);
+INSERT INTO tracks VALUES(84, 4, 10, 'Attitude', 2, 255, FALSE);
+INSERT INTO tracks VALUES(85, 4, 10, 'Cut-Throat', 3, 164, FALSE);
+INSERT INTO tracks VALUES(86, 4, 10, 'Ratamahatta', 4, 270, FALSE);
+INSERT INTO tracks VALUES(87, 4, 10, 'Breed Apart', 5, 241, FALSE);
+INSERT INTO tracks VALUES(88, 4, 10, 'Straighthate', 6, 221, FALSE);
+INSERT INTO tracks VALUES(89, 4, 10, 'Spit', 7, 165, FALSE);
+INSERT INTO tracks VALUES(90, 4, 10, 'Lookaway', 8, 326, FALSE);
+INSERT INTO tracks VALUES(91, 4, 10, 'Dusted', 9, 243, FALSE);
+INSERT INTO tracks VALUES(92, 4, 10, 'Born Stubborn', 10, 247, FALSE);
+INSERT INTO tracks VALUES(93, 4, 10, 'Jasco', 11, 117, FALSE);
+INSERT INTO tracks VALUES(94, 4, 10, 'Itsari', 12, 288, FALSE);
+INSERT INTO tracks VALUES(95, 4, 10, 'Ambush', 13, 279, FALSE);
+INSERT INTO tracks VALUES(96, 4, 10, 'Endangered Species', 14, 319, FALSE);
+INSERT INTO tracks VALUES(97, 4, 10, 'Dictatorship', 15, 86, FALSE);
