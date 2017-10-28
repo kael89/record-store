@@ -27,17 +27,6 @@ CREATE TABLE artists(
     PRIMARY KEY(artistId)
 );
 
-DROP TABLE IF EXISTS labels;
-CREATE TABLE labels(
-    labelId SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    country VARCHAR(2),
-    foundationYear YEAR,
-    logo VARCHAR(255),
-    deleted BOOLEAN NOT NULL DEFAULT FALSE,
-    PRIMARY KEY(labelId)
-);
-
 DROP TABLE IF EXISTS genres;
 CREATE TABLE genres(
     genreId SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -50,7 +39,6 @@ DROP TABLE IF EXISTS records;
 CREATE TABLE records(
     recordId SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
-    labelId SMALLINT UNSIGNED,
     releaseDate DATE,
     cover VARCHAR(255),
     price FLOAT(5,2),

@@ -12,8 +12,6 @@ $artist = viewArtistLink($record->getArtists());
 $tracks = $record->getTracks();
 $cover = $record->getCoverImage("m");
 $releaseDate = viewDate($record->getReleaseDate());
-$label = $record->getLabel();
-$labelName = $label ? $label->getName() : "";
 $price = viewPrice($record->getPrice());
 
 $access = getSession("admin") ? "" : "hidden";
@@ -37,10 +35,6 @@ $successMsg = getGet("add") ? "Record added!" : "Record details updated!";
                 <tr>
                     <th span="row">Release date:</th>
                     <td><?= $releaseDate ?></td>
-                </tr>
-                <tr>
-                    <th span="row">Label:</th>
-                    <td><?= $labelName ?></td>
                 </tr>
                 <tr>
                     <th span="row">Price:</th>

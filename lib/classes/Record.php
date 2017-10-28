@@ -5,32 +5,28 @@ requirePhp("api");
 class Record {
     private $id;
     private $title;
-    private $labelId;
     private $releaseDate;
     private $cover;
     private $price;
 
     // Array - artist names whose tracks are featured in the record (sorted)
     private $artists;
-    // String
-    private $label;
     // Associative array of [$trackld => $trackObject] elements
     private $tracks;
     // Array of Genre objects
     private $genres;
 
-    public function __construct($id, $title, $labelId, $releaseDate = "", $cover = "", $price = 0) {
+    public function __construct($id, $title, $releaseDate = "", $cover = "", $price = 0) {
         $this->id = $id;
         $this->title = $title;
-        $this->labelId = $labelId;
         $this->releaseDate = $releaseDate;
         $this->cover = $cover;
         $this->price = $price;
     }
 
-    public static function create($title, $labelId, $releaseDate = "", $cover = "", $price = 0) {
-        $id = insertRecord($title, $labelId, $releaseDate, $cover, $price);
-        return new Record($id, $title, $labelId, $releaseDate, $cover, $price);
+    public static function create($title, $releaseDate = "", $cover = "", $price = 0) {
+        $id = insertRecord($title, $releaseDate, $cover, $price);
+        return new Record($id, $title, $releaseDate, $cover, $price);
     }
     public function delete() {
         $this->initTracks();
@@ -59,27 +55,6 @@ class Record {
         } else {
             return false;
         };
-    }
-
-    public function getLabelId() {
-        return $this->labelId;
-    }
-
-    public function getLabel() {
-        if (!isset($this->label)) {
-            $this->label = getLabelById($this->labelId);
-        }
-
-        return $this->label;
-    }
-
-    public function setLabel($id) {
-        if (!isLabel($id) || !updateTrack($this->id, ["labelId" => $id])) {
-            return false;
-        }
-
-        $this->labelId = $id;
-        return true;
     }
 
     public function getReleaseDate() {

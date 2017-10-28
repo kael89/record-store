@@ -86,7 +86,7 @@ function ajaxEditRecord($insert = false) {
 
     $id = 0;
     if ($insert) {
-        $record = Record::create($title, $labelId, $releaseDate, "", $price);
+        $record = Record::create($title, $releaseDate, "", $price);
         if ($record) {
             $record->setTracks($tracks);
             $record->uploadCover($coverFile);
@@ -101,7 +101,6 @@ function ajaxEditRecord($insert = false) {
             $record->setTracks($tracks);
             $record->uploadCover($coverFile);
             $record->setReleaseDate($releaseDate);
-            $record->setLabel($labelId);
             $record->setPrice($price);
         }
     }

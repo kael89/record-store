@@ -4,7 +4,7 @@ requirePhp("tables");
 requirePhp("api");
 requirePhp("class", "record");
 
-function insertRecord($title, $labelId = null, $releaseDate = "", $cover = "", $price = 0) {
+function insertRecord($title, $releaseDate = "", $cover = "", $price = 0) {
     $row = [];
 
     if ($title === "") {
@@ -12,7 +12,6 @@ function insertRecord($title, $labelId = null, $releaseDate = "", $cover = "", $
     }
 
     $row["title"] = $title;
-    $row["labelId"] = $labelId;
     $row["releaseDate"] = $releaseDate;
     $row["cover"] = $cover;
     $row["price"] = $price;
@@ -44,7 +43,7 @@ function getRecordsAll($sort = true) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $labelId, $releaseDate, $cover, $price);
+        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -64,46 +63,7 @@ function getRecordById($id) {
     }
 
     extract($result[0]);
-    return new Record($recordId, $title, $labelId, $releaseDate, $cover, $price);
-}
-
-function getRecordsByLabelId($id) {
-    if ($id < 1) {
-        return [];
-    }
-
-    $columns = getColumns("records");
-    $columns["records.labelId"] = "=$id";
-
-    $results = getRows("records", $columns);
-    if (!$results) {
-        return [];
-    }
-
-    $records = [];
-    foreach ($results as $result) {
-        extract($result);
-        $records[] = new Record($recordId, $title, $labelId, $releaseDate, $cover, $price);
-    }
-
-    return $records;
-}
-
-function getRecordsByLabelName($name, $search = false) {
-    $labels = getLabelsByName($name, $search);
-    if (!$labels) {
-        return [];
-    }
-
-    $records = [];
-    foreach ($labels as $label) {
-        $newRecords = getRecordsByLabelId($label->getId());
-        if ($newRecords) {
-            $records = array_merge($records, $newRecords);
-        }
-    }
-
-    return $records;
+    return new Record($recordId, $title, $releaseDate, $cover, $price);
 }
 
 // Sort results by title
@@ -120,7 +80,7 @@ function getRecordsByTitle($title, $search = false) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $labelId, $releaseDate, $cover, $price);
+        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -143,7 +103,7 @@ function getRecordsByPrice($price) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $labelId, $releaseDate, $cover, $price);
+        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -166,7 +126,7 @@ function getRecordsByArtistId($id) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $labelId, $releaseDate, $cover, $price);
+        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -206,7 +166,7 @@ function getRecordsByGenreId($id) {
     $records = [];
     foreach ($results as $result) {
         extract($result);
-        $records[] = new Record($recordId, $title, $labelId, $releaseDate, $cover, $price);
+        $records[] = new Record($recordId, $title, $releaseDate, $cover, $price);
     }
 
     return $records;
@@ -236,7 +196,7 @@ function getRecordByTrackId($id) {
     }
 
     extract($result[0]);
-    return new Record($recordId, $title, $labelId, $releaseDate, $cover, $price);
+    return new Record($recordId, $title, $releaseDate, $cover, $price);
 }
 
 function getRecordsByTrackTitle($title, $search = false) {

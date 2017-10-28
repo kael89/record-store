@@ -171,46 +171,6 @@ function getTracksByDuration($duration) {
     return $tracks;
 }
 
-function getTracksByLabelId($id) {
-    if ($id < 1) {
-        return [];
-    }
-
-    $columns = getColumns("tracks");
-    $columns["records.labelId"] = "=$id";
-    $joins = ["records" => "records.recordId=tracks.recordId"];
-    
-    $results = getRows("tracks", $columns, $joins);
-    if (!$results) {
-        return [];
-    }
-
-    $tracks = [];
-    foreach ($results as $result) {
-        extract($result);
-        $tracks[] = new Track($trackId, $artistId, $recordId, $title, $position, $genreId, $duration);
-    }
-
-    return $tracks;
-}
-
-function getTracksByLabelName($name, $search = false) {
-    $labels = getLabelsByName($name, $search);
-    if (!$labels) {
-        return [];
-    }
-
-    $tracks = [];
-    foreach ($labels as $label) {
-        $newTracks = getTracksByLabelId($label->getId());
-        if ($newTracks) {
-            $tracks = array_merge($tracks, $newTracks);
-        }
-    }
-
-    return $tracks;
-}
-
 // Sort results by position
 function getTracksByRecordId($id) {
     if ($id < 1) {

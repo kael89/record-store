@@ -101,41 +101,6 @@ function getGenresByArtistName($name, $search = false) {
     return $genres;
 }
 
-function getGenresByLabelId($id) {
-    if ($id < 1) {
-        return [];
-    }
-
-    $columns = getColumns("genres");
-    $columns["records.labelId"] = "=$id";
-    $joins = [
-        "tracks" => "tracks.genreId=genres.genreId",
-        "records" => "records.recordId=tracks.recordId"
-    ];
-
-    $genres = [];
-    $results = getRows("genres", $columns, $joins, true);
-    foreach ($results as $result) {
-        extract($result);
-        $genres[] = new Genre($genreId, $name);
-    }
-
-    return $genres;
-}
-
-function getGenresByLabelName($name, $search = false) {
-    $labels = getLabelsByName($name, $search);
-    $artists = [];
-    foreach ($labels as $label) {
-        $newGenres = getGenresByLabelId($label->getId());
-        if ($newGenres) {
-            $artists = array_merge($artists, $newGenres);
-        }
-    }
-
-    return $artists;
-}
-
 function getGenresByRecordId($id) {
     if ($id < 1) {
         return [];

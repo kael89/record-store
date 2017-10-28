@@ -9,7 +9,6 @@ requirePhp("view");
 // Otherwise, we are adding a new artist
 $id = getGet("id");
 $artistOptions = getArtistsAll();
-$labelOptions = getLabelsAll();
 
 if ($id) {
     $record = getRecordById($id);
@@ -19,9 +18,6 @@ if ($id) {
     $tracks = $record->getTracks();
     $cover = $record->getCoverImage("m");
     $releaseDate = viewDate($record->getReleaseDate());
-    $label = $record->getLabel();
-    $labelId = ($label) ? $label->getId() : 0;
-    $labelname = ($label) ? $label->getName() : "";
     $price = $record->getPrice();
     
     $coverAlt = "alt=\"$title cover\"";
@@ -34,8 +30,6 @@ if ($id) {
     $tracks = [];
     $cover = "";
     $releaseDate = "";
-    $labelId = 0;
-    $labelName = "";
     $price = "";
 
     $coverAlt = "";
@@ -72,14 +66,6 @@ if ($id) {
                         <td><input id="releaseDate" class="form-control" type="text" name="releaseDate" placeholder="Insert release date" value="<?= $releaseDate ?>"></td>
                     </tr>
                     <tr>
-                        <th span="row"><label for="label">Label:</label></th>
-                        <td>
-                            <select id="label" class="form-control" name="labelId">
-                                <?php printLabelOptions($labelOptions, $labelId) ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
                         <th span="row"><label for="price">Price:</label></th>
                         <td><input id="price" class="form-control" type="text" name="price" placeholder="Insert price" value="<?= $price ?>"></td>
                     </tr>
@@ -106,16 +92,6 @@ function printArtistOptions($artists, $selectedId) {
     foreach ($artists as $artist) {
         $select = ($artist->getId() == $selectedId) ? "selected" : "";
         echo "<option value=\"{$artist->getId()}\" $select>{$artist->getName()}</option>";
-    }
-}
-
-function printLabelOptions($labels, $selectedId) {
-    $select = ($selectedId) ? "" : "select";
-    echo "<option value=\"0\" $select>--</option>";
-
-    foreach ($labels as $label) {
-        $select = ($label->getId() == $selectedId) ? "selected" : "";
-        echo "<option value=\"{$label->getId()}\" $select>{$label->getName()}</option>";
     }
 }
 

@@ -132,38 +132,6 @@ function getArtistsByGenreName($name, $search = false) {
     return $artists;
 }
 
-function getArtistsByLabelId($id) {
-    if ($id < 1) {
-        return [];
-    }
-
-    $columns = getColumns("artists");
-    $columns["records.labelId"] = "=$id";
-    $joins = [
-        "tracks" => "tracks.artistId=artists.artistId",
-        "records" => "records.recordId=tracks.recordId"
-    ];
-
-    $artists = [];
-    $results = getRows("artists", $columns, $joins, true);
-    foreach ($results as $result) {
-        extract($result);
-        $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
-    }
-
-    return $artists;
-}
-
-function getArtistsByLabelName($name, $search = false) {
-    $labels = getLabelsByName($name, $search);
-    $artists = [];
-    foreach ($labels as $label) {
-        $artists = array_merge($artists, getArtistsByLabelId($label->getId()));
-    }
-
-    return $artists;
-}
-
 function getArtistsByRecordId($id) {
     if ($id < 1) {
         return [];

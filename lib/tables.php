@@ -20,18 +20,8 @@ function getTable($tableName) {
         "genres.deleted" => "i"
     ];
 
-    $columns["labels"] = [
-        "labels.labelId" => "i",
-        "labels.name" => "s",
-        "labels.country" => "s",
-        "labels.foundationYear" => "s",
-        "labels.logo" => "s",
-        "labels.deleted" => "i"
-    ];
-
     $columns["records"] = [
         "records.recordId" => "i",
-        "records.labelId" => "i",
         "records.title" => "s",
         "records.releaseDate" => "s",
         "records.cover" => "s",
