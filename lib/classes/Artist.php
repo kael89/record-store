@@ -25,8 +25,12 @@ class Artist {
     }
 
     public function create($name, $country, $foundationYear, $logo = "", $photo = "", $bio = "") {
-        $id = insertArtist($name, $country, $foundationYear, $logo, $photo, $bio);
-        return new Artist($id, $name, $country, $foundationYear, $logo, $photo, $bio);
+        $insertId = insertArtist($name, $country, $foundationYear, $logo, $photo, $bio);
+        if (!$insertId) {
+            return null;
+        }
+
+        return new Artist($insertId, $name, $country, $foundationYear, $logo, $photo, $bio);
     }
 
     public function delete() {

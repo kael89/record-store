@@ -49,29 +49,33 @@ function ajaxEditArtist($insert = false) {
     extract($_POST);
     extract($_FILES);
 
-    $id = 0;
     if ($insert) {
         $artist = Artist::create($name, $country, $foundationYear, "", "", $bio);
-        if ($artist) {
-            $artist->uploadLogo($logoFile);
-            $artist->uploadPhoto($photoFile);
-            $id = $artist->getId();
+        if (!$artist) {
+            return 0;
         }
+
+        $artist->uploadLogo($logoFile);
+        $artist->uploadPhoto($photoFile);
+        $id = $artist->getId();
     } else {
         // Update database through object methods
         $id = getGet("id");
-        if ($id) {
-            $artist = getArtistById($id);
-            $artist->setName($name);
-            $artist->setCountry($country);
-            $artist->setFoundationYear($foundationYear);
-            $artist->uploadLogo($logoFile);
-            $artist->uploadPhoto($photoFile);
-            $artist->setBio($bio);
+        if (!$id) {
+            return 0;
         }
+
+        $artist = getArtistById($id);
+        $artist->setName($name);
+        $artist->setCountry($country);
+        $artist->setFoundationYear($foundationYear);
+        $artist->uploadLogo($logoFile);
+        $artist->uploadPhoto($photoFile);
+        $artist->setBio($bio);
     }
 
     return $id;
+    
 }
 
 function ajaxDeleteArtist() {
@@ -84,29 +88,35 @@ function ajaxEditRecord($insert = false) {
     extract($_FILES);
     $tracks = json_decode($tracks, true);
 
-    $id = 0;
     if ($insert) {
         $record = Record::create($title, $genreId, $releaseDate, "", $price);
-        if ($record) {
-            $record->setTracks($tracks);
-            $record->uploadCover($coverFile);
-            $id = $record->getId();
+        if (!$record) {
+            return 0;
         }
+        print_r($record);
+        return 0;
+
+        $record->setTracks($tracks);
+        $record->uploadCover($coverFile);
+        $id = $record->getId();
     } else {
         // Update database through object methods
         $id = getGet("id");
-        if ($id) {
-            $record = getRecordById($id);
-            $record->setGenreId($genreId);
-            $record->setTitle($title);
-            $record->setTracks($tracks);
-            $record->uploadCover($coverFile);
-            $record->setReleaseDate($releaseDate);
-            $record->setPrice($price);
+        if (!$id) {
+            return 0;
         }
+
+        $record = getRecordById($id);
+        $record->setGenreId($genreId);
+        $record->setTitle($title);
+        $record->setTracks($tracks);
+        $record->uploadCover($coverFile);
+        $record->setReleaseDate($releaseDate);
+        $record->setPrice($price);
     }
 
     return $id;
+    
 }
 
 function ajaxDeleteRecord() {

@@ -7,6 +7,16 @@ requirePhp("view");
 
 $id = getGet("id");
 $record = getRecordById($id);
+if (!$record) {
+    if (getGet("action") == 'insert') {
+        $err = "Error: could not add record";
+    } else {
+        $err = "No record found!";
+    }
+
+    die($err);
+}
+
 $genre = $record->getGenre();
 $title = $record->getTitle();
 $artist = viewArtistLink($record->getArtists());

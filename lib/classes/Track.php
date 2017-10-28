@@ -22,8 +22,12 @@ class Track {
     public static function create($artistId, $recordId, $title, $position, $duration = 0) {
         $duration = parseDuration($duration);
 
-        $id = insertTrack($artistId, $recordId, $title, $position, $duration);
-        return new Track($id, $artistId, $recordId, $title, $position, $duration);
+        $insertId = insertTrack($artistId, $recordId, $title, $position, $duration);
+        if (!$insertId) {
+            return null;
+        }
+
+        return new Track($insertId, $artistId, $recordId, $title, $position, $duration);
     }
 
     public function delete() {

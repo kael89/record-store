@@ -72,18 +72,3 @@ function bindOnClickOutside($el, callback) {
         }
     });
 }
-
-/*
-Unused helper functions
-// parentHtml() returns the html of a jQuery object, including itself.
-// jQuery object method
-$.prototype.parentHtml = function() {
-    $html = $(this).wrap('<div></div>').parent().html();
-    $(this).unwrap();
-    return $html;
-}
-
-function last($arr) {
-    return $arr[$arr.length - 1];
-}
-*/

@@ -16,11 +16,12 @@ function createUser($firstName = "", $lastName = "", $email = "", $password = ""
     $row["password"] = getSalted($password);
     $row["admin"] = $admin;
 
-    if ($insertId = insertRow("users", $row)) {
-        return new User($insertId, $firstName, $lastName, $email, $password, $admin);
-    } else {
+    $insertId = insertRow("users", $row);
+    if (!$insertId) {
         return null;
     }
+
+    return new User($insertId, $firstName, $lastName, $email, $password, $admin);
 }
 
 function updateUser($id, $row) {

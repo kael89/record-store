@@ -7,6 +7,16 @@ requirePhp("view");
 
 $id = getGet("id");
 $artist = getArtistById($id);
+if (!$artist) {
+    if (getGet("action") == 'insert') {
+        $err = "Error: could not add artist";
+    } else {
+        $err = "No artist found!";
+    }
+
+    die($err);
+}
+
 $name = $artist->getName();
 $country = $artist->getCountry();
 $foundationYear = $artist->getFoundationYear();

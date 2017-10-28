@@ -10,6 +10,15 @@ if (!isset($mysqli)) {
 
 /*** DEBUG ***/
 // Accepts arbitrary number of arguments
+function alert() {
+    $args = func_get_args();
+    
+    foreach ($args as $arg) {
+        echo "<script>window.alert(" . json_encode($arg) . ")</script>";
+    }
+}
+
+// Accepts arbitrary number of arguments
 function consoleLog() {
     $args = func_get_args();
     

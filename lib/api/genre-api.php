@@ -11,6 +11,10 @@ function createGenre($name) {
     }
 
     $insertId = insertRow("genres", ["name" => $name]);
+    if (!$insertId) {
+        return null;
+    }
+
     return new Genre($insertId, $name);
 }
 
