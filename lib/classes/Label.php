@@ -70,7 +70,7 @@ class Label {
         return true;
     }
 
-    public function getLogoImage($size = "sm") {
-        return getImageSrc("labels", "logos", $size, $this->logo);
+    public function getLogoImage() {
+        return getImageSrc("labels", "logos", $this->logo);
     }
 }

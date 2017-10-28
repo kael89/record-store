@@ -42,9 +42,7 @@ class Record {
     }
 
     public function deleteImages() {
-        unlink($this->getCoverPath("sm"));
-        unlink($this->getCoverPath("md"));
-        unlink($this->getCoverPath("lg"));
+        unlink($this->getCoverPath());
     }
 
     public function getId() {
@@ -109,7 +107,7 @@ class Record {
     }
 
     public function uploadCover($coverFile) {
-        $cover = uploadImage($coverFile, "records", "covers", "md", $this->id);
+        $cover = uploadImage($coverFile, "records", "covers", "m", $this->id);
         if (!$cover) {
             return false;
         }
@@ -117,12 +115,12 @@ class Record {
         return $this->setCover($cover);
     }
 
-    public function getCoverImage($size = "sm") {
-        return getImageSrc("records", "covers", $size, $this->cover);
+    public function getCoverImage() {
+        return getImageSrc("records", "covers", $this->getCover());
     }
 
-    public function getCoverPath($size = "sm") {
-        return getImageDir("records", "covers", $size) . "/" . $this->getCover();
+    public function getCoverPath() {
+        return getImageDir("records", "covers") . "/" . $this->getCover();
     }
 
     public function getPrice() {

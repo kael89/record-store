@@ -37,13 +37,9 @@ class Artist {
     }
 
     public function deleteImages() {
-        unlink($this->getLogoPath("sm"));
-        unlink($this->getLogoPath("md"));
-        unlink($this->getLogoPath("lg"));
+        unlink($this->getLogoPath());
 
-        unlink($this->getPhotoPath("sm"));
-        unlink($this->getPhotoPath("md"));
-        unlink($this->getPhotoPath("lg"));
+        unlink($this->getPhotoPath());
     }
 
     public function getId() {
@@ -102,16 +98,16 @@ class Artist {
         return true;
     }
 
-    public function getLogoImage($size = "sm") {
-        return getImageSrc("artists", "logos", $size, $this->logo);
+    public function getLogoImage() {
+        return getImageSrc("artists", "logos", $this->logo);
     }
 
-    public function getLogoPath($size = "sm") {
-        return getImageDir("artists", "logos", $size) . "/" . $this->getLogo();
+    public function getLogoPath() {
+        return getImageDir("artists", "logos") . "/" . $this->getLogo();
     }
 
     public function uploadLogo($logoFile) {
-        $logo = uploadImage($logoFile, "artists", "logos", "md", $this->id);
+        $logo = uploadImage($logoFile, "artists", "logos", "m", $this->id);
         if (!$logo) {
             return false;
         }
@@ -132,16 +128,16 @@ class Artist {
         return true;
     }
 
-    public function getPhotoImage($size = "sm") {
-        return getImageSrc("artists", "photos", $size, $this->photo);
+    public function getPhotoImage() {
+        return getImageSrc("artists", "photos", $this->photo);
     }
 
-    public function getPhotoPath($size = "sm") {
-        return getImageDir("artists", "photos", $size) . "/" . $this->getPhoto();
+    public function getPhotoPath() {
+        return getImageDir("artists", "photos") . "/" . $this->getPhoto();
     }
 
     public function uploadPhoto($photoFile) {
-        $photo = uploadImage($photoFile, "artists", "photos", "md", $this->id);
+        $photo = uploadImage($photoFile, "artists", "photos", "m", $this->id);
         if (!$photo) {
             return false;
         }

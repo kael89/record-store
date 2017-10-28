@@ -42,7 +42,7 @@ function printArtists($artists, $lineCount) {
 
         $id = $artist->getId();
         $name = $artist->getName();
-        $logo = $artist->getLogoImage("lg");
+        $logo = $artist->getLogoImage();
 
         echo <<<_END
 $rowStart

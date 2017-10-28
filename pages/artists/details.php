@@ -10,8 +10,8 @@ $artist = getArtistById($id);
 $name = $artist->getName();
 $country = $artist->getCountry();
 $foundationYear = $artist->getFoundationYear();
-$logo = $artist->getLogoImage("md");
-$photo = $artist->getPhotoImage("md");
+$logo = $artist->getLogoImage("m");
+$photo = $artist->getPhotoImage("m");
 $bio = $artist->getBio();
 $records = $artist->getRecords();
 

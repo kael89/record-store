@@ -27,14 +27,14 @@ function getFilePath($path) {
     return $_SERVER["DOCUMENT_ROOT"] . "/record-store/$path"; 
 }
 
-function getImageDir($type, $category, $size = "sm") {
-    return getFilePath("img/$type/$category/$size");
+function getImageDir($type, $category) {
+    return getFilePath("img/$type/$category");
 }
 
-function getImageSrc($type, $category, $size, $name) {
-    $imagePath = getImageDir($type, $category, $size) . "/$name";
+function getImageSrc($type, $category, $name) {
+    $imagePath = getImageDir($type, $category) . "/" . $name;
     $lastModified = filemtime($imagePath);
-    return "/record-store/img/$type/$category/$size/$name?=$lastModified";
+    return "/record-store/img/$type/$category/$name?=$lastModified";
 }
 
 function requirePhp($type, $name = "") {
@@ -171,12 +171,12 @@ function uploadFile($file, $targetDir, $newName = "") {
     return $targetFile;
 }
 
-function uploadImage($file, $type, $cat, $size, $newName = "") {
+function uploadImage($file, $type, $cat, $newName = "") {
     if ($file["error"] != UPLOAD_ERR_OK) {
         return "";
     }
 
-    $targetDir = getImageDir($type, $cat, $size);
+    $targetDir = getImageDir($type, $cat);
     return uploadFile($file, $targetDir, $newName);
 }
 

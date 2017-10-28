@@ -17,7 +17,7 @@ if ($id) {
     $artistId = (count($artists) == 1) ? $artists[0]->getId() : 0;
     $title = $record->getTitle();
     $tracks = $record->getTracks();
-    $cover = $record->getCoverImage("md");
+    $cover = $record->getCoverImage("m");
     $releaseDate = viewDate($record->getReleaseDate());
     $label = $record->getLabel();
     $labelId = ($label) ? $label->getId() : 0;
