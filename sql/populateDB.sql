@@ -21,23 +21,42 @@ INSERT INTO artists VALUES(5, 'Sepultura', 'BR', 1984, '5.png', '5.jpg', '<p>Aen
 ##genres(genreId, name, deleted)
 DELETE FROM genres;
 INSERT INTO genres VALUES(1, 'Other', FALSE);
-INSERT INTO genres VALUES(2, 'Heavy Metal', FALSE);
-INSERT INTO genres VALUES(3, 'Thrash Metal', FALSE);
-INSERT INTO genres VALUES(4, 'Nu Metal', FALSE);
+INSERT INTO genres VALUES(2, 'Alternative Metal', FALSE);
+INSERT INTO genres VALUES(3, 'Black Metal', FALSE);
+INSERT INTO genres VALUES(4, 'Deathcore', FALSE);
+INSERT INTO genres VALUES(5, 'Death Metal', FALSE);
+INSERT INTO genres VALUES(6, 'Djent', FALSE);
+INSERT INTO genres VALUES(7, 'Doom Metal', FALSE);
+INSERT INTO genres VALUES(8, 'Epic Metal', FALSE);
+INSERT INTO genres VALUES(9, 'Grindcore', FALSE);
+INSERT INTO genres VALUES(10, 'Groove Metal', FALSE);
+INSERT INTO genres VALUES(11, 'Hardcore', FALSE);
+INSERT INTO genres VALUES(12, 'Heavy Metal', FALSE);
+INSERT INTO genres VALUES(13, 'Industrial Metal', FALSE);
+INSERT INTO genres VALUES(14, 'Melodic Metal', FALSE);
+INSERT INTO genres VALUES(15, 'Metalcore', FALSE);
+INSERT INTO genres VALUES(16, 'Power Metal', FALSE);
+INSERT INTO genres VALUES(17, 'Progressive Metal', FALSE);
+INSERT INTO genres VALUES(18, 'Rapcore', FALSE);
+INSERT INTO genres VALUES(19, 'Speed Metal', FALSE);
+INSERT INTO genres VALUES(20, 'Stoner Metal', FALSE);
+INSERT INTO genres VALUES(21, 'Symphonic Metal', FALSE);
+INSERT INTO genres VALUES(22, 'Thrash Metal', FALSE);
+INSERT INTO genres VALUES(23, 'Viking Metal', FALSE);
 
 
 ##records(recordId, genreId, title, releaseDate, cover, price, deleted)
 DELETE FROM records;
-INSERT INTO records VALUES(1, 3, 'Kill ''em All', '1983-07-25', '1.jpg', 09.99, FALSE);
-INSERT INTO records VALUES(2, 3, 'Ride the Lightning', '1984-07-27', '2.jpg', 09.75, FALSE);
-INSERT INTO records VALUES(3, 2, 'The Number of the Beast', '1982-03-22', '3.jpg', 12.15, FALSE);
-INSERT INTO records VALUES(4, 2, 'Black Sabbath', '1970-02-13', '4.jpg', 08.99, FALSE);
-INSERT INTO records VALUES(5, 2, 'Paranoid', '1970-09-18', '5.jpg', 08.99, FALSE);
-INSERT INTO records VALUES(6, 2, 'Sad Wings of Destiny', '1976-03-23', '6.jpg', 07.50, FALSE);
-INSERT INTO records VALUES(7, 2, 'British Steel', '1980-04-14', '7.jpg', 08.99, FALSE);
-INSERT INTO records VALUES(8, 2, 'Painkiller', '1990-09-03', '8.jpg', 12.10, FALSE);
-INSERT INTO records VALUES(9, 3, 'Chaos A.D.', '1993-10-19', '10.jpg', 11.30, FALSE);
-INSERT INTO records VALUES(10, 4, 'Roots', '1996-02-20', '9.jpg', 11.70, FALSE);
+INSERT INTO records VALUES(1, 22, 'Kill ''em All', '1983-07-25', '1.jpg', 09.99, FALSE);
+INSERT INTO records VALUES(2, 22, 'Ride the Lightning', '1984-07-27', '2.jpg', 09.75, FALSE);
+INSERT INTO records VALUES(3, 12, 'The Number of the Beast', '1982-03-22', '3.jpg', 12.15, FALSE);
+INSERT INTO records VALUES(4, 12, 'Black Sabbath', '1970-02-13', '4.jpg', 08.99, FALSE);
+INSERT INTO records VALUES(5, 12, 'Paranoid', '1970-09-18', '5.jpg', 08.99, FALSE);
+INSERT INTO records VALUES(6, 12, 'Sad Wings of Destiny', '1976-03-23', '6.jpg', 07.50, FALSE);
+INSERT INTO records VALUES(7, 12, 'British Steel', '1980-04-14', '7.jpg', 08.99, FALSE);
+INSERT INTO records VALUES(8, 12, 'Painkiller', '1990-09-03', '8.jpg', 12.10, FALSE);
+INSERT INTO records VALUES(9, 22, 'Chaos A.D.', '1993-10-19', '10.jpg', 11.30, FALSE);
+INSERT INTO records VALUES(10, 10, 'Roots', '1996-02-20', '9.jpg', 11.70, FALSE);
 
 
 ##tracks(trackId, artistId, recordId, title, position, duration, deleted)
