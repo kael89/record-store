@@ -1,7 +1,7 @@
 <?php
 /*** Program ***/
 requirePhp("class", "user");
-require_once $_SERVER['DOCUMENT_ROOT'] . "/record-store/lib/classes/User.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "//lib/classes/User.php";
 
 $user = getSession("user");
 $admin = getSession("admin");

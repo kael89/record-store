@@ -35,18 +35,8 @@ function removeError(field) {
     $fieldLabel.html('');
 }
 
-function getUrlPath() {
-    var rootFolder = '/record-store/';
-
-    return window.location.pathname.replace(rootFolder, '');
-}
-
-function getFilePath(page) {
-    return '/record-store/' + page;
-}
-
 function getPageCat() {
-    return getUrlPath().replace('.php', '');
+    return window.location.pathname.substr(1).replace('.php', '');
 }
 
 function getGet(name) {

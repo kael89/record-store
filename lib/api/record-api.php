@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/library.php";
 requirePhp("tables");
 requirePhp("api");
 requirePhp("class", "record");

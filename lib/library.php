@@ -1,6 +1,5 @@
 <?php
 // Define constants
-define("ROOT_FOLDER", "record-store/");
 // Max file size: 1MB
 define("MAX_FILE_SIZE", 1048576);
 
@@ -39,14 +38,9 @@ function printVar() {
 
 }
 
-/*** URL ***/
-function getUrlPath() {
-    return str_replace("/" . ROOT_FOLDER, "", parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH));
-}
-
 /*** FILE REFERENCE ***/
 function getFilePath($path) {
-    return $_SERVER["DOCUMENT_ROOT"] . "/record-store/$path"; 
+    return $_SERVER["DOCUMENT_ROOT"] . "/$path"; 
 }
 
 function getImageDir($type, $category) {
@@ -56,7 +50,7 @@ function getImageDir($type, $category) {
 function getImageSrc($type, $category, $name) {
     $imagePath = getImageDir($type, $category) . "/" . $name;
     $lastModified = filemtime($imagePath);
-    return "/record-store/img/$type/$category/$name?=$lastModified";
+    return "/img/$type/$category/$name?=$lastModified";
 }
 
 function requirePhp($type, $name = "") {

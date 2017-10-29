@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/library.php";
 requirePhp("api");
 
 class Track {

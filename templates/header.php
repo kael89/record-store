@@ -1,7 +1,8 @@
 <?php
 /*** Program ***/
-$fullPath = str_replace(".php", "", getUrlPath($_SERVER["REQUEST_URI"]));
-$cat = ($fullPath != "index") ? ucfirst($fullPath) : "";
+$urlPath = substr(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), 1);
+$cat = ($urlPath != "index.php") ? ucfirst(str_replace(".php", "", $urlPath)) : "";
+$out = $_SERVER["REQUEST_URI"];
 $page = getGet("page") ? ucwords(str_replace('-', ' ', getGet("page"))) : "";
 
 if ($cat) {
@@ -35,4 +36,4 @@ if ($cat) {
 </head>
 <body>
     <div id="container" class="container">
-        <div id="loading" class="row"><div class="col-xs-12">I am loading man</div></div>
+        <div id="loading" class="row"><div class="col-xs-12"></div></div>

@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/library.php";
 requirePhp("api", "artist");
 
 class Artist {
@@ -111,7 +111,7 @@ class Artist {
     }
 
     public function uploadLogo($logoFile) {
-        $logo = uploadImage($logoFile, "artists", "logos", "m", $this->id);
+        $logo = uploadImage($logoFile, "artists", "logos", $this->id);
         if (!$logo) {
             return false;
         }
@@ -141,7 +141,7 @@ class Artist {
     }
 
     public function uploadPhoto($photoFile) {
-        $photo = uploadImage($photoFile, "artists", "photos", "m", $this->id);
+        $photo = uploadImage($photoFile, "artists", "photos", $this->id);
         if (!$photo) {
             return false;
         }

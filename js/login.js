@@ -23,7 +23,7 @@ function validateUser(valid) {
 
     return $.ajax({
         type: 'POST',
-        url: '/record-store/lib/ajax.php?action=login',
+        url: '/lib/ajax.php?action=login',
         data: {
             "email": email,
             "password": password

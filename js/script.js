@@ -18,11 +18,12 @@ function bindLoadingImage() {
 }
 
 function navbarControl() {
-    var uri = window.location.pathname.substr(1);
-    var matches = uri.match(/\/(.*).php/);
-    var menu = (matches != null) ? matches[1] : 'index';
+    cat = getPageCat();
+    if (cat === '') {
+        cat = 'index';
+    }
 
-    $('#navbar > ul > li#menu-' + menu).addClass('active')
+    $('#navbar > ul > li#menu-' + cat).addClass('active')
 }
 
 function letterNavbarControl() {
@@ -158,7 +159,7 @@ function deleteBtnControl() {
                 if (redirect) {
                     destUrl = 'artists.php?page=list&action=delete'
                 } else {
-                    destUrl = getFilePath('pages/artists/list.php');
+                    destUrl = 'pages/artists/list.php';
                 }
                 break;
             case 'delete_record':
@@ -166,7 +167,7 @@ function deleteBtnControl() {
                 if (redirect) {
                     destUrl = 'records.php?page=list&action=delete'
                 } else {
-                    destUrl = getFilePath('pages/records/list.php');
+                    destUrl = 'pages/records/list.php';
                 }
                 break;
             default:

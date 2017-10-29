@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/library.php";
 requirePhp("api");
 
 class Record {
@@ -105,7 +105,7 @@ class Record {
     }
 
     public function uploadCover($coverFile) {
-        $cover = uploadImage($coverFile, "records", "covers", "m", $this->id);
+        $cover = uploadImage($coverFile, "records", "covers", $this->id);
         if (!$cover) {
             return false;
         }

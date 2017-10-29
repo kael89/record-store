@@ -1,5 +1,5 @@
 function sortList(cat, order) {
-    var uri = '/record-store/pages/' + cat + '/list.php?sort=' + order;
+    var uri = '/pages/' + cat + '/list.php?sort=' + order;
     
     $.get(uri, function(data) {
         $('#main').html(data);
@@ -14,7 +14,7 @@ function toggleDetailsPage(action = 'details') {
     }
     var id = getGet('id');
     var page = (action == 'edit') ? 'edit.php' : 'details.php';
-    var url = getFilePath('pages/' + getPageCat() + '/' + page + '?id=' + id);
+    var url = 'pages/' + getPageCat() + '/' + page + '?id=' + id;
 
     $.get(url, function(data) {
         $('#main').html(data);
@@ -44,7 +44,7 @@ function insertData(action) {
     }
 
     $.ajax({
-        url: getFilePath('lib/ajax.php?action=' + action + '&id=' + id),
+        url: 'lib/ajax.php?action=' + action + '&id=' + id,
         type: 'POST',
         data: data,
         processData: false,
@@ -61,7 +61,7 @@ function insertData(action) {
 }
 
 function deleteItem(action, id, destUrl, redirect = false) {
-    var url = getFilePath('lib/ajax.php?action=' + action + '&id=' + id);
+    var url = 'lib/ajax.php?action=' + action + '&id=' + id;
 
     $.get(url).done(function() {
         if (redirect) {

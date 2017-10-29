@@ -1,6 +1,6 @@
 <?php
 /*** Program ***/
-require_once $_SERVER["DOCUMENT_ROOT"] . "/record-store/lib/library.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/library.php";
 requirePhp("class", "artist");
 requirePhp("api", "artist");
 requirePhp("view");
