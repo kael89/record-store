@@ -49,8 +49,11 @@ function viewPrice($price) {
 
 /*** Print ***/
 function printLetterNavbar($cat) {
-    echo "<ul class=\"pagination\">";
-    for ($char = ord('a'); $char <= ord('z'); $char++) {
+    echo <<<_END
+        <ul class="pagination">
+            <li><a href="$cat.php?page=browse&letter=">All</a></li>
+_END;
+    for ($char = ord('A'); $char <= ord('Z'); $char++) {
         $letter = chr($char);
         echo "<li><a href=\"$cat.php?page=browse&letter=$letter\">$letter</a></li>\n";
     }

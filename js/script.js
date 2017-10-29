@@ -32,8 +32,14 @@ function letterNavbarControl() {
 
     var getParams = window.location.search.substr(1);
     var matches = getParams.match(/letter=([A-Z])/i);
-    var letter = (matches) ? matches[1] : 'a';
-    var index = letter.charCodeAt() - 'a'.charCodeAt();
+    var index;
+    if (matches) {
+        index = matches[1].charCodeAt() - 'A'.charCodeAt() + 1;
+    } else {
+        // Corresponds to 'All' option
+        index = 0;
+    }
+
     $('.letter-navbar ul li').eq(index).addClass('active');
 }
 

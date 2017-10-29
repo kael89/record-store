@@ -4,12 +4,7 @@ requirePhp("class");
 requirePhp("api");
 
 $letter = getGet("letter");
-if (!$letter) {
-    $letter = "a";
-}
-$artist = getArtistsByName("$letter%", true);
-// Debug: get all artists
-$artists = getArtistsByName("%", true);
+$artists = getArtistsByName("$letter%", true);
 
 /*** View ***/
 ?>

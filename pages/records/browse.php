@@ -5,12 +5,7 @@ requirePhp("api");
 requirePhp("view");
 
 $letter = getGet("letter");
-if (!$letter) {
-    $letter = "a";
-}
 $records = getRecordsByTitle("$letter%", true);
-// Debug: get all records
-$records = getRecordsByTitle("%", true);
 
 /*** View ***/
 ?>
