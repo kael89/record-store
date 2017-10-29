@@ -98,7 +98,7 @@ if ($id) {
 <?php
 /*** Functions ***/
 function printArtistOptions($artists, $selectedId) {
-    echo "<option value=\"0\">V.A.</option>";
+    echo "<option value=\"0\">N/A</option>";
 
     foreach ($artists as $artist) {
         $select = ($artist->getId() == $selectedId) ? "selected" : "";

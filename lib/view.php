@@ -3,7 +3,17 @@ requirePhp("class");
 
 /*** View ***/
 function viewArtistName($artists) {
-    return (count($artists) == 1) ? $artists[0]->getName() : "V.A.";
+    switch (count($artists)) {
+        case 0:
+            return "N/A";
+            break;
+        case 1:
+            return $artists[0]->getName();
+            break;
+        default:
+            return "Various";
+            break;
+    }
 }
 
 function viewArtistLink($artists) {
@@ -27,7 +37,7 @@ function viewRecordLink($record) {
 }
 
 function viewDate($date) {
-    return date("Y-m-d", strtotime($date));
+    return (intval($date)) ? date("Y-m-d", strtotime($date)) : "";
 }
 
 function viewDuration($secs) {

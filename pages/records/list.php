@@ -29,7 +29,7 @@ function getRecordList() {
             "title" => $record->getTitle(),
             "recordLink" => viewRecordLink($record),
             "artistLink" => viewArtistLink($record->getArtists()),
-            "date" => $record->getReleaseDate(),
+            "date" => viewDate($record->getReleaseDate()),
             "genre" => $record->getGenre(),
             "price" => viewPrice($record->getPrice())
         ];
