@@ -33,9 +33,7 @@ function isTrack($id) {
 }
 
 function getTracksAll() {
-    $columns = getColumns("tracks");
-
-    $results = getRows("tracks", $columns);
+    $results = getRows("tracks");
     if (!$results) {
         return [];
     }
@@ -54,8 +52,9 @@ function getTrackById($id) {
         return null;
     }
 
-    $columns = getColumns("tracks");
-    $columns["tracks.trackId"] = "=$id";
+    $conditions = [
+        ["tracks.trackId =", $id]
+    ];
 
     $result = getRows("tracks", $columns);
     if (!$result) {
@@ -71,10 +70,11 @@ function getTracksByArtistId($id) {
         return [];
     }
 
-    $columns = getColumns("tracks");
-    $columns["tracks.artistId"] = "=$id";
+    $conditions = [
+        ["tracks.artistId =", $id]
+    ];
 
-    $results = getRows("tracks", $columns);
+    $results = getRows("tracks", $conditions);
     if (!$results) {
         return [];
     }
@@ -103,10 +103,17 @@ function getTracksByArtistName($name, $search = false) {
 }
 
 function getTracksByTitle($title, $search = false) {
-    $columns = getColumns("tracks");
-    $columns["tracks.title"] = ($search) ? " LIKE '$title'" : "='$title'";
+    if ($search) {
+        $conditions = [
+            ["tracks.title LIKE", $title]
+        ];
+    } else {
+        $conditions = [
+            ["tracks.title =", $title]
+        ];
+    }
 
-    $results = getRows("tracks", $columns);
+    $results = getRows("tracks", $conditions);
     if (!$results) {
         return [];
     }
@@ -122,10 +129,20 @@ function getTracksByTitle($title, $search = false) {
 
 // $duration: either single value (exact match) or array of two values (inclusive range)
 function getTracksByDuration($duration) {
-    $columns = getColumns("tracks");
-    $columns["tracks.duration"] = is_array($duration) ? " BETWEEN $duration[0] AND $duration[1]" : "=$duration";
+    if (is_array($duration)) {
+        $conditions = [
+            ["tracks.duration >=", $duration[0]]
+        ];
+        $conditions = [
+            ["tracks.duration <=", $duration[1]]
+        ];
+    } else {
+        $conditions = [
+            ["tracks.duration =", $duration]
+        ];
+    }
 
-    $results = getRows("tracks", $columns);
+    $results = getRows("tracks", $conditions);
     if (!$results) {
         return [];
     }
@@ -144,15 +161,14 @@ function getTracksByGenreId($id) {
         return [];
     }
 
-    $columns = getColumns("tracks");
     $joins = [
         "records" => [
-            "records.recordId=tracks.recordId",
-            "records.genreId=$id"
+            "records.recordId = tracks.recordId",
+            ["records.genreId =", $id]
         ]
     ];
 
-    $results = getRows("tracks", $columns, $joins, true);
+    $results = getRows("tracks", [], $joins, true);
     if (!$results) {
         return [];
     }
@@ -181,11 +197,12 @@ function getTracksByRecordId($id) {
         return [];
     }
 
-    $columns = getColumns("tracks");
-    $columns["tracks.recordId"] = "=$id";
+    $conditions = [
+        ["tracks.recordId =", $id]
+    ];
     $order = "ORDER BY tracks.position";
     
-    $results = getRows("tracks", $columns, [], false, $order);
+    $results = getRows("tracks", $conditions, [], false, $order);
     if (!$results) {
         return [];
     }

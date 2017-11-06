@@ -211,9 +211,9 @@ function insertRow($table, $row) {
     $mysqli = getSession("mysqli");
     $columns = array_keys($row);
     $values = array_values($row);
-    $params = array(getParams($table, $columns));
+    $params = getParams($table, $columns);
 
-    $query = "INSERT INTO $table(" . implode(',', $columns) . ")" . " VALUES(" . str_repeat("?,", count($values));
+    $query = "INSERT INTO $table(" . implode(",", $columns) . ")" . " VALUES(" . str_repeat("?,", count($values));
     $query = rtrim($query, ",") . ")";
     $stmt = $mysqli->prepare($query);
 
@@ -257,7 +257,7 @@ function updateRows($table, $row, $where) {
         return false;
     }
 
-    $args = array_merge(array($params), $values);
+    $args = array_merge($params, $values);
     foreach (array_keys($args) as $i) {
         $args[$i] =& $args[$i];
     }
@@ -277,33 +277,46 @@ function deleteRows($table, $where) {
     return updateRows($table, $row, $where);
 }
 
-function getRows($table, $columns, $joins = [], $distinct = false, $append = "") {
+function getRows($table, $conditions = [], $joins = [], $distinct = false, $append = "") {
     $mysqli = getSession("mysqli");
+    $values = [];
+    $params = [];
 
     $select = "SELECT ";
     if ($distinct) {
         $select .= "DISTINCT ";
     }
+    $select .= implode(",", getColumns($table));
+
     //JOIN
     $join = "";
-    foreach($joins as $joinTable => $conditions) {
-        $join .= " JOIN $joinTable ON " . implode(" AND ", $conditions);
-        $join .= " AND $joinTable.deleted=FALSE";
+    foreach($joins as $joinTable => $joinConditions) {
+        $joinConditions[] = "$joinTable.deleted = FALSE";
+        $join .= "JOIN $joinTable ON " . getConditions($joinTable, $joinConditions, $values, $params);
     }
 
     //WHERE
-    $where = " WHERE $table.deleted=FALSE";
-    foreach($columns as $column => $condition) {
-        $select .= "$column,";
-        if ($condition !== "") {
-            $where .= " AND ($column" . "$condition)";
-        }
-    }
+    $conditions[] = "$table.deleted = FALSE";
+    $where = "WHERE " . getConditions($table, $conditions, $values, $params);
 
-    $query = rtrim($select, ",") . " FROM $table $join $where $append";
+    $query = "$select FROM $table $join $where $append";
     // Debug DB query
     // consoleLog($query);
-    $result = $mysqli->query($query);
+    $stmt = $mysqli->prepare($query);
+    $args = array_merge($params, $values);
+    foreach (array_keys($args) as $i) {
+        $args[$i] =& $args[$i];
+    }
+
+    if ($args) {
+        $ref = new ReflectionClass("mysqli_stmt");
+        $method = $ref->getMethod("bind_param");
+        $method->invokeArgs($stmt, $args);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
 
     $rows = [];
     if (!$result) {
@@ -314,6 +327,26 @@ function getRows($table, $columns, $joins = [], $distinct = false, $append = "")
     }
 
     return $rows;
+}
+
+// Returns a conditional string for queries,
+// and updates tables that are used in prepared statements
+function getConditions($table, $conditions, &$values, &$params) {
+    $columns = [];
+
+    $str = "";
+    foreach($conditions as $condition) {
+        if (is_array($condition)) {
+            $str .= "($condition[0] ?) AND ";
+            $values[] = $condition[1];
+            $columns[] = $condition[0];
+        } else {
+            $str .= "($condition) AND ";
+        }
+    }
+
+    $params = array_merge($params, getParams($table, $columns));
+    return rtrim($str, " AND ");
 }
 
 function isRow($table, $column, $value) {

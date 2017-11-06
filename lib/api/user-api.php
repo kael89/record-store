@@ -33,10 +33,11 @@ function loginUser($email, $password) {
         return null;
     }
 
-    $columns = getColumns("users");
-    $columns["users.email"] = "='$email'";
-    $columns["users.password"] = "='" . getSalted($password) . "'";
-    $result = getRows("users", $columns);
+    $conditions = [
+        ["users.email =", $email],
+        ["users.password =", getSalted($password)]
+    ];
+    $result = getRows("users", $conditions);
 
     if (!$result) {
         return false;

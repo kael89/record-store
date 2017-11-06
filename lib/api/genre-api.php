@@ -27,9 +27,7 @@ function isGenre($id) {
 }
 
 function getGenresAll() {
-    $columns = getColumns("genres");
-
-    $results = getRows("genres", $columns);
+    $results = getRows("genres");
     if (!$results) {
         return [];
     }
@@ -48,10 +46,11 @@ function getGenreById($id) {
         return null;
     }
 
-    $columns = getColumns("genres");
-    $columns["genres.genreId"] = "=$id";
+    $conditions = [
+        ["genres.genreId =", $id]
+    ];
 
-    $result = getRows("genres", $columns);
+    $result = getRows("genres", $conditions);
     if (!$result) {
         return null;
     }
@@ -61,10 +60,17 @@ function getGenreById($id) {
 }
 
 function getGenreByName($name, $search = false) {
-    $columns = getColumns("genres");
-    $columns["genres.name"]  = ($search) ? " LIKE '$name'" : "='$name'";
+    if ($search) {
+        $conditions = [
+            ["genres.name =", $name]
+        ];
+    } else {
+        $conditions = [
+            ["genres.name =", $name]
+        ];
+    }
 
-    $result = getRows("genres", $columns);
+    $result = getRows("genres", $conditions);
     if (!$result) {
         return null;
     }
@@ -78,17 +84,16 @@ function getGenresByArtistId($id) {
         return [];
     }
 
-    $columns = getColumns("genres");
     $joins = [
-        "records" => ["records.genreId=genres.genreId"],
+        "records" => ["records.genreId = genres.genreId"],
         "tracks" => [
-            "tracks.genreId=genres.genreId",
-            "tracks.artistId=$id",
+            "tracks.genreId = genres.genreId",
+            ["tracks.artistId =", $id]
         ]
     ];
 
     $genres = [];
-    $results = getRows("genres", $columns, $joins, true);
+    $results = getRows("genres", [], $joins, true);
     foreach ($results as $result) {
         extract($result);
         $genres[] = new Genre($genreId, $name);
@@ -115,8 +120,9 @@ function getGenreByRecordId($id) {
         return [];
     }
 
-    $columns = getColumns("genres");
-    $joins = ["records" => ["records.genreId=genres.genreId"]];
+    $joins = [
+        "records" => ["records.genreId = genres.genreId"]
+    ];
 
     $result = getRows("genres", $columns);
     if (!$result) {
@@ -146,17 +152,16 @@ function getGenreByTrackId($id) {
         return [];
     }
 
-    $columns = getColumns("genres");
     $joins = [
-        "records" => ["records.genreId=genres.genreId"],
+        "records" => ["records.genreId = genres.genreId"],
         "tracks" => [
-            "tracks.recordId=records.recordId",
-            "tracks.trackId=$id"
+            "tracks.recordId = records.recordId",
+            ["tracks.trackId =", $id]
         ]
     ];
 
     $genres = [];
-    $results = getRows("genres", $columns, $joins, true);
+    $results = getRows("genres", [], $joins, true);
     foreach ($results as $result) {
         extract($result);
         $genres[] = new Genre($genreId, $name);

@@ -37,11 +37,10 @@ function isArtist($id) {
 }
 
 function getArtistsAll() {
-    $columns = getColumns("artists");
     $order = "ORDER BY artists.name";
 
     $artists = [];
-    $results = getRows("artists", $columns, [], false, $order);
+    $results = getRows("artists", [], [], false, $order);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -55,10 +54,11 @@ function getArtistById($id) {
         return null;
     }
 
-    $columns = getColumns("artists");
-    $columns["artists.artistId"] = "=$id";
+    $conditions = [
+        ["artists.artistId =", $id]
+    ];
 
-    $result = getRows("artists", $columns);
+    $result = getRows("artists", $conditions);
     if (!$result) {
         return null;
     }
@@ -68,12 +68,19 @@ function getArtistById($id) {
 }
 
 function getArtistsByName($name, $search = false) {
-    $columns = getColumns("artists");
-    $columns["artists.name"] = ($search) ? " LIKE '$name'" : "='$name'";
+    if ($search) {
+        $conditions = [
+            ["artists.name LIKE", $name]
+        ];
+    } else {
+        $conditions = [
+            ["artists.name =", $name]
+        ];
+    }
     $order = "ORDER BY artists.name";
 
     $artists = [];
-    $results = getRows("artists", $columns, [], false, $order);
+    $results = getRows("artists", $conditions, [], false, $order);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -83,8 +90,16 @@ function getArtistsByName($name, $search = false) {
 }
 
 function getArtistsByCountry($country, $search = false) {
-    $columns = getColumns("artists");
-    $columns["artists.country"] = ($search) ? " LIKE '$country'" : "='$country'";
+    if ($search) {
+        $conditions = [
+            ["artists.country LIKE", $country]
+        ];
+    } else {
+        $conditions = [
+            ["artists.country =", $country]
+        ];
+    }
+    $order = "ORDER BY artists.country";
 
     $artists = [];
     $results = getRows("artists", $columns);
@@ -105,17 +120,16 @@ function getArtistsByGenreId($id) {
         return [];
     }
 
-    $columns = getColumns("artists");
     $joins = [
-        "tracks" => ["tracks.artistId=artists.artistId"],
+        "tracks" => ["tracks.artistId = artists.artistId"],
         "records" => [
-            "records.recordId=tracks.recordsId",
-            "records.genreId=$id",
+            "records.recordId = tracks.recordsId",
+            ["records.genreId =", $id],
         ]
     ];
 
     $artists = [];
-    $results = getRows("artists", $columns, $joins, true);
+    $results = getRows("artists", [], $joins, true);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -139,16 +153,15 @@ function getArtistsByRecordId($id) {
         return [];
     }
 
-    $columns = getColumns("artists");
     $joins = [
         "tracks" => [
-            "tracks.artistId=artists.artistId",
-            "tracks.recordId=$id"
+            "tracks.artistId = artists.artistId",
+            ["tracks.recordId =", $id]
         ]
     ];
 
     $artists = [];
-    $results = getRows("artists", $columns, $joins, true);
+    $results = getRows("artists", [], $joins, true);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -172,16 +185,17 @@ function getArtistByTrackId($id) {
         return null;
     }
 
-    $columns = getColumns("artists");
-    $columns["tracks.trackId"] = "=$id";
+    $conditions = [
+        ["tracks.trackId =", $id]
+    ];
     $joins = [
         "tracks" => [
-            "tracks.artistId=artists.artistId",
-            "tracks.trackId=$id"
+            "tracks.artistId = artists.artistId",
+            ["tracks.trackId =", $id]
         ]
     ];
 
-    $result = getRows("artists", $columns, $joins);
+    $result = getRows("artists", $conditions, $joins);
     if (!$result) {
         return null;
     }

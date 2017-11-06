@@ -11,13 +11,11 @@ function getTable($tableName) {
         "artists.logo" => "s",
         "artists.photo" => "s",
         "artists.bio" => "s",
-        "artists.deleted" => "i"
     ];
 
     $columns["genres"] = [
         "genres.genreId" => "i",
         "genres.name" => "s",
-        "genres.deleted" => "i"
     ];
 
     $columns["records"] = [
@@ -27,7 +25,6 @@ function getTable($tableName) {
         "records.releaseDate" => "s",
         "records.cover" => "s",
         "records.price" => "d",
-        "records.deleted" => "i"
     ];
 
     $columns["tracks"] = [
@@ -37,7 +34,6 @@ function getTable($tableName) {
         "tracks.title" => "s",
         "tracks.position" => "i",
         "tracks.duration" => "i",
-        "tracks.deleted" => "i"
     ];
 
     $columns["users"] = [
@@ -47,33 +43,37 @@ function getTable($tableName) {
         "users.email" => "s",
         "users.password" => "s",
         "users.admin" => "i",
-        "users.deleted" => "i"
     ];
 
     return array_key_exists($tableName, $columns) ? $columns[$tableName] : [];
 }
 
 function getColumns($tableName) {
-    $table = array_keys(getTable($tableName));
+    $table = getTable($tableName);
     if (empty($table)) {
         return null;
     }
 
-    return array_fill_keys($table, "");
+    return array_keys($table);
 }
 
 function getParams($tableName, $columns) {
     $table = getTable($tableName);
+    if (!$table) {
+        return [];
+    }
 
     $params = "";
-    if (!empty($table)) {
-        foreach ($columns as $column) {
-            $key = $tableName . "." . $column;
-            if (array_key_exists($key, $table)) {
-                $params .= $table[$key];
-            }
+    foreach ($columns as $column) {
+        $parts = explode(" ", $column);
+        if ($parts) {
+            $key = $parts[0];
+        }
+
+        if (array_key_exists($key, $table)) {
+            $params .= $table[$key];
         }
     }
 
-    return $params;
+    return ($params) ? (array)$params : [];
 }

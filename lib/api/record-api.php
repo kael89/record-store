@@ -33,10 +33,9 @@ function isRecord($id) {
 }
 
 function getRecordsAll($sort = true) {
-    $columns = getColumns("records");
     $orderyBy = ($sort) ? "ORDER BY records.title" : "";
 
-    $results = getRows("records", $columns, [], false, $orderyBy);
+    $results = getRows("records", [], [], false, $orderyBy);
     if (!$results) {
         return [];
     }
@@ -55,10 +54,11 @@ function getRecordById($id) {
         return null;
     }
 
-    $columns = getColumns("records");
-    $columns["records.recordId"] = "=$id";
+    $conditions = [
+        ["records.recordId =", $id]
+    ];
 
-    $result = getRows("records", $columns);
+    $result = getRows("records", $conditions);
     if (!$result) {
         return null;
     }
@@ -72,10 +72,11 @@ function getRecordsByGenreId($id) {
         return [];
     }
 
-    $columns = getColumns("records");
-    $columns["records.genreId"] = "=$id";
+    $conditions = [
+        ["records.genreId =", $id]
+    ];
 
-    $results = getRows("records", $columns);
+    $results = getRows("records", $conditions);
     if (!$results) {
         return [];
     }
@@ -100,11 +101,19 @@ function getRecordsByGenreName($name, $search = false) {
 
 // Sort results by title
 function getRecordsByTitle($title, $search = false) {
-    $columns = getColumns("records");
-    $columns["records.title"] = ($search) ? " LIKE '$title'" : "='$title'";
+    if ($search) {
+        $conditions = [
+            ["records.title LIKE", $title]
+        ];
+    } else {
+        $conditions = [
+            ["records.title =", $title]
+        ];
+    }
+
     $order = "ORDER BY records.title";
 
-    $results = getRows("records", $columns, [], false, $order);
+    $results = getRows("records", $conditions, [], false, $order);
     if (!$results) {
         return [];
     }
@@ -124,10 +133,20 @@ function getRecordsByYear() {
 
 // $price: either single value (exact match) or array of two values (inclusive range)
 function getRecordsByPrice($price) {
-    $columns = getColumns("records");
-    $columns["records.price"] = is_array($price) ? " BETWEEN $price[0] AND $price[1]" : "=$price";
+    if (is_array($price)) {
+        $conditions= [
+            ["records.price >=", $price[0]]
+        ];
+        $conditions = [
+            ["records.price <=", $price[1]]
+        ];
+    } else {
+        $conditions = [
+            ["records.price =", $price]
+        ];
+    }
 
-    $results = getRows("records", $columns);
+    $results = getRows("records", $conditions);
     if (!$results) {
         return [];
     }
@@ -146,11 +165,14 @@ function getRecordsByArtistId($id) {
         return [];
     }
 
-    $columns = getColumns("records");
-    $columns["tracks.artistId"] = "=$id";
-    $joins = ["tracks" => ["tracks.recordId=records.recordId"]];
+    $joins = [
+        "tracks" => [
+            "tracks.recordId = records.recordId",
+            ["tracks.artistId =", $id]
+        ]
+    ];
 
-    $results = getRows("records", $columns, $joins, true);
+    $results = getRows("records", [], $joins, true);
     if (!$results) {
         return [];
     }
@@ -186,15 +208,14 @@ function getRecordByTrackId($id) {
         return null;
     }
 
-    $columns = getColumns("records");
     $joins = [
         "tracks" => [
-            "tracks.recordId=records.recordId",
-            "tracks.trackId=$id"
-        ]        
+            "tracks.recordId = records.recordId",
+            ["tracks.trackId =", $id]
+        ]
     ];
 
-    $results = getRows("records", $columns, $joins);
+    $results = getRows("records", [], $joins);
     if (!$results) {
         return null;
     }

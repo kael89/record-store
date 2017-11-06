@@ -9,10 +9,9 @@ requirePhp("classes", "user");
 switch (getGet("action")) {
     case "get_rows":
         $table = getPost("table");
-        $columns = getPost("columns");
-        $append = getPost("append");
+        $conditions = getPost("conditions");
 
-        $result = (isset($append)) ? getRows($table, $columns, $append) : getRows($table, $columns);
+        $result = getRows($table, $conditions);
         if ($result) {
             echo json_encode($result);
         }
