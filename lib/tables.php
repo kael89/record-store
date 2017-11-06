@@ -11,11 +11,14 @@ function getTable($tableName) {
         "artists.logo" => "s",
         "artists.photo" => "s",
         "artists.bio" => "s",
+        "artists.bio" => "s",
+        "artists.deleted" => "i",
     ];
 
     $columns["genres"] = [
         "genres.genreId" => "i",
         "genres.name" => "s",
+        "genres.deleted" => "i",
     ];
 
     $columns["records"] = [
@@ -25,6 +28,7 @@ function getTable($tableName) {
         "records.releaseDate" => "s",
         "records.cover" => "s",
         "records.price" => "d",
+        "records.deleted" => "i",
     ];
 
     $columns["tracks"] = [
@@ -34,6 +38,7 @@ function getTable($tableName) {
         "tracks.title" => "s",
         "tracks.position" => "i",
         "tracks.duration" => "i",
+        "tracks.deleted" => "i",
     ];
 
     $columns["users"] = [
@@ -43,6 +48,7 @@ function getTable($tableName) {
         "users.email" => "s",
         "users.password" => "s",
         "users.admin" => "i",
+        "users.deleted" => "i",
     ];
 
     return array_key_exists($tableName, $columns) ? $columns[$tableName] : [];
@@ -60,7 +66,7 @@ function getColumns($tableName) {
 function getParams($tableName, $columns) {
     $table = getTable($tableName);
     if (!$table) {
-        return [];
+        return "";
     }
 
     $params = "";
@@ -72,5 +78,5 @@ function getParams($tableName, $columns) {
         }
     }
 
-    return ($params) ? (array)$params : [];
+    return $params;
 }

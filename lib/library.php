@@ -8,7 +8,8 @@ if (!isset($mysqli)) {
 }
 
 /*** DEBUG ***/
-// Accepts arbitrary number of arguments
+// Debugging functions accept arbitrary number of arguments
+
 function alert() {
     $args = func_get_args();
     
@@ -17,7 +18,6 @@ function alert() {
     }
 }
 
-// Accepts arbitrary number of arguments
 function consoleLog() {
     $args = func_get_args();
     
@@ -26,8 +26,7 @@ function consoleLog() {
     }
 }
 
-// Accepts arbitrary number of arguments
-function printVar() {
+function printR() {
     $args = func_get_args();
 
     echo '<pre>';
@@ -35,7 +34,16 @@ function printVar() {
         print_r($arg);
     }
     echo '</pre>';
+}
 
+function varDump() {
+    $args = func_get_args();
+
+    echo '<pre>';
+    foreach ($args as $arg) {
+        var_dump($arg);
+    }
+    echo '</pre>';
 }
 
 /*** FILE REFERENCE ***/
@@ -206,128 +214,42 @@ function connectToDB() {
     return $mysqli;
 }
 
-// $row = assoc_array('column' => 'value')
-function insertRow($table, $row) {
+function sql($query, $params, $values, $action = "select") {
     $mysqli = getSession("mysqli");
-    $columns = array_keys($row);
-    $values = array_values($row);
-    $params = getParams($table, $columns);
 
-    $query = "INSERT INTO $table(" . implode(",", $columns) . ")" . " VALUES(" . str_repeat("?,", count($values));
-    $query = rtrim($query, ",") . ")";
-    $stmt = $mysqli->prepare($query);
-
-    $args = array_merge($params, $values);
-    foreach (array_keys($args) as $i) {
-        $args[$i] =& $args[$i];
-    }
-    $ref = new ReflectionClass("mysqli_stmt");
-    $method = $ref->getMethod("bind_param");
-    $method->invokeArgs($stmt, $args);
-
-    $stmt->execute();
-    $stmt->close();
-    return $mysqli->insert_id;
-}
-
-function updateRows($table, $row, $where) {
-    $mysqli = getSession("mysqli");
-    $columns = array_keys($row);
-    $values = array_values($row);
-    $params = array_merge(getParams($table, $columns), getParams($table, array_keys($where)));
-
-    if (!$params) {
-        return false;
-    }
-
-    //SET
-    $query = "UPDATE $table SET ";
-    foreach ($columns as $column) {
-        $query .= $column . "=?,";
-    }
-
-    //WHERE
-    $query = rtrim($query, ",") . " WHERE (TRUE)";
-    foreach ($where as $column => $value) {
-        $query .= " AND ($column = ?)";
-        $values[] = $value;
-    }
-
-    $stmt = $mysqli->prepare($query);
-    if (!$stmt) {
-        return false;
-    }
-
-    $args = array_merge($params, $values);
-    foreach (array_keys($args) as $i) {
-        $args[$i] =& $args[$i];
-    }
-    $ref = new ReflectionClass("mysqli_stmt");
-    $method = $ref->getMethod("bind_param");
-    $method->invokeArgs($stmt, $args);
-
-    $stmt->execute();
-    $updatedCount = $mysqli->affected_rows;
-    $stmt->close();
-    return $updatedCount;
-}
-
-function deleteRows($table, $where) {
-    // Soft delete
-    $row = ["deleted" => TRUE];
-    return updateRows($table, $row, $where);
-}
-
-function getRows($table, $conditions = [], $joins = [], $distinct = false, $append = "") {
-    $mysqli = getSession("mysqli");
-    $values = [];
-    $params = [];
-
-    $select = "SELECT ";
-    if ($distinct) {
-        $select .= "DISTINCT ";
-    }
-    $select .= implode(",", getColumns($table));
-
-    //JOIN
-    $join = "";
-    foreach($joins as $joinTable => $joinConditions) {
-        $joinConditions[] = "$joinTable.deleted = FALSE";
-        $join .= "JOIN $joinTable ON " . getConditions($joinTable, $joinConditions, $values, $params);
-    }
-
-    //WHERE
-    $conditions[] = "$table.deleted = FALSE";
-    $where = "WHERE " . getConditions($table, $conditions, $values, $params);
-
-    $query = "$select FROM $table $join $where $append";
     // Debug DB query
     // consoleLog($query);
     $stmt = $mysqli->prepare($query);
-    $args = array_merge($params, $values);
-    foreach (array_keys($args) as $i) {
-        $args[$i] =& $args[$i];
-    }
+    // if ($action == "select") varDump($args, $query);
 
-    if ($args) {
+    if ($values) {
+        $args = array_merge((array)$params, $values);
+        foreach (array_keys($args) as $i) {
+            $args[$i] =& $args[$i];
+        }
+
         $ref = new ReflectionClass("mysqli_stmt");
         $method = $ref->getMethod("bind_param");
         $method->invokeArgs($stmt, $args);
     }
 
     $stmt->execute();
-    $result = $stmt->get_result();
+
+    switch (strtolower($action)) {
+        case "insert":
+            $result = $mysqli->insert_id;
+            break;
+        case "update":
+            $result = $mysqli->affected_rows;
+            break;
+        case "select":
+            $result = $stmt->get_result();
+        default:
+            break;
+    }
+
     $stmt->close();
-
-    $rows = [];
-    if (!$result) {
-        return $rows;
-    }
-    while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
-    }
-
-    return $rows;
+    return $result;
 }
 
 // Returns a conditional string for queries,
@@ -346,8 +268,80 @@ function getConditions($table, $conditions, &$values, &$params) {
         }
     }
 
-    $params = array_merge($params, getParams($table, $columns));
-    return rtrim($str, " AND ");
+    $str = rtrim($str, " AND ") ?: "TRUE";
+    $params .= getParams($table, $columns);
+
+    return $str;
+}
+
+// $row = assoc_array('column' => 'value')
+function insertRow($table, $row) {
+    $mysqli = getSession("mysqli");
+    $columns = array_keys($row);
+    $params = getParams($table, $columns);
+    $values = array_values($row);
+
+    $query = "INSERT INTO $table(" . implode(",", $columns) . ")" . " VALUES(" . str_repeat("?,", count($values));
+    $query = rtrim($query, ",") . ")";
+    return sql($query, $params, $values, "insert");
+}
+
+function updateRows($table, $row, $conditions) {
+    $mysqli = getSession("mysqli");
+    $columns = array_keys($row);
+    $values = array_values($row);
+    $params = getParams($table, $columns);
+
+    if (!$params) {
+        return false;
+    }
+
+    //SET
+    $query = "UPDATE $table SET ";
+    foreach ($columns as $column) {
+        $query .= $column . " = ?,";
+    }
+    $query = rtrim($query, ",");
+
+    //WHERE
+    $query .= " WHERE " . getConditions($table, $conditions, $values, $params);
+    return sql($query, $params, $values, "update");
+}
+
+function getRows($table, $conditions = [], $joins = [], $distinct = false, $append = "") {
+    $values = [];
+    $params = "";
+
+    // SELECT
+    $select = "SELECT ";
+    if ($distinct) {
+        $select .= "DISTINCT ";
+    }
+    $select .= implode(",", getColumns($table));
+
+    //JOIN
+    $join = "";
+    foreach($joins as $joinTable => $joinConditions) {
+        $joinConditions[] = "$joinTable.deleted = FALSE";
+        $join .= "JOIN $joinTable ON " . getConditions($joinTable, $joinConditions, $values, $params);
+    }
+
+    //WHERE
+    $conditions[] = "$table.deleted = FALSE";
+    $where = "WHERE " . getConditions($table, $conditions, $values, $params);
+
+    $query = "$select FROM $table $join $where $append";
+    $result = sql($query, $params, $values);
+
+    $rows = [];
+    if (!$result) {
+        return $rows;
+    }
+    while ($row = $result->fetch_assoc()) {
+        $rows[] = $row;
+    }
+
+    return $rows;
 }
 
 function isRow($table, $column, $value) {

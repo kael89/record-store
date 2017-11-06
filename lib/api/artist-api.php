@@ -25,11 +25,16 @@ function updateArtist($id, $row) {
         return false;
     }
 
-    return updateRows("artists", $row, ["artistId" => $id]);
+    $conditions = [
+        ["artistId =", $id]
+    ];
+
+    return updateRows("artists", $row, $conditions);
 }
 
 function deleteArtist($id) {
-    deleteRows("artists", ["artistId" => $id]);
+    $row["deleted"] = TRUE;
+    return updateArtist($id, $row);
 }
 
 function isArtist($id) {

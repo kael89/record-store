@@ -21,11 +21,20 @@ function insertTrack($artistId, $recordId, $title, $position, $duration = 0) {
 }
 
 function updateTrack($id, $row) {
-    return updateRows("tracks", $row, ["trackId" => $id]);
+    if ($id < 1) {
+        return false;
+    }
+
+    $conditions = [
+        ["trackId =", $id]
+    ];
+
+    return updateRows("tracks", $row, $conditions);
 }
 
 function deleteTrack($id) {
-    return deleteRows("tracks", ["trackId" => $id]);
+    $row["deleted"] = TRUE;
+    return updateTrack($id, $row);
 }
 
 function isTrack($id) {

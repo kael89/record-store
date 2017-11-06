@@ -25,7 +25,15 @@ function createUser($firstName = "", $lastName = "", $email = "", $password = ""
 }
 
 function updateUser($id, $row) {
-    return updateRows("users", $row, ["userId" => $id]);
+    if ($id < 1) {
+        return false;
+    }
+
+    $conditions = [
+        ["userId =", $id]
+    ];
+    
+    return updateRows("users", $row, $conditions);
 }
 
 function loginUser($email, $password) {

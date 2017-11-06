@@ -19,7 +19,15 @@ function createGenre($name) {
 }
 
 function updateGenre($id, $row) {
-    return updateRows("genres", $row, ["genreId" => $id]);
+    if ($id < 1) {
+        return false;
+    }
+
+    $conditions = [
+        ["genreId =", $id]
+    ];
+
+    return updateRows("genres", $row, $conditions);
 }
 
 function isGenre($id) {

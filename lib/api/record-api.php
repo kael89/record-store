@@ -21,11 +21,20 @@ function insertRecord($genreId, $title, $releaseDate = "", $cover = "", $price =
 }
 
 function updateRecord($id, $row) {
-    return updateRows("records", $row, ["recordId" => $id]);
+    if ($id < 1) {
+        return false;
+    }
+
+    $conditions = [
+        ["recordId =", $id]
+    ];
+
+    return updateRows("records", $row, $conditions);
 }
 
 function deleteRecord($id) {
-    deleteRows("records", ["recordId" => $id]);
+    $row["deleted"] = TRUE;
+    return updateRecord($id, $row);
 }
 
 function isRecord($id) {
