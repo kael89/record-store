@@ -55,7 +55,7 @@ function getRecordById($id) {
     }
 
     $conditions = [
-        ["records.recordId =", $id]
+        ["recordId =", $id]
     ];
 
     $result = getRows("records", $conditions);
@@ -73,7 +73,7 @@ function getRecordsByGenreId($id) {
     }
 
     $conditions = [
-        ["records.genreId =", $id]
+        ["genreId =", $id]
     ];
 
     $results = getRows("records", $conditions);
@@ -103,11 +103,11 @@ function getRecordsByGenreName($name, $search = false) {
 function getRecordsByTitle($title, $search = false) {
     if ($search) {
         $conditions = [
-            ["records.title LIKE", $title]
+            ["title LIKE", $title]
         ];
     } else {
         $conditions = [
-            ["records.title =", $title]
+            ["title =", $title]
         ];
     }
 
@@ -135,14 +135,14 @@ function getRecordsByYear() {
 function getRecordsByPrice($price) {
     if (is_array($price)) {
         $conditions= [
-            ["records.price >=", $price[0]]
+            ["price >=", $price[0]]
         ];
         $conditions = [
-            ["records.price <=", $price[1]]
+            ["price <=", $price[1]]
         ];
     } else {
         $conditions = [
-            ["records.price =", $price]
+            ["price =", $price]
         ];
     }
 
@@ -168,7 +168,7 @@ function getRecordsByArtistId($id) {
     $joins = [
         "tracks" => [
             "tracks.recordId = records.recordId",
-            ["tracks.artistId =", $id]
+            ["artistId =", $id]
         ]
     ];
 
@@ -211,7 +211,7 @@ function getRecordByTrackId($id) {
     $joins = [
         "tracks" => [
             "tracks.recordId = records.recordId",
-            ["tracks.trackId =", $id]
+            ["trackId =", $id]
         ]
     ];
 

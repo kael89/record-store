@@ -55,7 +55,7 @@ function getArtistById($id) {
     }
 
     $conditions = [
-        ["artists.artistId =", $id]
+        ["artistId =", $id]
     ];
 
     $result = getRows("artists", $conditions);
@@ -70,11 +70,11 @@ function getArtistById($id) {
 function getArtistsByName($name, $search = false) {
     if ($search) {
         $conditions = [
-            ["artists.name LIKE", $name]
+            ["name LIKE", $name]
         ];
     } else {
         $conditions = [
-            ["artists.name =", $name]
+            ["name =", $name]
         ];
     }
     $order = "ORDER BY artists.name";
@@ -92,11 +92,11 @@ function getArtistsByName($name, $search = false) {
 function getArtistsByCountry($country, $search = false) {
     if ($search) {
         $conditions = [
-            ["artists.country LIKE", $country]
+            ["country LIKE", $country]
         ];
     } else {
         $conditions = [
-            ["artists.country =", $country]
+            ["country =", $country]
         ];
     }
     $order = "ORDER BY artists.country";
@@ -124,7 +124,7 @@ function getArtistsByGenreId($id) {
         "tracks" => ["tracks.artistId = artists.artistId"],
         "records" => [
             "records.recordId = tracks.recordsId",
-            ["records.genreId =", $id],
+            ["genreId =", $id],
         ]
     ];
 
@@ -156,7 +156,7 @@ function getArtistsByRecordId($id) {
     $joins = [
         "tracks" => [
             "tracks.artistId = artists.artistId",
-            ["tracks.recordId =", $id]
+            ["recordId =", $id]
         ]
     ];
 
@@ -191,7 +191,7 @@ function getArtistByTrackId($id) {
     $joins = [
         "tracks" => [
             "tracks.artistId = artists.artistId",
-            ["tracks.trackId =", $id]
+            ["trackId =", $id]
         ]
     ];
 

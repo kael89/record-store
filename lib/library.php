@@ -234,7 +234,8 @@ function updateRows($table, $row, $where) {
     $mysqli = getSession("mysqli");
     $columns = array_keys($row);
     $values = array_values($row);
-    $params = getParams($table, $columns) . getParams($table, array_keys($where));
+    $params = array_merge(getParams($table, $columns), getParams($table, array_keys($where)));
+
     if (!$params) {
         return false;
     }

@@ -34,8 +34,8 @@ function loginUser($email, $password) {
     }
 
     $conditions = [
-        ["users.email =", $email],
-        ["users.password =", getSalted($password)]
+        ["email =", $email],
+        ["password =", getSalted($password)]
     ];
     $result = getRows("users", $conditions);
 

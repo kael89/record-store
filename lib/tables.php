@@ -65,10 +65,7 @@ function getParams($tableName, $columns) {
 
     $params = "";
     foreach ($columns as $column) {
-        $parts = explode(" ", $column);
-        if ($parts) {
-            $key = $parts[0];
-        }
+        $key = $tableName . "." . explode(" ", $column)[0];
 
         if (array_key_exists($key, $table)) {
             $params .= $table[$key];

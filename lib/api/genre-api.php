@@ -47,7 +47,7 @@ function getGenreById($id) {
     }
 
     $conditions = [
-        ["genres.genreId =", $id]
+        ["genreId =", $id]
     ];
 
     $result = getRows("genres", $conditions);
@@ -62,11 +62,11 @@ function getGenreById($id) {
 function getGenreByName($name, $search = false) {
     if ($search) {
         $conditions = [
-            ["genres.name =", $name]
+            ["name =", $name]
         ];
     } else {
         $conditions = [
-            ["genres.name =", $name]
+            ["name =", $name]
         ];
     }
 
@@ -88,7 +88,7 @@ function getGenresByArtistId($id) {
         "records" => ["records.genreId = genres.genreId"],
         "tracks" => [
             "tracks.genreId = genres.genreId",
-            ["tracks.artistId =", $id]
+            ["artistId =", $id]
         ]
     ];
 
@@ -156,7 +156,7 @@ function getGenreByTrackId($id) {
         "records" => ["records.genreId = genres.genreId"],
         "tracks" => [
             "tracks.recordId = records.recordId",
-            ["tracks.trackId =", $id]
+            ["trackId =", $id]
         ]
     ];
 
