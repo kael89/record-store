@@ -7,15 +7,16 @@ requirePhp("view");
 
 // If $id is valid, we are updating an existing artist.
 // Otherwise, we are adding a new artist
-$id = getGet("id");
+$id = getId();
 if ($id) {
     $artist = getArtistById($id);
-    $name = $artist->getName();
-    $country = $artist->getCountry();
-    $foundationYear = $artist->getFoundationYear();
-    $logo = $artist->getLogoImage("m");
-    $photo = $artist->getPhotoImage("m");
-    $bio = $artist->getBio();
+
+    $name = outHtml($artist->getName());
+    $country = outHtml($artist->getCountry());
+    $foundationYear = (int)$artist->getFoundationYear();
+    $logo = outHtml($artist->getLogoImage("m"));
+    $photo = outHtml($artist->getPhotoImage("m"));
+    $bio = outHtml($artist->getBio());
     $records = $artist->getRecords();
 
     $logoAlt = "alt=\"$name logo\"";
@@ -23,7 +24,6 @@ if ($id) {
     $saveBtnText = "Save";
     $action = "edit_artist";
 } else {
-    $artist = "";
     $name = "";
     $country = "";
     $foundationYear = "";

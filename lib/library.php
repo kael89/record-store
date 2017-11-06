@@ -140,6 +140,10 @@ function getFile($var) {
     return isset($_FILE[$var]) ? $_FILE[$var] : null;
 }
 
+function getId() {
+    return (int)getGet("id");
+}
+
 /*** $_SESSION ***/
 function startSession() {
     requirePhp("class", "user");
@@ -200,6 +204,11 @@ function uploadImage($file, $type, $cat, $newName = "") {
 
     $targetDir = getImageDir($type, $cat);
     return uploadFile($file, $targetDir, $newName);
+}
+
+/*** SANITIZE OUTPUT ***/
+function outHtml($var) {
+    return filter_var($var, FILTER_SANITIZE_STRING);
 }
 
 /*** DATABASE ***/

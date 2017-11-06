@@ -7,26 +7,26 @@ requirePhp("view");
 
 // If $id is valid, we are updating an existing artist.
 // Otherwise, we are adding a new artist
-$id = getGet("id");
+$id = getId();
 $artistOptions = getArtistsAll();
 $genreOptions = getGenresAll();
 
 if ($id) {
     $record = getRecordById($id);
-    $genreId = $record->getGenreId($id);
-    $title = $record->getTitle();
+
+    $genreId = (int)$record->getGenreId($id);
+    $title = outHtml($record->getTitle());
     $artists = $record->getArtists();
-    $artistId = (count($artists) == 1) ? $artists[0]->getId() : 0;
+    $artistId = (count($artists) == 1) ? (int)$artists[0]->getId() : 0;
     $tracks = $record->getTracks();
-    $cover = $record->getCoverImage("m");
+    $cover = outHtml($record->getCoverImage("m"));
     $releaseDate = viewDate($record->getReleaseDate());
-    $price = $record->getPrice();
+    $price = viewPrice($record->getPrice());
     
     $coverAlt = "alt=\"$title cover\"";
     $saveBtnText = "Save";
     $action = "edit_record";
 } else {
-    $record = "";
     $genreId = 0;
     $title = "";
     $artistId = 0;
@@ -102,14 +102,20 @@ function printArtistOptions($artists, $selectedId) {
 
     foreach ($artists as $artist) {
         $select = ($artist->getId() == $selectedId) ? "selected" : "";
-        echo "<option value=\"{$artist->getId()}\" $select>{$artist->getName()}</option>";
+        $id = (int)$artist->getId();
+        $name = outHtml($artist->getName());
+
+        echo "<option value=\"$id\" $select>$name</option>";
     }
 }
 
 function printGenreOptions($genres, $selectedId) {
     foreach ($genres as $genre) {
         $select = ($genre->getId() == $selectedId) ? "selected" : "";
-        echo "<option value=\"{$genre->getId()}\" $select>{$genre->getName()}</option>";
+        $id = (int)$genre->getId();
+        $name = outHtml($genre->getName());
+
+        echo "<option value=\"$id\" $select>$name</option>";
     }
 }
 
@@ -121,10 +127,10 @@ function printTracks($tracks) {
 _END;
 
     foreach ($tracks as $track) {
-        $id = $track->getId();
-        $artistId = $track->getArtistId();
-        $position = $track->getPosition();
-        $title = $track->getTitle();
+        $id = (int)$track->getId();
+        $artistId = (int)$track->getArtistId();
+        $position = (int)$track->getPosition();
+        $title = outHtml($track->getTitle());
         $duration = viewDuration($track->getDuration());
 
         echo <<<_END

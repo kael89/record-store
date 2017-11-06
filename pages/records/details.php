@@ -5,7 +5,7 @@ requirePhp("class", "record");
 requirePhp("api", 'record');
 requirePhp("view");
 
-$id = getGet("id");
+$id = getId();
 $record = getRecordById($id);
 if (!$record) {
     if (getGet("action") == 'insert') {
@@ -17,11 +17,11 @@ if (!$record) {
     die($err);
 }
 
-$genre = $record->getGenre();
-$title = $record->getTitle();
+$genre = outHtml($record->getGenre());
+$title = outHtml($record->getTitle());
 $artist = viewArtistLink($record->getArtists());
 $tracks = $record->getTracks();
-$cover = $record->getCoverImage("m");
+$cover = outHtml($record->getCoverImage("m"));
 $releaseDate = viewDate($record->getReleaseDate());
 $price = viewPrice($record->getPrice());
 
@@ -76,8 +76,8 @@ $successMsg = getGet("add") ? "Record added!" : "Record details updated!";
 function printTracks($tracks) {
     echo "<table class=\"table\"><caption>Tracklist</caption><tbody>";
     foreach ($tracks as $track) {
-        $position = $track->getPosition();
-        $title = $track->getTitle();
+        $position = (int)$track->getPosition();
+        $title = outHtml($track->getTitle());
         $duration = viewDuration($track->getDuration());
 
         echo <<<_END

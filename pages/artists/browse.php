@@ -35,9 +35,9 @@ function printArtists($artists, $lineCount) {
             $rowEnd = "";
         }
 
-        $id = $artist->getId();
-        $name = $artist->getName();
-        $logo = $artist->getLogoImage();
+        $id = (int)$artist->getId();
+        $name = outHtml($artist->getName());
+        $logo = outHtml($artist->getLogoImage());
 
         echo <<<_END
 $rowStart

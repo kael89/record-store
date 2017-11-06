@@ -25,12 +25,12 @@ function getRecordList() {
     $list = [];
     foreach ($records as $record) {
         $list[] = [
-            "id" => $record->getId(),
-            "title" => $record->getTitle(),
+            "id" => (int)$record->getId(),
+            "title" => outHtml($record->getTitle()),
             "recordLink" => viewRecordLink($record),
             "artistLink" => viewArtistLink($record->getArtists()),
             "date" => viewDate($record->getReleaseDate()),
-            "genre" => $record->getGenre(),
+            "genre" => outHtml($record->getGenre()),
             "price" => viewPrice($record->getPrice())
         ];
     }

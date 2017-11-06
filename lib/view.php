@@ -8,7 +8,7 @@ function viewArtistName($artists) {
             return "N/A";
             break;
         case 1:
-            return $artists[0]->getName();
+            return outHtml($artists[0]->getName());
             break;
         default:
             return "Various";
@@ -17,10 +17,10 @@ function viewArtistName($artists) {
 }
 
 function viewArtistLink($artists) {
-    $name = viewArtistName($artists);
+    $name = outHtml(viewArtistName($artists));
 
     if (count($artists) == 1) {
-        $id = $artists[0]->getId();
+        $id = (int)$artists[0]->getId();
         $link = "<a title=\"$name details\" href=\"artists.php?page=details&id=$id\">$name</a>";
     } else {
         $link = $name;
@@ -30,13 +30,14 @@ function viewArtistLink($artists) {
 }
 
 function viewRecordLink($record) {
-    $id = $record->getId();
-    $title = $record->getTitle();
+    $id = (int)$record->getId();
+    $title = outHtml($record->getTitle());
 
     return "<a title=\"$title details\" href=\"records.php?page=details&id=$id\">$title</a>";
 }
 
 function viewDate($date) {
+    $date = outHtml($date);
     return (intval($date)) ? date("Y-m-d", strtotime($date)) : "";
 }
 
@@ -48,9 +49,8 @@ function viewDuration($secs) {
 }
 
 function viewPrice($price) {
-    if (!is_numeric($price)) {
-        return false;
-    } elseif (strlen($price) < 5) {
+    $price = filter_var($price, FILTER_VALIDATE_FLOAT);
+    if (strlen($price) < 5) {
         $price = "&nbsp;$price";
     }
 

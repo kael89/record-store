@@ -5,7 +5,7 @@ requirePhp("class", "artist");
 requirePhp("api", "artist");
 requirePhp("view");
 
-$id = getGet("id");
+$id = getId();
 $artist = getArtistById($id);
 if (!$artist) {
     if (getGet("action") == 'insert') {
@@ -17,12 +17,12 @@ if (!$artist) {
     die($err);
 }
 
-$name = $artist->getName();
-$country = $artist->getCountry();
-$foundationYear = $artist->getFoundationYear();
-$logo = $artist->getLogoImage("m");
-$photo = $artist->getPhotoImage("m");
-$bio = $artist->getBio();
+$name = outHtml($artist->getName());
+$country = outHtml($artist->getCountry());
+$foundationYear = (int)$artist->getFoundationYear();
+$logo = outHtml($artist->getLogoImage("m"));
+$photo = outHtml($artist->getPhotoImage("m"));
+$bio = outHtml($artist->getBio());
 $records = $artist->getRecords();
 
 $access = getSession("admin") ? "" : "hidden";

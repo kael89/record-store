@@ -25,11 +25,11 @@ function getArtistList() {
     $list = [];
     foreach ($artists as $artist) {
         $list[] = [
-            "id" => $artist->getId(),
-            "name" => $artist->getName(),
+            "id" => (int)$artist->getId(),
+            "name" => outHtml($artist->getName()),
             "artistLink" => viewArtistLink([$artist]),
-            "country" => $artist->getCountry(),
-            "year" => $artist->getFoundationYear(),
+            "country" => outHtml($artist->getCountry()),
+            "year" => (int)$artist->getFoundationYear(),
             "records" => count(getRecordsByArtistId($artist->getId()))
         ];
     }

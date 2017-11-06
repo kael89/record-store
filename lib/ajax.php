@@ -59,7 +59,7 @@ function ajaxEditArtist($insert = false) {
         $id = $artist->getId();
     } else {
         // Update database through object methods
-        $id = getGet("id");
+        $id = getId();
         if (!$id) {
             return 0;
         }
@@ -74,11 +74,10 @@ function ajaxEditArtist($insert = false) {
     }
 
     return $id;
-    
 }
 
 function ajaxDeleteArtist() {
-    $artist = getArtistById(getGet("id"));
+    $artist = getArtistById(getId());
     $artist->delete();
 }
 
@@ -98,7 +97,7 @@ function ajaxEditRecord($insert = false) {
         $id = $record->getId();
     } else {
         // Update database through object methods
-        $id = getGet("id");
+        $id = getId();
         if (!$id) {
             return 0;
         }
@@ -117,6 +116,6 @@ function ajaxEditRecord($insert = false) {
 }
 
 function ajaxDeleteRecord() {
-    $record = getRecordById(getGet("id"));
+    $record = getRecordById(getId());
     return $record->delete();
 }
