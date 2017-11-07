@@ -7,13 +7,7 @@ requirePhp("api", "user");
 
 switch (getGet("action")) {
     case "get_rows":
-        $table = getPost("table");
-        $conditions = getPost("conditions");
-
-        $result = dbSelect($table, $conditions);
-        if ($result) {
-            echo json_encode($result);
-        }
+        echo getRows();
         break;
     case "login":
         echo ajaxLogin();
@@ -38,6 +32,16 @@ switch (getGet("action")) {
         break;
     default:
         break;
+}
+
+function getRows() {
+    $table = getPost("table");
+    $conditions = getPost("conditions");
+
+    $result = dbSelect($table, $conditions);
+    if ($result) {
+        return json_encode($result);
+    }
 }
 
 function ajaxLogin() {

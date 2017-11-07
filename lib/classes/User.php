@@ -17,7 +17,7 @@ class User {
         $this->admin = $admin;
     }
 
-    public static function create($firstName, $lastName, $email, $password, $admin = 0) {
+    public static function create($firstName, $lastName, $email, $password, $admin = false) {
         $insertId = insertUser($firstName, $lastName, $email, $password);
         if (!$insertId) {
             return null;

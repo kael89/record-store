@@ -7,14 +7,16 @@ requirePhp("api", "user");
 switch (getGet("action")) {
     case "signup":
         extract($_POST);
-        $user = User::create($firstName, $lastName, $email, $password);
+        $user = User::create($firstName, $lastName, $email, $password, true);
         if ($user) {
             $user->login();
         }
         break;
     case "logout":
         $user = getSession("user");
-        $user->logout();
+        if ($user) {
+            $user->logout();
+        }
         break;
     default:
         break;
