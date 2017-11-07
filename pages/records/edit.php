@@ -27,6 +27,10 @@ if ($id) {
     $saveBtnText = "Save";
     $action = "edit_record";
 } else {
+    if (!getSession("admin")) {
+        die("Please <a href=\"index.php?page=login\" title=\"Login page\">login</a> in order to add an artist");
+    }
+
     $genreId = 0;
     $title = "";
     $artistId = 0;

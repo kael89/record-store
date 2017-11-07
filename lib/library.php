@@ -284,7 +284,7 @@ function getConditions($table, $conditions, &$values, &$params) {
 }
 
 // $row = assoc_array('column' => 'value')
-function insertRow($table, $row) {
+function dbInsert($table, $row) {
     $mysqli = getSession("mysqli");
     $columns = array_keys($row);
     $params = getParams($table, $columns);
@@ -295,7 +295,7 @@ function insertRow($table, $row) {
     return sql($query, $params, $values, "insert");
 }
 
-function updateRows($table, $row, $conditions) {
+function dbUpdate($table, $row, $conditions) {
     $mysqli = getSession("mysqli");
     $columns = array_keys($row);
     $values = array_values($row);
@@ -317,7 +317,7 @@ function updateRows($table, $row, $conditions) {
     return sql($query, $params, $values, "update");
 }
 
-function getRows($table, $conditions = [], $joins = [], $distinct = false, $append = "") {
+function dbSelect($table, $conditions = [], $joins = [], $distinct = false, $append = "") {
     $values = [];
     $params = "";
 

@@ -17,7 +17,7 @@ function insertTrack($artistId, $recordId, $title, $position, $duration = 0) {
     $row["position"] = $position;
     $row["duration"] = $duration;
 
-    return insertRow("tracks", $row);
+    return dbInsert("tracks", $row);
 }
 
 function updateTrack($id, $row) {
@@ -29,7 +29,7 @@ function updateTrack($id, $row) {
         ["trackId =", $id]
     ];
 
-    return updateRows("tracks", $row, $conditions);
+    return dbUpdate("tracks", $row, $conditions);
 }
 
 function deleteTrack($id) {
@@ -42,7 +42,7 @@ function isTrack($id) {
 }
 
 function getTracksAll() {
-    $results = getRows("tracks");
+    $results = dbSelect("tracks");
     if (!$results) {
         return [];
     }
@@ -65,7 +65,7 @@ function getTrackById($id) {
         ["trackId =", $id]
     ];
 
-    $result = getRows("tracks", $columns);
+    $result = dbSelect("tracks", $columns);
     if (!$result) {
         return null;
     }
@@ -83,7 +83,7 @@ function getTracksByArtistId($id) {
         ["artistId =", $id]
     ];
 
-    $results = getRows("tracks", $conditions);
+    $results = dbSelect("tracks", $conditions);
     if (!$results) {
         return [];
     }
@@ -122,7 +122,7 @@ function getTracksByTitle($title, $search = false) {
         ];
     }
 
-    $results = getRows("tracks", $conditions);
+    $results = dbSelect("tracks", $conditions);
     if (!$results) {
         return [];
     }
@@ -151,7 +151,7 @@ function getTracksByDuration($duration) {
         ];
     }
 
-    $results = getRows("tracks", $conditions);
+    $results = dbSelect("tracks", $conditions);
     if (!$results) {
         return [];
     }
@@ -177,7 +177,7 @@ function getTracksByGenreId($id) {
         ]
     ];
 
-    $results = getRows("tracks", [], $joins, true);
+    $results = dbSelect("tracks", [], $joins, true);
     if (!$results) {
         return [];
     }
@@ -211,7 +211,7 @@ function getTracksByRecordId($id) {
     ];
     $order = "ORDER BY tracks.position";
     
-    $results = getRows("tracks", $conditions, [], false, $order);
+    $results = dbSelect("tracks", $conditions, [], false, $order);
     if (!$results) {
         return [];
     }

@@ -17,6 +17,25 @@ class User {
         $this->admin = $admin;
     }
 
+    public static function create($firstName, $lastName, $email, $password, $admin = 0) {
+        $insertId = insertUser($firstName, $lastName, $email, $password);
+        if (!$insertId) {
+            return null;
+        }
+
+        return new User($insertId, $firstName, $lastName, $email, $password, $admin);
+    }
+
+    public function login() {
+        setSession(["user" => $this]);
+        setSession(["admin" => $this->getAdmin()]);
+    }
+
+    public function logout() {
+        unsetSession("user");
+        unsetSession("admin");
+    }
+
     public function getId() {
         return $this->id;
     }

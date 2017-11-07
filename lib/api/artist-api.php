@@ -17,7 +17,7 @@ function insertArtist($name, $country = "", $foundationYear = 0, $logo = "", $ph
     $row["photo"] = $photo;
     $row["bio"] = $bio;
 
-    return insertRow("artists", $row);
+    return dbInsert("artists", $row);
 }
 
 function updateArtist($id, $row) {
@@ -29,7 +29,7 @@ function updateArtist($id, $row) {
         ["artistId =", $id]
     ];
 
-    return updateRows("artists", $row, $conditions);
+    return dbUpdate("artists", $row, $conditions);
 }
 
 function deleteArtist($id) {
@@ -45,7 +45,7 @@ function getArtistsAll() {
     $order = "ORDER BY artists.name";
 
     $artists = [];
-    $results = getRows("artists", [], [], false, $order);
+    $results = dbSelect("artists", [], [], false, $order);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -63,7 +63,7 @@ function getArtistById($id) {
         ["artistId =", $id]
     ];
 
-    $result = getRows("artists", $conditions);
+    $result = dbSelect("artists", $conditions);
     if (!$result) {
         return null;
     }
@@ -85,7 +85,7 @@ function getArtistsByName($name, $search = false) {
     $order = "ORDER BY artists.name";
 
     $artists = [];
-    $results = getRows("artists", $conditions, [], false, $order);
+    $results = dbSelect("artists", $conditions, [], false, $order);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -107,7 +107,7 @@ function getArtistsByCountry($country, $search = false) {
     $order = "ORDER BY artists.country";
 
     $artists = [];
-    $results = getRows("artists", $columns);
+    $results = dbSelect("artists", $columns);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -134,7 +134,7 @@ function getArtistsByGenreId($id) {
     ];
 
     $artists = [];
-    $results = getRows("artists", [], $joins, true);
+    $results = dbSelect("artists", [], $joins, true);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -166,7 +166,7 @@ function getArtistsByRecordId($id) {
     ];
 
     $artists = [];
-    $results = getRows("artists", [], $joins, true);
+    $results = dbSelect("artists", [], $joins, true);
     foreach ($results as $result) {
         extract($result);
         $artists[] = new Artist($artistId, $name, $country, $foundationYear, $logo, $photo, $bio);
@@ -200,7 +200,7 @@ function getArtistByTrackId($id) {
         ]
     ];
 
-    $result = getRows("artists", $conditions, $joins);
+    $result = dbSelect("artists", $conditions, $joins);
     if (!$result) {
         return null;
     }

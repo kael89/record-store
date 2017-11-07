@@ -4,7 +4,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/view.php";
 
 if (getGet("action") == "logout") {
     requirePhp("api", "user");
-    logoutUser();
+    $user = getSession("user");
+    $user->logout();
 }
 
 $page = getGet("page");

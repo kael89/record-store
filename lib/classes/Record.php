@@ -32,6 +32,7 @@ class Record {
 
         return new Record($insertId, $genreId, $title, $releaseDate, $cover, $price);
     }
+    
     public function delete() {
         $this->initTracks();
         foreach ($this->tracks as $track) {

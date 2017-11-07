@@ -10,7 +10,7 @@ function createGenre($name) {
         return null;
     }
 
-    $insertId = insertRow("genres", ["name" => $name]);
+    $insertId = dbInsert("genres", ["name" => $name]);
     if (!$insertId) {
         return null;
     }
@@ -27,7 +27,7 @@ function updateGenre($id, $row) {
         ["genreId =", $id]
     ];
 
-    return updateRows("genres", $row, $conditions);
+    return dbUpdate("genres", $row, $conditions);
 }
 
 function isGenre($id) {
@@ -35,7 +35,7 @@ function isGenre($id) {
 }
 
 function getGenresAll() {
-    $results = getRows("genres");
+    $results = dbSelect("genres");
     if (!$results) {
         return [];
     }
@@ -58,7 +58,7 @@ function getGenreById($id) {
         ["genreId =", $id]
     ];
 
-    $result = getRows("genres", $conditions);
+    $result = dbSelect("genres", $conditions);
     if (!$result) {
         return null;
     }
@@ -78,7 +78,7 @@ function getGenreByName($name, $search = false) {
         ];
     }
 
-    $result = getRows("genres", $conditions);
+    $result = dbSelect("genres", $conditions);
     if (!$result) {
         return null;
     }
@@ -101,7 +101,7 @@ function getGenresByArtistId($id) {
     ];
 
     $genres = [];
-    $results = getRows("genres", [], $joins, true);
+    $results = dbSelect("genres", [], $joins, true);
     foreach ($results as $result) {
         extract($result);
         $genres[] = new Genre($genreId, $name);
@@ -132,7 +132,7 @@ function getGenreByRecordId($id) {
         "records" => ["records.genreId = genres.genreId"]
     ];
 
-    $result = getRows("genres", $columns);
+    $result = dbSelect("genres", $columns);
     if (!$result) {
         return null;
     }
@@ -169,7 +169,7 @@ function getGenreByTrackId($id) {
     ];
 
     $genres = [];
-    $results = getRows("genres", [], $joins, true);
+    $results = dbSelect("genres", [], $joins, true);
     foreach ($results as $result) {
         extract($result);
         $genres[] = new Genre($genreId, $name);

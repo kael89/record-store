@@ -24,7 +24,7 @@ class Artist {
         $this->bio = $bio;
     }
 
-    public function create($name, $country, $foundationYear, $logo = "", $photo = "", $bio = "") {
+    public static function create($name, $country, $foundationYear, $logo = "", $photo = "", $bio = "") {
         $insertId = insertArtist($name, $country, $foundationYear, $logo, $photo, $bio);
         if (!$insertId) {
             return null;

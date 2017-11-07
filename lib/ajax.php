@@ -4,23 +4,19 @@ requirePhp("tables");
 requirePhp("api", "artist");
 requirePhp("api", "record");
 requirePhp("api", "user");
-requirePhp("classes", "user");
 
 switch (getGet("action")) {
     case "get_rows":
         $table = getPost("table");
         $conditions = getPost("conditions");
 
-        $result = getRows($table, $conditions);
+        $result = dbSelect($table, $conditions);
         if ($result) {
             echo json_encode($result);
         }
         break;
     case "login":
-        $email = getPost("email");
-        $password = getPost("password");
-
-        echo json_encode(loginUser($email, $password));
+        echo ajaxLogin();
         break;
     case "add_artist":
         echo ajaxEditArtist(true);
@@ -42,6 +38,18 @@ switch (getGet("action")) {
         break;
     default:
         break;
+}
+
+function ajaxLogin() {
+    $email = getPost("email");
+    $password = getPost("password");
+    $user = getUser($email, $password);
+    if (!$user) {
+        return false;
+    }
+
+    $user->login();
+    return true;
 }
 
 function ajaxEditArtist($insert = false) {

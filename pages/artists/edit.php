@@ -24,6 +24,10 @@ if ($id) {
     $saveBtnText = "Save";
     $action = "edit_artist";
 } else {
+    if (!getSession("admin")) {
+        die("Please <a href=\"index.php?page=login\" title=\"Login page\">login</a> in order to add an artist");
+    }
+
     $name = "";
     $country = "";
     $foundationYear = "";

@@ -32,9 +32,9 @@ function validateEmail(valid) {
         url: '/lib/ajax.php?action=get_rows',
         data: {
             "table": 'users',
-            "columns": {
-                "email": "='" + email + "'"
-            }
+            "conditions": [
+                ["email =", email]
+            ]
         }
     }).done(function(result) {
         if (result) {

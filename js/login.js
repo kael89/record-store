@@ -29,7 +29,8 @@ function validateUser(valid) {
             "password": password
         }
     }).done(function(result) {
-        if (result == 'true') {
+        // console.log(result); return;
+        if (result ) {
             removeError('email');
             $('#loginForm')[0].submit();
         } else {

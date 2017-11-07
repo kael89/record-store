@@ -17,7 +17,7 @@ function insertRecord($genreId, $title, $releaseDate = "", $cover = "", $price =
     $row["cover"] = $cover;
     $row["price"] = $price;
 
-    return insertRow("records", $row);
+    return dbInsert("records", $row);
 }
 
 function updateRecord($id, $row) {
@@ -29,7 +29,7 @@ function updateRecord($id, $row) {
         ["recordId =", $id]
     ];
 
-    return updateRows("records", $row, $conditions);
+    return dbUpdate("records", $row, $conditions);
 }
 
 function deleteRecord($id) {
@@ -44,7 +44,7 @@ function isRecord($id) {
 function getRecordsAll($sort = true) {
     $orderyBy = ($sort) ? "ORDER BY records.title" : "";
 
-    $results = getRows("records", [], [], false, $orderyBy);
+    $results = dbSelect("records", [], [], false, $orderyBy);
     if (!$results) {
         return [];
     }
@@ -67,7 +67,7 @@ function getRecordById($id) {
         ["recordId =", $id]
     ];
 
-    $result = getRows("records", $conditions);
+    $result = dbSelect("records", $conditions);
     if (!$result) {
         return null;
     }
@@ -85,7 +85,7 @@ function getRecordsByGenreId($id) {
         ["genreId =", $id]
     ];
 
-    $results = getRows("records", $conditions);
+    $results = dbSelect("records", $conditions);
     if (!$results) {
         return [];
     }
@@ -122,7 +122,7 @@ function getRecordsByTitle($title, $search = false) {
 
     $order = "ORDER BY records.title";
 
-    $results = getRows("records", $conditions, [], false, $order);
+    $results = dbSelect("records", $conditions, [], false, $order);
     if (!$results) {
         return [];
     }
@@ -155,7 +155,7 @@ function getRecordsByPrice($price) {
         ];
     }
 
-    $results = getRows("records", $conditions);
+    $results = dbSelect("records", $conditions);
     if (!$results) {
         return [];
     }
@@ -181,7 +181,7 @@ function getRecordsByArtistId($id) {
         ]
     ];
 
-    $results = getRows("records", [], $joins, true);
+    $results = dbSelect("records", [], $joins, true);
     if (!$results) {
         return [];
     }
@@ -224,7 +224,7 @@ function getRecordByTrackId($id) {
         ]
     ];
 
-    $results = getRows("records", [], $joins);
+    $results = dbSelect("records", [], $joins);
     if (!$results) {
         return null;
     }
