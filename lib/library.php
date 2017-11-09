@@ -213,10 +213,23 @@ function outHtml($var) {
 
 /*** DATABASE ***/
 function connectToDB() {
-    $hostname = "localhost";
-    $username = "root";
-    $password = "kkzara2017!";
-    $database = "record_store";
+    // Set this to false for use in non-Heroku production environments
+    $heroku = true;
+
+    if ($heroku) {
+        $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+        $hostname = $url["host"];
+        $username = $url["user"];
+        $password = $url["pass"];
+        $database = substr($url["path"], 1);
+    } else {
+        // Substitute those with your database credentials!
+        $hostname = "localhost";
+        $username = "root";
+        $password = "root";
+        $database = "record_store";
+    }
 
     $mysqli = new mysqli($hostname, $username, $password, $database);
     setSession(["mysqli" => $mysqli]);
