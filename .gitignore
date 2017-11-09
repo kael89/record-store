@@ -1,3 +1,4 @@
-img
-template
+vendor/
+img/
+.env
 
