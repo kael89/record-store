@@ -3,7 +3,7 @@
 // Max file size: 1MB
 define("MAX_FILE_SIZE", 1048576);
 // Code environment
-define("CODE_END", "heroku");
+define("CODE_ENV", "heroku");
 
 if (!isset($mysqli)) {
     $mysqli = connectToDB(); 
