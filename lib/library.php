@@ -2,6 +2,8 @@
 // Define constants
 // Max file size: 1MB
 define("MAX_FILE_SIZE", 1048576);
+// Code environment
+define("CODE_END", "heroku");
 
 if (!isset($mysqli)) {
     $mysqli = connectToDB(); 
@@ -56,8 +58,10 @@ function getImageDir($type, $category) {
 }
 
 function getImageSrc($type, $category, $name) {
+    $host = (CODE_ENV == "heroku") ? "https://s3-us-west-2.amazonaws.com/heroku-recordstore" : "";
     $imagePath = getImageDir($type, $category) . "/" . $name;
     $lastModified = filemtime($imagePath);
+
     return "/img/$type/$category/$name?=$lastModified";
 }
 
@@ -213,10 +217,7 @@ function outHtml($var) {
 
 /*** DATABASE ***/
 function connectToDB() {
-    // Set this to false for use in non-Heroku production environments
-    $heroku = true;
-
-    if ($heroku) {
+    if (CODE_ENV == "heroku") {
         $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
         $hostname = $url["host"];
