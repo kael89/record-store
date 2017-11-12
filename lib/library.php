@@ -3,7 +3,7 @@
 // Max file size: 1MB
 define("MAX_FILE_SIZE", 1048576);
 // Code environment (heroku/local)
-define("CODE_ENV", "local");
+define("CODE_ENV", "heroku");
 // Configuration file
 define("CONFIG_FILE", "/opt/lampp/config/recordstore.ini");
 
@@ -204,10 +204,6 @@ function uploadFile($file, $targetDir, $newName = "") {
 }
 
 function uploadImage($file, $cat, $type, $newName = "") {
-    if ($file["error"] != UPLOAD_ERR_OK) {
-        return "";
-    }
-
     $finfo = new finfo();
     $fileType = $finfo->file($file["tmp_name"]);
     if (strpos($fileType, "image") === false) {
