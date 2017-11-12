@@ -2,8 +2,10 @@
 // Define constants
 // Max file size: 1MB
 define("MAX_FILE_SIZE", 1048576);
-// Code environment
+// Code environment (heroku/local)
 define("CODE_ENV", "heroku");
+// Configuration file
+define("CONFIG_FILE", "/opt/lampp/config/recordstore.ini");
 
 if (!isset($mysqli)) {
     $mysqli = connectToDB(); 
@@ -62,7 +64,7 @@ function getImageSrc($type, $category, $name) {
     $imagePath = getImageDir($type, $category) . "/" . $name;
     $lastModified = filemtime($imagePath);
 
-    return "/img/$type/$category/$name?=$lastModified";
+    return "$host/img/$type/$category/$name?=$lastModified";
 }
 
 function requirePhp($type, $name = "") {
@@ -225,11 +227,12 @@ function connectToDB() {
         $password = $url["pass"];
         $database = substr($url["path"], 1);
     } else {
-        // Substitute those with your database credentials!
+        $config = parse_ini_file(CONFIG_FILE);
+
         $hostname = "localhost";
-        $username = "root";
-        $password = "root";
-        $database = "record_store";
+        $username = $config["user"];
+        $password = $config["pass"];
+        $database = $config["database"];
     }
 
     $mysqli = new mysqli($hostname, $username, $password, $database);

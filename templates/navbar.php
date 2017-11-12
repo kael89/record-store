@@ -10,9 +10,6 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
 
 /*** View ***/
 ?>
-<div class="row">
-    <img class="img-responsive" src="img/logo.png" alt="Metal Militia Logo">
-</div>
 <nav class="row navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -21,7 +18,7 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Menu</a>
+            <a id="menu-index" class="navbar-brand" href="index.php?page=main">Metal Militia</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -45,7 +42,6 @@ $logoutUri .= (strpos($logoutUri, '?') === false) ? '?action=logout' : '&action=
                         <?php } ?>
                     </ul>
                 </li>
-                <li id="menu-index"><a href="index.php?page=about" title="About">About</a></li>
             </ul>
             <div class="navbar-right">
                 <?php if ($user) { ?>

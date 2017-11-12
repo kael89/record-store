@@ -22,8 +22,8 @@ function navbarControl() {
     if (cat === '') {
         cat = 'index';
     }
-
-    $('#navbar > ul > li#menu-' + cat).addClass('active')
+    console.log('#menu -' + cat);
+    $('#navbar #menu-' + cat).addClass('active')
 }
 
 function letterNavbarControl() {
