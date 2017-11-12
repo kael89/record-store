@@ -31,12 +31,7 @@ body {
 
 #container {
     overflow: auto;
-}
-
-#main {
-    height: 93%;
     position: relative;
-    padding-top: 30px;
 }
 
 legend {
@@ -72,8 +67,7 @@ legend span {
 }
 
 .navbar {
-    height: 6%;
-    margin-bottom: 0px;
+    margin-bottom: 20px;
 }
 
 .letter-navbar ul {
@@ -156,8 +150,6 @@ legend span {
 }
 
 #copyright {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    text-align: right;
+    position: fixed;
+    bottom: 10px;
 }

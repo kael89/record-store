@@ -22,7 +22,6 @@ function navbarControl() {
     if (cat === '') {
         cat = 'index';
     }
-    console.log('#menu -' + cat);
     $('#navbar #menu-' + cat).addClass('active')
 }
 

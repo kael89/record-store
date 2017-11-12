@@ -23,8 +23,3 @@
         </ul>
     </p>
 </article>
-<footer id="copyright">
-    Kostas Karvounis, 2017<br>
-    Distributed under GNU General Public Licencse v3.0<br>
-    Copyrights of record & band photos belong to their respective owners, and are used for educational reasons.<br>
-</footer>
