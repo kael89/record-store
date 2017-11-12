@@ -55,19 +55,19 @@ function getFilePath($path) {
     return $_SERVER["DOCUMENT_ROOT"] . "/$path"; 
 }
 
-function getImageDir($type, $category) {
-    return getFilePath("img/$type/$category");
+function getImageDir($cat, $type) {
+    return getFilePath("img/$cat/$type");
 }
 
-function getImageSrc($type, $category, $name) {
+function getImageSrc($cat, $type, $name) {
     $host = (CODE_ENV == "heroku") ? "https://s3-us-west-2.amazonaws.com/heroku-recordstore" : "";
-    $imagePath = getImageDir($type, $category) . "/" . $name;
+    $imagePath = getImageDir($cat, $type) . "/" . $name;
     $lastModified = filemtime($imagePath);
 
-    return "$host/img/$type/$category/$name?=$lastModified";
+    return "$host/img/$cat/$type/$name?=$lastModified";
 }
 
-function requirePhp($type, $name = "") {
+function requirePhp($cat, $name = "") {
     // Tables for file categories that can be included as a whole
     $api = [
         "artist" => "lib/api/artist-api.php",
@@ -89,11 +89,11 @@ function requirePhp($type, $name = "") {
 
     $filepaths = [];
     $arr = [];
-    switch ($type) {
+    switch ($cat) {
         // Back-end functionality
         case "api":
         case "class":
-            $arr = $$type;
+            $arr = $$cat;
             if ($name == "") {
                 $filepaths = $arr;
             } else {
@@ -203,14 +203,18 @@ function uploadFile($file, $targetDir, $newName = "") {
     return $targetFile;
 }
 
-function uploadImage($file, $type, $cat, $newName = "") {
+function uploadImage($file, $cat, $type, $newName = "") {
     if ($file["error"] != UPLOAD_ERR_OK) {
         return "";
     }
-    // $finfo = finfo_open()
-    // if ()
 
-    $targetDir = getImageDir($type, $cat);
+    $finfo = new finfo();
+    $fileType = $finfo->file($file["tmp_name"]);
+    if (strpos($fileType, "image") === false) {
+        return "";
+    }
+
+    $targetDir = getImageDir($cat, $type);
     return uploadFile($file, $targetDir, $newName);
 }
 
