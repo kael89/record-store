@@ -1,15 +1,16 @@
 <?php
+// Heroku autoload
+require_once $_SERVER["DOCUMENT_ROOT"] . "/vendor/autoload.php";
+
 // Define constants
 // Max file size: 1MB
 define("MAX_FILE_SIZE", 1048576);
 // Code environment (heroku/local)
 define("CODE_ENV", "heroku");
-// Configuration file
+// AWS S3 Bucket name
+define("S3_BUCKET", "heroku-recordstore");
+// Local configuration file
 define("CONFIG_FILE", "/opt/lampp/config/recordstore.ini");
-
-if (!isset($mysqli)) {
-    $mysqli = connectToDB(); 
-}
 
 /*** DEBUG ***/
 // Debugging functions accept arbitrary number of arguments
@@ -62,9 +63,8 @@ function getImageDir($cat, $type) {
 function getImageSrc($cat, $type, $name) {
     $host = (CODE_ENV == "heroku") ? "https://s3-us-west-2.amazonaws.com/heroku-recordstore" : "";
     $imagePath = getImageDir($cat, $type) . "/" . $name;
-    $lastModified = filemtime($imagePath);
 
-    return "$host/img/$cat/$type/$name?=$lastModified";
+    return "$host/img/$cat/$type/$name";
 }
 
 function requirePhp($cat, $name = "") {
@@ -171,9 +171,7 @@ function getSession($var) {
         startSession();
     }
 
-    if (isset($_SESSION[$var])) {
-        return $_SESSION[$var];
-    }
+    return (array_key_exists($var, $_SESSION)) ? $_SESSION[$var] : null;
 }
 
 function unsetSession($var) {
@@ -185,9 +183,17 @@ function unsetSession($var) {
 }
 
 /*** FILE UPLOAD ***/
+function getS3Client() {
+    $s3Client = new Aws\S3\S3Client([
+        "region" => "us-west-2",
+        "version" => "2006-03-01"
+    ]);
+    return $s3Client;
+}
+
 // Returns the filename of the uploaded file on success, or an empty string on failure
 function uploadFile($file, $targetDir, $newName = "") {
-    if ($file["error"] != UPLOAD_ERR_OK || $file["size"] > MAX_FILE_SIZE) {
+    if ($file["error"] != UPLOAD_ERR_OK || !is_uploaded_file($file["tmp_name"]) && $file["size"] > MAX_FILE_SIZE) {
         return "";
     }
 
@@ -197,10 +203,38 @@ function uploadFile($file, $targetDir, $newName = "") {
         $targetFile = basename($file["name"]);
     }
 
-    if (!move_uploaded_file($file["tmp_name"], "$targetDir/$targetFile")) {
-        return "";
+    $imagePath = "$targetDir/$targetFile";
+    if (CODE_ENV == "heroku") {
+        $tempDir = $_SERVER["DOCUMENT_ROOT"] . "/tmp_upload";
+        if (!file_exists($tempDir)) {
+            mkdir($tempDir);
+        }
+        $tempPath = "$tempDir/$targetFile";
+
+        if (!move_uploaded_file($file["tmp_name"], $tempPath)) {
+            return "";
+        }
+
+        $imagePath = preg_replace("/.*\/img\//", "img/", $imagePath);
+        s3Upload($imagePath, $tempPath);
+        unlink($tempPath);
+        rmdir($tempDir);
+    } else {
+        if (!move_uploaded_file($file["tmp_name"], $imagePath)) {
+            return "";
+        }
     }
+
     return $targetFile;
+}
+
+function s3Upload($key, $sourceFile) {
+    $s3Client = getS3Client();
+    $s3Client->putObject([
+        "Bucket" => S3_BUCKET,
+        "Key" => $key,
+        "SourceFile" => $sourceFile
+    ]);
 }
 
 function uploadImage($file, $cat, $type, $newName = "") {
@@ -214,6 +248,22 @@ function uploadImage($file, $cat, $type, $newName = "") {
     return uploadFile($file, $targetDir, $newName);
 }
 
+function deleteFile($filepath) {
+    if (CODE_ENV == "heroku") {
+        $s3Client = getS3Client();
+        $filepath = preg_replace("/.*\/img\//", "img/", $filepath);
+
+        $s3Client->deleteObject([
+            "Bucket" => S3_BUCKET,
+            "Key" => $filepath,
+        ]);
+    } else {
+        if (is_file($filepath)) {
+            unlink($filepath);
+        }
+    }
+}
+
 /*** SANITIZE OUTPUT ***/
 function outHtml($var) {
     return filter_var($var, FILTER_SANITIZE_STRING);
@@ -221,6 +271,11 @@ function outHtml($var) {
 
 /*** DATABASE ***/
 function connectToDB() {
+    static $mysqli;
+    if ($mysqli) {
+        return $mysqli;
+    }
+
     if (CODE_ENV == "heroku") {
         $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
@@ -238,12 +293,11 @@ function connectToDB() {
     }
 
     $mysqli = new mysqli($hostname, $username, $password, $database);
-    setSession(["mysqli" => $mysqli]);
     return $mysqli;
 }
 
 function sql($query, $params, $values, $action = "select") {
-    $mysqli = getSession("mysqli");
+    $mysqli = connectToDb();
 
     // Debug DB query
     // consoleLog($query);
@@ -304,7 +358,7 @@ function getConditions($table, $conditions, &$values, &$params) {
 
 // $row = assoc_array('column' => 'value')
 function dbInsert($table, $row) {
-    $mysqli = getSession("mysqli");
+    $mysqli = connectToDb();
     $columns = array_keys($row);
     $params = getParams($table, $columns);
     $values = array_values($row);
@@ -315,7 +369,7 @@ function dbInsert($table, $row) {
 }
 
 function dbUpdate($table, $row, $conditions) {
-    $mysqli = getSession("mysqli");
+    $mysqli = connectToDb();
     $columns = array_keys($row);
     $values = array_values($row);
     $params = getParams($table, $columns);
@@ -373,7 +427,7 @@ function dbSelect($table, $conditions = [], $joins = [], $distinct = false, $app
 }
 
 function isRow($table, $column, $value) {
-    $mysqli = getSession("mysqli");
+    $mysqli = connectToDb();
 
     $query = "SELECT $column FROM $table WHERE $column = $value";
     $result = $mysqli->query($query);

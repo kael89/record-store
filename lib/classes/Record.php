@@ -43,7 +43,7 @@ class Record {
     }
 
     public function deleteImages() {
-        unlink($this->getCoverPath());
+        deleteFile($this->getCoverPath());
     }
 
     public function getId() {
@@ -106,12 +106,14 @@ class Record {
     }
 
     public function uploadCover($coverFile) {
-        $cover = uploadImage($coverFile, "records", "covers", $this->id);
-        if (!$cover) {
+        $oldCover = $this->getCoverPath();
+        $newCover = uploadImage($coverFile, "records", "covers", $this->id . "_" . time());
+        if (!$newCover) {
             return false;
         }
 
-        return $this->setCover($cover);
+        deleteFile($oldCover);
+        return $this->setCover($newCover);
     }
 
     public function getCoverImage() {

@@ -1,6 +1,4 @@
 <?php
-// Heroku autoload
-require_once $_SERVER["DOCUMENT_ROOT"] . "/vendor/autoload.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/library.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/view.php";
 

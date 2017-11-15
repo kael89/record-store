@@ -37,13 +37,13 @@ class Artist {
         foreach ($this->getRecords() as $record) {
             $record->delete();
         }
+        $this->deleteImages();
         deleteArtist($this->id);
     }
 
     public function deleteImages() {
-        unlink($this->getLogoPath());
-
-        unlink($this->getPhotoPath());
+        deleteFile($this->getLogoPath());
+        deleteFile($this->getPhotoPath());
     }
 
     public function getId() {
@@ -111,12 +111,14 @@ class Artist {
     }
 
     public function uploadLogo($logoFile) {
-        $logo = uploadImage($logoFile, "artists", "logos", $this->id);
-        if (!$logo) {
+        $oldLogo = $this->getLogoPath();
+        $newLogo = uploadImage($logoFile, "artists", "logos", $this->id . "_" . time());
+        if (!$newLogo) {
             return false;
         }
 
-        return $this->setLogo($logo);
+        deleteFile($oldLogo);
+        return $this->setLogo($newLogo);
     }
 
     public function getPhoto() {
@@ -141,12 +143,14 @@ class Artist {
     }
 
     public function uploadPhoto($photoFile) {
-        $photo = uploadImage($photoFile, "artists", "photos", $this->id);
-        if (!$photo) {
+        $oldPhoto = $this->getPhotoPath();
+        $newPhoto = uploadImage($photoFile, "artists", "photos", $this->id . "_" . time());
+        if (!$newPhoto) {
             return false;
         }
 
-        return $this->setPhoto($photo);
+        deleteFile($oldPhoto);
+        return $this->setPhoto($newPhoto);
     }
 
     public function getBio() {
