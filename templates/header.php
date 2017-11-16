@@ -38,5 +38,5 @@ if ($cat) {
     <script src="js/ajax.js"></script>
 </head>
 <body>
+    <img id="loading" src="https://s3-us-west-2.amazonaws.com/heroku-recordstore/img/loading.gif" alt="Loading...">
     <div id="container" class="container">
-        <div id="loading" class="row"><div class="col-xs-12"></div></div>

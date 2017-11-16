@@ -16,6 +16,7 @@ function toggleDetailsPage(action = 'details') {
     var page = (action == 'edit') ? 'edit.php' : 'details.php';
     var url = 'pages/' + getPageCat() + '/' + page + '?id=' + id;
 
+    $('#loading').show();
     $.get(url, function(data) {
         $('#main').html(data);
         switch (action) {
@@ -32,6 +33,8 @@ function toggleDetailsPage(action = 'details') {
                 $(window).off('beforeunload');
                 break;
         }
+    }).done(function() {
+        $('#loading').hide();
     });
 }
 
@@ -43,6 +46,7 @@ function insertData(action) {
         data.append('tracks', JSON.stringify(tracklist.getTrackData()));
     }
 
+    $('#loading').show();
     $.ajax({
         url: 'lib/ajax.php?action=' + action + '&id=' + id,
         type: 'POST',
@@ -52,6 +56,7 @@ function insertData(action) {
     }).done(function(insertId) {
         // debug AJAX result
         // console.log(insertId); return;
+        $('#loading').hide();
         if (action.indexOf('add') == 0) {
             window.location.search = 'page=details&id=' + insertId + '&action=insert';
         } else {
@@ -63,7 +68,9 @@ function insertData(action) {
 function deleteItem(action, id, destUrl, redirect = false) {
     var url = 'lib/ajax.php?action=' + action + '&id=' + id;
 
+    $('#loading').show();
     $.get(url).done(function() {
+        $('#loading').hide();
         if (redirect) {
             window.location = destUrl;
         } else {
