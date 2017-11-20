@@ -4,6 +4,8 @@ Live website: https://record-store.herokuapp.com
 
 This project is a web site replicating the functionality of a record store library. Users can add, update and delete information about records and artists. The code is written in HTML5/CSS3/JavaScript/PHP.
 
+![alt text](https://user-images.githubusercontent.com/20692464/33021338-9d10cc3c-ce55-11e7-9334-ca5dee42355d.jpg)
+
 ## Getting Started
 
 The code for the project is built for live deployment in [Heroku](https://www.heroku.com/), but can also be used in a local [XAMPP](https://www.apachefriends.org/) environment. One can change between the two project modes by simply changing the CODE_ENV constant to "heroku" or "local" respectively. This constant is set in the first lines of `lib/library.php`.
