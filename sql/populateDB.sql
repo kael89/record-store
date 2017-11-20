@@ -3,7 +3,7 @@ USE record_store;
 
 ##users(userId,firstName,lastName,email,password,admin)
 DELETE FROM users;
-INSERT INTO users VALUES(1, 'Kostas', 'Karvounis', 'kos.karvounis.zoumpos@gmail.com', '11875FF7B881A3BFE8550E09ACD28F8E57DC24933C0B4053300E588E9B97D6B1', TRUE, FALSE);
+INSERT INTO users VALUES(1, 'Admin', 'Admin', 'admin@recordstore.com', '11875FF7B881A3BFE8550E09ACD28F8E57DC24933C0B4053300E588E9B97D6B1', TRUE, FALSE);
 
 
 ##artists(artistId, name, country, foundationDate, logo, photo, deleted)

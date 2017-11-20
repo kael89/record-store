@@ -1,4 +1,6 @@
 vendor/
-img/
+img/artists/logos/*
+img/artists/photos/*
+img/records/covers/*
 .env
 
