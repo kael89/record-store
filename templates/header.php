@@ -4,6 +4,7 @@ $urlPath = substr(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), 1);
 $cat = ($urlPath != "index.php") ? ucfirst(str_replace(".php", "", $urlPath)) : "";
 $out = $_SERVER["REQUEST_URI"];
 $page = getGet("page") ? ucwords(str_replace('-', ' ', getGet("page"))) : "";
+$loadingSrc = getImageSrc("", "", "loading.gif");
 
 if ($cat) {
     $title = $page ? "$cat - $page" : $cat;
@@ -38,5 +39,5 @@ if ($cat) {
     <script src="js/ajax.js"></script>
 </head>
 <body>
-    <img id="loading" src="https://s3-us-west-2.amazonaws.com/heroku-recordstore/img/loading.gif" alt="Loading...">
+    <img id="loading" src="<?= $loadingSrc ?>" alt="Loading...">
     <div id="container" class="container">

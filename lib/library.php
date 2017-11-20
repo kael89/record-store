@@ -60,11 +60,18 @@ function getImageDir($cat, $type) {
     return getFilePath("img/$cat/$type");
 }
 
-function getImageSrc($cat, $type, $name) {
-    $host = (CODE_ENV == "heroku") ? "https://s3-us-west-2.amazonaws.com/heroku-recordstore" : "";
-    $imagePath = getImageDir($cat, $type) . "/" . $name;
+function getImageSrc($cat = "", $type = "", $name) {
+    $host = (CODE_ENV == "heroku") ? "https://s3-us-west-2.amazonaws.com/heroku-recordstore/" : "";
 
-    return "$host/img/$cat/$type/$name";
+    $dir = $host . "img";
+    if ($cat !== "") {
+        $dir .= "/$cat";
+    }
+    if ($type !== "") {
+        $dir .= "/$type";
+    }
+
+    return "$dir/$name";
 }
 
 function requirePhp($cat, $name = "") {
