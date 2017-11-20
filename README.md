@@ -41,7 +41,7 @@ pass = (your password)
 database = "record_store"
 ```
 
-Optionally, you can also run `scripts/restore.sh` script to populate the site with a few records/artists and their respective photos.
+Optionally, you can also run `restore.sh` under `scripts` folder to populate the site with a few records/artists and their respective photos. Note: in order for the script to run succesfully, you must run it from its directory.
 
 ## Built With
 
