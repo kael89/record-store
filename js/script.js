@@ -202,14 +202,19 @@ function updateForm($form) {
 }
 
 function addFormUpdateNew(cat) {
-    var ids = [];
+    var maxId = 0,
+        id;
+
     $('[id^="' + cat + '-new-"]').each(function() {
-        var id = $(this).attr('id').split('-')[2];
-        ids.push(parseInt(id) + 1);
+        id = $(this).attr('id').split('-')[2];
+        id = parseInt(id);
+
+        if (id > maxId) {
+            maxId = id;
+        }
     });
 
-    var id = (ids.length > 0) ? Math.max(ids) : 1;
-    var newId = cat + '-new-' + id;
+    var newId = cat + '-new-' + (maxId + 1);
     var oldId = new RegExp(cat + '-new', 'g');
     var $insertedEl = $('#' + cat + '-new');
     var $formUpdateNew = $insertedEl.clone().hide();

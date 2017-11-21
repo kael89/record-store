@@ -458,6 +458,7 @@ function parseDuration($duration) {
         return (is_numeric($item) && $item > 0);
     });
 
+    $result = 0;
     if (count($parts) == 2) {
         $result = $parts[0] * 60 + $parts[1];
     } elseif (is_numeric($duration) && $duration > 0) {
