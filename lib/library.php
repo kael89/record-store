@@ -245,6 +245,10 @@ function s3Upload($key, $sourceFile) {
 }
 
 function uploadImage($file, $cat, $type, $newName = "") {
+    if (empty($file["tmp_name"])) {
+        return "";
+    }
+
     $finfo = new finfo();
     $fileType = $finfo->file($file["tmp_name"]);
     if (strpos($fileType, "image") === false) {
@@ -454,14 +458,13 @@ function parseDuration($duration) {
         return (is_numeric($item) && $item > 0);
     });
 
-    $result = 0;
     if (count($parts) == 2) {
         $result = $parts[0] * 60 + $parts[1];
     } elseif (is_numeric($duration) && $duration > 0) {
         $result = $duration;
     }
 
-    return $duration;
+    return $result;
 }
 
 function parsePrice($price) {

@@ -46,7 +46,7 @@ function printRecordList($recordList, $deletable, $sortBy = "") {
             if ($sortBy != "price") {
                 return strcmp($a[$sortBy], $b[$sortBy]);
             } else {
-                return parseDuration($a[$sortBy]) - parseDuration($b[$sortBy]);
+                return parsePrice($a[$sortBy]) - parsePrice($b[$sortBy]);
             }
         });
     }

@@ -120,7 +120,7 @@ function ajaxEditRecord($insert = false) {
         $record->setTracks($tracks);
         $record->uploadCover($coverFile);
         $record->setReleaseDate($releaseDate);
-        $record->setPrice($price);
+        $record->setPrice(parsePrice($price));
     }
 
     return $id;

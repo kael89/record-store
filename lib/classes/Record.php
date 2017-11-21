@@ -129,7 +129,6 @@ class Record {
     }
 
     public function setPrice($price) {
-        $price = parsePrice($price);
         if ($price < 0) {
             return false;
         }
@@ -197,7 +196,7 @@ class Record {
         $position = $data["position"];
         $duration = parseDuration($data["duration"]);
 
-        $track = Track::create($artistId, $recordId, $title, $position, $genreId = null, $duration);
+        $track = Track::create($artistId, $recordId, $title, $position, $duration);
         $this->tracks[$track->getId()] = $track;
     }
 

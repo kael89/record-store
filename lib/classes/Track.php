@@ -16,12 +16,10 @@ class Track {
         $this->recordId = $recordId;
         $this->title = $title;
         $this->position = $position;
-        $this->duration = parseDuration($duration);
+        $this->duration = $duration;
     }
 
     public static function create($artistId, $recordId, $title, $position, $duration = 0) {
-        $duration = parseDuration($duration);
-
         $insertId = insertTrack($artistId, $recordId, $title, $position, $duration);
         if (!$insertId) {
             return null;
@@ -95,8 +93,6 @@ class Track {
     }
 
     public function setDuration($duration) {
-        $duration = parseDuration($duration);
-
         if (updateTrack($this->id, ["duration" => $duration])) {
             $this->duration = $duration;
         }
